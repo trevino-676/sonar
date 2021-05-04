@@ -8,10 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/watchmens/sonar32.git"
+    "url": "git+ssh://git@gitlab.com/watchmens/sonar32.git",
+    "start": "webpack serve",
+    "build": "webpack --mode production",
+    "format": "prettier --write '{*.js, src/**/*.{js, jsx}}'",
+    "lint": "eslint src/ --fix"
   },
   "keywords": [],
-  "author": "",
+  "author": "drumbot",
   "license": "ISC",
   "bugs": {
     "url": "https://gitlab.com/watchmens/sonar32/issues"
