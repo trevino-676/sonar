@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/watchmens/sonar32.git",
-    "start": "webpack serve",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "format": "prettier --write '{*.js, src/**/*.{js, jsx}}'",
     "lint": "eslint src/ --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/watchmens/sonar32.git"
   },
   "keywords": [],
   "author": "drumbot",
