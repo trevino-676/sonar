@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Importar estilos del Header
-
+import '../styles/components/Header.css';
 
 const Header = () => (
     <div className="header">

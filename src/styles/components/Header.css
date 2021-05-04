@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-alert {
+    color: #33b13a;
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.header a {
+    text-decoration: none;
+    color: #33b1ff;
+}
