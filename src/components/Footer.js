@@ -5,7 +5,7 @@ import '../styles/components/Footer.css';
 
 const Footer = () => (
     <div className="footer">
-        <p className="footer-title">Sonar 32</p>
+        <p className="footer-title">drumbot</p>
         <p className="footer-copy">Todos los derechos reservados</p>
     </div>
 )
