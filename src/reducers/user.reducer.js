@@ -7,11 +7,13 @@ const initialState = userId
       userId,
       rfc: localStorage.getItem('rfc'),
       loggedIn: true,
+      files: [],
     }
   : {
       userId,
       rfc: '',
       loggedIn: false,
+      files: [],
     };
 
 const UserReducer = (state = initialState, action) => {
@@ -26,9 +28,13 @@ const UserReducer = (state = initialState, action) => {
         loggedIn: true,
       };
     case UserConstants.LOGOUT_USER_REQUEST:
-        return {...state, userId: '', rfc: '', loggedIn: false}
+      return { ...state, userId: '', rfc: '', loggedIn: false, files: [] };
+    case UserConstants.UPLOAD_FILE_REQUEST:
+      return { ...state };
+    case UserConstants.UPLOAD_FILE_REQUEST_SUCCESS:
+      return { ...state, files: action.payload };
     default:
-        return {...state}
+      return { ...state };
   }
 };
 

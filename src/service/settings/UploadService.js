@@ -1,21 +1,37 @@
-import http from "../../HttpCommon";
+import axios from "axios";
 
-const upload = async (file, onUploadProgress, rfc) => {
-    const formData = new FormData();
-    formData.append("file", file);
+const baseUrl = "https://www.sonar32.com.mx"
 
-    const resp = await http.post(`/v1/user/${rfc}/upload`, formData, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress
-    });
+const upload = async (file, rfc) => {
+  const formData = new FormData();
+  formData.append('file', file);
 
-    return resp;
-}
+  const resp = await axios.post(`${baseUrl}/v1/user/${rfc}/upload`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return resp;
+};
+
+const setFielPassword = async (rfc, fielPassword) => {
+  const data = {
+    rfc,
+    fiel: fielPassword,
+  }
+
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  const resp = await axios.post(`${baseUrl}/v1/user/fiel`, data, { headers });
+  return resp;
+};
 
 const UploadService = {
-    upload
-}
+  upload,
+  setFielPassword,
+};
 
 export default UploadService;
