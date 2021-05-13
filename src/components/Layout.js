@@ -18,6 +18,7 @@ const Layout = ({ children }) => {
       <CommonModal
         header={modal.title}
         content={modal.form ? modal.form : modal.body}
+        footer={modal.footer}
         show={modal.show}
         size={modal.size}
       />

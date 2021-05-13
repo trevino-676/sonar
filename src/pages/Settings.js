@@ -37,7 +37,7 @@ const Settings = () => {
       files.push(data.key);
     }
     
-    if(data.fiel !== ""){
+    if(data.fiel){
       dispatch(UserActions.saveFieldPassword(user.rfc, encodefielPassword(data.fiel)));
     }
     

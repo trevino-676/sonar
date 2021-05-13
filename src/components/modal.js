@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
-import { Modal } from 'react-bootstrap';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Modal, Button } from 'react-bootstrap';
 
-const CommonModal = ({size, header, content, footer}) => {
-  const [show, setShow] = useState(false);
+import ModalActions from '../actions/modal.action';
 
-  const handleClose = () => setShow(false);
+const CommonModal = ({ size, header, content, footer, show }) => {
+  const dispatch = useDispatch();
+  const handleClose = () => {
+    dispatch(ModalActions.Clean());
+  };
 
   return (
-    <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        animation={false}
-        size={size}
-        aria-labelledby="conatined-modal-title-vcenter"
-        centered
-      >
-          <Modal.Header closeButton>
-              <Modal.Title>
-                  { header }
-              </Modal.Title>
-              <Modal.Body>
-                  { content }
-              </Modal.Body>
-              <Modal.Footer>
-                  { footer }
-              </Modal.Footer>
-          </Modal.Header>
-      </Modal>
-    </>
+    <Modal
+      show={show}
+      onHide={() => handleClose()}
+      animation={false}
+      size={size}
+      aria-labelledby="conatined-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>{header}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>{content}</Modal.Body>
+        {!footer ? (
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => handleClose()}>
+              Cerrar
+            </Button>
+          </Modal.Footer>
+        ) : null}
+    </Modal>
   );
 };
 

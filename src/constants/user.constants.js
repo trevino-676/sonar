@@ -7,6 +7,7 @@ const UserConstants = {
     UPLOAD_FILE_REQUEST_FAIL: "upload_file_request_fail",
     UPDATE_FIELD_PASSWORD_REQUEST: "upload_field_pasword_request",
     UPDATE_FIELD_PASSWORD_SUCCESS: "upload_field_password_success",
+    UPDATE_FIEL_PASSWORD_FAIL: "upload_fiel_password_fail",
 }
 
 export default UserConstants;

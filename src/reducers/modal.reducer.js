@@ -5,7 +5,8 @@ const initialState = {
     title: null,
     form: null,
     size: null,
-    body: null
+    body: null,
+    footer: false
 }
 
 const ModalReducer = (state = initialState, action) => {
@@ -16,28 +17,32 @@ const ModalReducer = (state = initialState, action) => {
                 show: true,
                 title: action.form.title,
                 form: action.form.form,
-                size: action.form.size
+                size: action.form.size,
+                footer: true
             }
         case ModalConstants.SUCCESS:
             return {
                 ...state,
                 show: true,
                 title: action.modal.title,
-                body: action.modal.body
+                body: action.modal.body,
+                size: action.modal.size,
             }
         case ModalConstants.ALERT:
             return {
                 ...state,
                 show: true,
                 title: action.modal.title,
-                body: action.modal.body
+                body: action.modal.body,
+                size: action.modal.size,
             }
         case ModalConstants.ERROR:
             return {
                 ...state,
                 show: true,
                 title: action.modal.title,
-                body: action.modal.body
+                body: action.modal.body,
+                size: action.modal.size,
             }
         case ModalConstants.CLEAN:
             return {
@@ -46,7 +51,8 @@ const ModalReducer = (state = initialState, action) => {
                 title: null,
                 form: null,
                 size: null,
-                body: null
+                body: null,
+                footer: false,
             }
         default: 
             return {...state};

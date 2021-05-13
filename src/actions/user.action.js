@@ -1,23 +1,36 @@
 /* eslint-disable no-use-before-define */
 import UserConstants from '../constants/user.constants';
 import UploadService from '../service/settings/UploadService';
+import ModalActions from './modal.action';
 
 const uploadFile = (files, rfc) => {
-  console.log(files, rfc)
   return (dispatch) => {
     dispatch(request());
     try {
       const filesUri = [];
-      files.forEach((file) => {
-        const resp = UploadService.upload(file, rfc);
+      files.forEach(async (file) => {
+        const resp = await UploadService.upload(file, rfc);
         if (resp.status === 200) {
-          filesUri.push(resp.data.data.uri);
+          filesUri.push(file.name);
         }
       });
       dispatch(success(filesUri));
+      dispatch(ModalActions.Clean());
+      dispatch(
+        ModalActions.Success({
+          title: 'Archivos .cer y .key',
+          body: 'Se cargaron los archivos de forma correcta.',
+          size: "lg"
+        })
+      );
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error.message);
+      dispatch(
+        ModalActions.Error({
+          title: 'Error',
+          body: 'Hubo un error al cargar los archivos',
+          size: "lg"
+        })
+      );
     }
   };
 
@@ -44,16 +57,30 @@ const saveFieldPassword = (rfc, fieldEncodePassword) => {
     };
   }
 
-  return (dispatch) => {
-    dispatch(request);
+  return async (dispatch) => {
+    dispatch(request());
     try {
-      const resp = UploadService.setFielPassword(rfc, fieldEncodePassword);
+      const resp = await UploadService.setFielPassword(rfc, fieldEncodePassword);
       if (resp.status === 200) {
         dispatch(success(fieldEncodePassword));
+        dispatch(ModalActions.Clean())
+        dispatch(
+          ModalActions.Success({
+            title: 'Contraseña FIEL',
+            body: 'Se guardo correctamente la contraseña FIEL',
+            size: "sm"
+          })
+        );
       }
     } catch (error) {
-      // eslint-disable-next-line no-alert
-      console.log(error.message);
+      dispatch(ModalActions.Clean())
+      dispatch(
+        ModalActions.Success({
+          title: 'Contraseña FIEL',
+          body: 'Hubo un error al guardar la contraseña FIEL',
+          size: "sm"
+        })
+      );
     }
   };
 };
