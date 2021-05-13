@@ -17,6 +17,18 @@ const Header = () => (
         <li>
           <Link to="/settings">Configuracion</Link>
         </li>
+        <li>
+          <Link to="/registro">Registro Persona</Link>
+        </li>
+        <li>
+          <Link to="/registroEmpresa">Registro Empresa</Link>
+        </li>
+        <li>
+          <Link to="/landing">SALIR</Link>
+        </li>
+        <li>
+          <Link to="/login">Entrar</Link>
+        </li>
       </ul>
     </nav>
   </div>
