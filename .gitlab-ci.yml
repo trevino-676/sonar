@@ -7,7 +7,6 @@ docker-build-test:
   services:
     - docker:dind
   before_script:
-    - npm install -g npm@7.13.0
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE":"$CI_COMMIT_SHA" .
@@ -21,7 +20,6 @@ docker-build-master:
   services:
     - docker:dind
   before_script:
-    - npm install -g npm@7.13.0
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE":latest .
