@@ -1,5 +1,6 @@
 FROM node:15.12.0-alpine as build
 WORKDIR /app
+RUN npm install -g npm@7.13.0
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci --silent
