@@ -9,6 +9,7 @@ import Registro from '../pages/Registro';
 import Landing from '../pages/Landing';
 import Login from '../pages/Login';
 import CompanyPage from '../pages/companies';
+import NotFound from '../pages/NotFound';
 
 import Flogin from '../pages/Flogin';
 
@@ -25,6 +26,7 @@ const App = () => (
         <Route exact path="/landing" component={Landing} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/Flogin" component={Flogin} />
+        <Route component={NotFound} />
       </Switch>
     </Layout>
   </BrowserRouter>
