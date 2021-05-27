@@ -12,7 +12,6 @@ const createCompany = (company) => {
     type: CompaniesConstants.ADD_COMPANY_REQUEST_FAIL,
     payload: { error: message },
   });
-
   return async (dispatch) => {
     try {
       dispatch(request());
@@ -28,6 +27,8 @@ const createCompany = (company) => {
         );
       }
       dispatch(success(company));
+      // eslint-disable-next-line no-use-before-define
+      dispatch(getCompanies());
       dispatch(
         ModalActions.Success({
           title: 'Compañia',
@@ -95,16 +96,17 @@ const updateCompany = (company) => {
       if (resp.status !== 200) {
         dispatch(fail(resp.data.message));
         dispatch(
-          ModalActions.Error({ header: 'Compania', body: resp.data.message })
+          ModalActions.Error({ title: 'Compania', body: resp.data.message })
         );
       }
       dispatch(success(company));
+      dispatch(getCompanies());
       dispatch(
-        ModalActions.Success({ header: 'Compania', body: resp.data.message })
+        ModalActions.Success({ title: 'Compania', body: resp.data.message })
       );
     } catch (e) {
       dispatch(fail(e));
-      dispatch(ModalActions.Error({ header: 'Compania', body: e }));
+      dispatch(ModalActions.Error({ title: 'Compania', body: e }));
     }
   };
 };
@@ -127,16 +129,17 @@ const deleteCompany = (id) => {
       if (resp.status !== 200) {
         dispatch(fail(resp.data.message));
         dispatch(
-          ModalActions.Error({ header: 'Company', body: resp.data.message })
+          ModalActions.Error({ title: 'Company', body: resp.data.message })
         );
       }
       dispatch(success());
+      dispatch(getCompanies());
       dispatch(
-        ModalActions.Success({ header: 'Company', body: resp.data.message })
+        ModalActions.Success({ title: 'Company', body: resp.data.message })
       );
     } catch (e) {
       dispatch(fail(e));
-      dispatch(ModalActions.Error({ header: 'Company', body: e }));
+      dispatch(ModalActions.Error({ title: 'Company', body: e }));
     }
   };
 };

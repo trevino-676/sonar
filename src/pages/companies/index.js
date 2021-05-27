@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, ButtonToolbar, Button } from 'react-bootstrap';
 
@@ -9,52 +9,77 @@ import CompanyForm from './CompanyForm';
 
 const CompanyPage = () => {
   const [selectedRow, setSelectedRow] = useState([]);
-  const companies = useSelector((state) => state.companies);
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const companies = useSelector((state) => state.companies);
 
-  if (companies.length === 0) {
-    if (user.userId) {
-      dispatch(CompanyAction.getCompanies('and', { user: user.userId }));
-    } else {
+  useEffect(() => {
+    document.title = 'Companias | Sonar32';
+    const getData = () => {
       dispatch(CompanyAction.getCompanies());
-    }
-  }
+    };
+    getData();
+  }, []);
 
-  const createCompany = (data) => CompanyAction.createCompany(data);
-  const updateCompany = (data) => CompanyAction.updateCompany(data);
-  const deleteCompany = (id) => CompanyAction.deleteCompany(id);
+  const deleteCompany = () =>
+    dispatch(CompanyAction.deleteCompany(selectedRow[0]._id.$oid));
   const handleGetChildrenState = (data) => setSelectedRow(data);
   const closeModal = () => dispatch(ModalActions.Clean());
-  const openForm = (handleFunc, handleClose, label, title, company = null) => {
+  const openForm = () => {
+    const form = (
+      <CompanyForm modalClose={closeModal} labelButton="Agregar compania" />
+    );
+    dispatch(ModalActions.Form({ title: 'Nueva compania', form, size: 'md' }));
+  };
+  const openModifyForm = (data) => {
     const form = (
       <CompanyForm
-        handleSubmit={handleFunc}
-        modalClose={handleClose}
-        labelButton={label}
-        updateCompany={company}
+        modalClose={closeModal}
+        labelButton="Modificar compania"
+        data={data}
       />
     );
-    dispatch(ModalActions.Form({ title, form, size: 'md' }));
+    dispatch(
+      ModalActions.Form({ title: 'Modificar compania', form, size: 'md' })
+    );
   };
-
+  const dataField = [
+    {
+      dataField: '_id.$oid',
+      text: 'ID',
+    },
+    {
+      dataField: 'name',
+      text: 'Nombre',
+    },
+    {
+      dataField: 'rfc',
+      text: 'RFC',
+    },
+    {
+      dataField: 'address',
+      text: 'Domicilio',
+    },
+  ];
   return (
     <Container>
-      <h1 className="text-center">Compañias</h1>
+      <h1 className="text-center">Empresas</h1>
       <ButtonToolbar>
-        <Button
-          variant="outline-primary"
-          onClick={openForm(
-            createCompany,
-            closeModal,
-            'Agregar',
-            'Nueva compania'
-          )}
-        >
+        <Button variant="outline-primary" onClick={openForm}>
           Agregar
         </Button>
-        <Button variant="outline-danger" >Eliminar</Button>
+        <Button variant="outline-danger" onClick={deleteCompany}>
+          Eliminar
+        </Button>
       </ButtonToolbar>
+      {companies.companies !== undefined? 
+        <DataTable
+        tableData={companies.companies}
+        tableColumns={dataField}
+        dataKey="_id.$oid"
+        onModify={openModifyForm}
+        onSelected={handleGetChildrenState}
+      /> :
+      <h2>cargando...</h2>}
     </Container>
   );
 };

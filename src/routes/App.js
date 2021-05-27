@@ -8,8 +8,7 @@ import Settings from '../pages/Settings';
 import Registro from '../pages/Registro';
 import Landing from '../pages/Landing';
 import Login from '../pages/Login';
-
-import RegistroEmpresa from '../pages/RegistroEmpresa';
+import CompanyPage from '../pages/companies';
 
 import Flogin from '../pages/Flogin';
 
@@ -21,12 +20,11 @@ const App = () => (
         <Route exact path="/" component={Home} />
         <Route exact path="/users" component={Home} />
         <Route exact path="/settings" component={Settings} />
-        <Route exact path="/companies" component={Home} />
+        <Route exact path="/companies" component={CompanyPage} />
         <Route exact path="/registro" component={Registro} />
         <Route exact path="/landing" component={Landing} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/Flogin" component={Flogin} />
-        <Route exact path="/RegistroEmpresa" component={RegistroEmpresa} />
       </Switch>
     </Layout>
   </BrowserRouter>

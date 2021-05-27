@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 
-const DataTable = ({ data, columns, key, onModify, onSelected }) => {
+const DataTable = ({ tableData, tableColumns, dataKey, onModify, onSelected }) => {
   const [selected, setSelected] = useState([]);
-  const onSelectRow = (idRow) => {
-    const findID = selected.find((id) => id === idRow);
+  const onSelectRow = (row) => {
+    const findID = selected.find((data) => data._id.$oid === row._id.$oid);
     if (!findID) {
-      setSelected([...selected, idRow]);
+      setSelected([row]);
     } else {
-      selected.splice(selected.indexOf(idRow), 1);
+      selected.splice(selected.indexOf(row), 1);
     }
     onSelected(selected);
   };
@@ -20,17 +20,16 @@ const DataTable = ({ data, columns, key, onModify, onSelected }) => {
     onSelect: onSelectRow,
   };
   const options = {
-    onRowDoubleClick: (row) => onModify(row),
+    onDoubleClick: (e, row) => onModify(row),
   };
 
   return (
     <BootstrapTable
-      keyField={key}
-      data={data}
-      columns={columns}
+      keyField={dataKey}
+      data={tableData}
+      columns={tableColumns}
       selectRow={selectedRowProp}
-      options={options}
-      pagination
+      rowEvents={options}
     />
   );
 };

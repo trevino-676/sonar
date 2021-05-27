@@ -1,13 +1,7 @@
 import CompaniesConstants from '../constants/Companies.constants';
 
-const initialState = {
-  name: '',
-  address: '',
-  rfc: '',
-  users: [],
-};
 
-const CompanyReducer = (state = initialState, action) => {
+const CompanyReducer = (state = [], action) => {
   switch (action.type) {
     case CompaniesConstants.ADD_COMPANY_REQUEST:
       return { ...state };

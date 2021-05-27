@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { Form, Button, Row, Col, Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
-const CompanyForm = ({ handleSubmit, modalClose, labelButton, updateCompany=null }) => {
+import CompanyAction from '../../actions/company.action';
+
+const CompanyForm = ({ modalClose, labelButton, data=null }) => {
   const [company, setCompany] = useState({
-    name: updateCompany.name || '',
-    rfc: updateCompany.rfc || '',
-    address: updateCompany.address || '',
-    users: updateCompany.users || [],
+    _id: data ? data._id.$oid: undefined,
+    name: data ? data.name : '',
+    rfc: data ? data.rfc : '',
+    address: data ? data.address : '',
+    users: data ? data.users : [],
   });
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     setCompany({
@@ -15,9 +20,23 @@ const CompanyForm = ({ handleSubmit, modalClose, labelButton, updateCompany=null
       [event.target.name]: event.target.value,
     });
   };
+
+  const createCompany = () => dispatch(CompanyAction.createCompany(company));
+  const updateCompany = () => dispatch(CompanyAction.updateCompany(company));
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!data){
+      createCompany();
+    } else {
+      updateCompany();
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="form-horizontal">
       <Form.Group as={Row}>
+        <Form.Control type="text" hidden name="_id" defaultValue={company._id} />
         <Form.Label column sm={3}>
           Nombre:
         </Form.Label>
@@ -27,6 +46,7 @@ const CompanyForm = ({ handleSubmit, modalClose, labelButton, updateCompany=null
             placeholder="nombre"
             onChange={handleInputChange}
             name="name"
+            value={company.name}
           />
         </Col>
       </Form.Group>
@@ -40,6 +60,7 @@ const CompanyForm = ({ handleSubmit, modalClose, labelButton, updateCompany=null
             placeholder="rfc"
             onChange={handleInputChange}
             name="rfc"
+            value={company.rfc}
           />
         </Col>
       </Form.Group>
@@ -53,6 +74,7 @@ const CompanyForm = ({ handleSubmit, modalClose, labelButton, updateCompany=null
             placeholder="direccion"
             onChange={handleInputChange}
             name="address"
+            value={company.address}
           />
         </Col>
       </Form.Group>
