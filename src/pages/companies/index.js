@@ -7,6 +7,8 @@ import ModalActions from '../../actions/modal.action';
 import DataTable from '../../components/DataTable';
 import CompanyForm from './CompanyForm';
 
+import '../../styles/pages/company.css';
+
 const CompanyPage = () => {
   const [selectedRow, setSelectedRow] = useState([]);
   const dispatch = useDispatch();
@@ -63,23 +65,27 @@ const CompanyPage = () => {
   return (
     <Container>
       <h1 className="text-center">Empresas</h1>
-      <ButtonToolbar>
-        <Button variant="outline-primary" onClick={openForm}>
-          Agregar
-        </Button>
-        <Button variant="outline-danger" onClick={deleteCompany}>
-          Eliminar
-        </Button>
-      </ButtonToolbar>
-      {companies.companies !== undefined? 
+      <div className="button-bar">
+        <ButtonToolbar>
+          <Button variant="outline-primary" onClick={openForm}>
+            Agregar
+          </Button>
+          <Button variant="outline-danger" onClick={deleteCompany}>
+            Eliminar
+          </Button>
+        </ButtonToolbar>
+      </div>
+      {companies.companies !== undefined ? (
         <DataTable
-        tableData={companies.companies}
-        tableColumns={dataField}
-        dataKey="_id.$oid"
-        onModify={openModifyForm}
-        onSelected={handleGetChildrenState}
-      /> :
-      <h2>cargando...</h2>}
+          tableData={companies.companies}
+          tableColumns={dataField}
+          dataKey="_id.$oid"
+          onModify={openModifyForm}
+          onSelected={handleGetChildrenState}
+        />
+      ) : (
+        <h2>cargando...</h2>
+      )}
     </Container>
   );
 };

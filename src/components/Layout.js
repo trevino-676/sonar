@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Container } from 'react-bootstrap';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -11,7 +12,7 @@ import '../styles/components/Layout.css';
 const Layout = ({ children }) => {
   const modal = useSelector((state) => state.modal);
   return (
-    <div className="main">
+    <Container>
       <Header />
       {children}
       <Footer />
@@ -22,7 +23,7 @@ const Layout = ({ children }) => {
         show={modal.show}
         size={modal.size}
       />
-    </div>
+    </Container>
   );
 };
 
