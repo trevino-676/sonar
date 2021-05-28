@@ -12,9 +12,9 @@ import '../styles/components/Layout.css';
 const Layout = ({ children }) => {
   const modal = useSelector((state) => state.modal);
   return (
-    <Container>
+    <>
       <Header />
-      {children}
+      <Container>{children}</Container>
       <Footer />
       <CommonModal
         header={modal.title}
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
         show={modal.show}
         size={modal.size}
       />
-    </Container>
+    </>
   );
 };
 

@@ -1,40 +1,52 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 // Importar estilos del Header
 import '../styles/components/Header.css';
 
-const Header = () => (
-  <div className="header">
-    <h1 className="header-title">
-      <Link to="/">Sonar 32</Link>
-    </h1>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/users">Usuarios</Link>
-        </li>
-        <li>
-          <Link to="/settings">Configuracion</Link>
-        </li>
-        <li>
-          <Link to="/companies">Empresas</Link>
-        </li>
-        <li>
-          <Link to="/registro">Registro Persona</Link>
-        </li>
-        <li>
-          <Link to="/registroEmpresa">Registro Empresa</Link>
-        </li>
-        <li>
-          <Link to="/landing">SALIR</Link>
-        </li>
-        <li>
-          <Link to="/login">Entrar</Link>
-        </li>
-      </ul>
-    </nav>
-  </div>
-);
+const Header = () => {
+  const user = useSelector((state) => state.user);
+
+  return (
+    <Navbar collapseOnSelect expand="lg" bg="light" className="header">
+      <Navbar.Brand>
+        <Link to="/">Sonar 32</Link>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Nav className="mr-auto">
+        {!user.loggedIn ? (
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <NavDropdown title="Catalogos" id="collasible-navbar-nav">
+              <NavDropdown.Item href="/users">Usuarios</NavDropdown.Item>
+              <NavDropdown.Item href="/companies">Empresas</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Productos" id="collasible-navbar-nav">
+              <NavDropdown.Item href="#Example">
+                Producto Ejemplo
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Servicios" id="collasible-navbar-nav">
+              <NavDropdown.Item href="#Example">
+                Servicio Ejemplo
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="usuario" id="collasible-navbar-nav">
+              <NavDropdown.Item href="/settings">
+                Configuracion
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Navbar.Collapse>
+        ) : (
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav.Link href="/registro">Registro</Nav.Link>
+            <Nav.Link href="/login">Iniciar Sesion</Nav.Link>
+          </Navbar.Collapse>
+        )}
+      </Nav>
+    </Navbar>
+  );
+};
 
 export default Header;
