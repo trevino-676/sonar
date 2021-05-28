@@ -10,13 +10,13 @@ const Header = () => {
   const user = useSelector((state) => state.user);
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" className="header">
+    <Navbar collapseOnSelect expand="lg" bg="light" className="header" sticky="top">
       <Navbar.Brand>
         <Link to="/">Sonar 32</Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Nav className="mr-auto">
-        {!user.loggedIn ? (
+        {user.loggedIn ? (
           <Navbar.Collapse id="responsive-navbar-nav">
             <NavDropdown title="Catalogos" id="collasible-navbar-nav">
               <NavDropdown.Item href="/users">Usuarios</NavDropdown.Item>
