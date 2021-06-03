@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, ButtonToolbar, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 import CompanyAction from '../../actions/company.action';
 import ModalActions from '../../actions/modal.action';
 import DataTable from '../../components/DataTable';
 import CompanyForm from './CompanyForm';
+import ButtonBar from '../../components/ButtonBar';
 
 import '../../styles/pages/company.css';
 
@@ -66,14 +67,12 @@ const CompanyPage = () => {
     <Container>
       <h1 className="text-center">Empresas</h1>
       <div className="button-bar">
-        <ButtonToolbar>
-          <Button variant="outline-primary" onClick={openForm}>
-            Agregar
-          </Button>
-          <Button variant="outline-danger" onClick={deleteCompany}>
-            Eliminar
-          </Button>
-        </ButtonToolbar>
+        <ButtonBar
+          handleOpenForm={openForm}
+          handleDeleteForm={deleteCompany}
+          addLabel="Agregar empresa"
+          deleteLabel="Eliminar empresa"
+        />
       </div>
       {companies.companies !== undefined ? (
         <DataTable
