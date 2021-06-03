@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Se importan en esta seccion la paginas de la aplicacion
 import Layout from '../components/Layout';
@@ -13,23 +14,31 @@ import NotFound from '../pages/NotFound';
 
 import Flogin from '../pages/Flogin';
 
-const App = () => (
-  <BrowserRouter>
-    <Layout>
-      <Switch>
-        {/* Aqui van las rutas de la aplicacion */}
-        <Route exact path="/" component={Home} />
-        <Route exact path="/users" component={Home} />
-        <Route exact path="/settings" component={Settings} />
-        <Route exact path="/companies" component={CompanyPage} />
-        <Route exact path="/registro" component={Registro} />
-        <Route exact path="/landing" component={Landing} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/Flogin" component={Flogin} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
-  </BrowserRouter>
-);
+const App = () => {
+  const user = useSelector((state) => state.user);
+
+  return (
+    <BrowserRouter>
+      <Layout>
+        <Switch>
+          {/* Aqui van las rutas de la aplicacion */}
+          <Route exact path="/" component={Home} />
+          <Route exact path="/users" component={Home} />
+          <Route exact path="/settings" component={Settings} />
+          <Route exact path="/companies" component={CompanyPage} />
+          <Route exact path="/registro" component={Registro} />
+          <Route exact path="/landing" component={Landing} />
+          <Route exact path="/login" component={Login} />
+          <Route
+            exact
+            path="/Flogin"
+            component={user.loggedIn ? Flogin : NotFound}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
+    </BrowserRouter>
+  );
+};
 
 export default App;
