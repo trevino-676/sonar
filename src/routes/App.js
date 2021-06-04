@@ -1,18 +1,13 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import _ from 'lodash';
 
 // Se importan en esta seccion la paginas de la aplicacion
 import Layout from '../components/Layout';
-import Home from '../pages/Home';
-import Settings from '../pages/Settings';
-import Registro from '../pages/Registro';
-import Landing from '../pages/Landing';
-import Login from '../pages/Login';
-import CompanyPage from '../pages/companies';
 import NotFound from '../pages/NotFound';
-
-import Flogin from '../pages/Flogin';
+import PublicRoutes from './PublicRoutes';
+import PrivateRoutes from './PrivateRoutes';
 
 const App = () => {
   const user = useSelector((state) => state.user);
@@ -21,19 +16,23 @@ const App = () => {
     <BrowserRouter>
       <Layout>
         <Switch>
-          {/* Aqui van las rutas de la aplicacion */}
-          <Route exact path="/" component={Home} />
-          <Route exact path="/users" component={Home} />
-          <Route exact path="/settings" component={Settings} />
-          <Route exact path="/companies" component={CompanyPage} />
-          <Route exact path="/registro" component={Registro} />
-          <Route exact path="/landing" component={Landing} />
-          <Route exact path="/login" component={Login} />
-          <Route
-            exact
-            path="/Flogin"
-            component={user.loggedIn ? Flogin : NotFound}
-          />
+          {_.map(PublicRoutes, (route, key) => {
+            const { component, path } = route;
+            return <Route exact path={path} component={component} key={key} />;
+          })}
+          {_.map(PrivateRoutes, (route, key) => {
+            const { component, path } = route;
+            return (
+              <Route
+                exact
+                path={path}
+                key={key}
+                render={() =>
+                  !user.loggedIn ? component : <Redirect to="/login" />
+                }
+              />
+            );
+          })}
           <Route component={NotFound} />
         </Switch>
       </Layout>

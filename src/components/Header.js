@@ -40,7 +40,7 @@ const Header = () => {
           </Navbar.Collapse>
         ) : (
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav.Link href="/registro">Registro</Nav.Link>
+            <Nav.Link href="/registry">Registro</Nav.Link>
             <Nav.Link href="/login">Iniciar Sesion</Nav.Link>
           </Navbar.Collapse>
         )}
