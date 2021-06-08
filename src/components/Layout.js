@@ -8,6 +8,7 @@ import CommonModal from './modal';
 
 // Aqui se importan los estilos del Layout
 import '../styles/components/Layout.css';
+import '../styles/pages/Styles.css';
 
 const Layout = ({ children }) => {
   const modal = useSelector((state) => state.modal);
