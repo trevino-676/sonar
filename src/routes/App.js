@@ -28,7 +28,7 @@ const App = () => {
                 path={path}
                 key={key}
                 render={() =>
-                  !user.loggedIn ? component : <Redirect to="/login" />
+                  user.loggedIn ? component : <Redirect to="/login" />
                 }
               />
             );

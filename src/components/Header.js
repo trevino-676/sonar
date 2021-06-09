@@ -1,16 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import LoginActions from '../actions/login.action';
 
 // Importar estilos del Header
 import '../styles/components/Header.css';
 
 const Header = () => {
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" className="header" sticky="top">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      className="header"
+      sticky="top"
+    >
       <Navbar.Brand>
         <Link to="/">Sonar 32</Link>
       </Navbar.Brand>
@@ -35,6 +43,9 @@ const Header = () => {
             <NavDropdown title="usuario" id="collasible-navbar-nav">
               <NavDropdown.Item href="/settings">
                 Configuracion
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => dispatch(LoginActions.Logout())}>
+                Logout
               </NavDropdown.Item>
             </NavDropdown>
           </Navbar.Collapse>
