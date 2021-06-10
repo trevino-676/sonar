@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 import UserConstants from '../constants/user.constants';
 import SendService from '../service/login/SendService';
+import ModalActions from './modal.action';
 
 
 const sendData = (user, pass) => { 
@@ -8,14 +9,15 @@ const sendData = (user, pass) => {
     dispatch(request());  
     try {
       const filesUri = []; 
+      const resp = SendService.upload(user, pass);  
 
-
-      const resp = SendService.upload(user, pass); 
-      //console.log(resp); 
-      if( window.localStorage.setItem("LOGED_IN", "IN") > 1 ) {
-         window.localStorage.setItem("LOGED_IN", "IN");
-      }  
-      return resp; 
+      /* 
+      dispatch(
+        ModalActions.Success({
+          title: 'Error',
+          body: 'El usuario y/o contraseña son incorrectos',
+        })
+      );*/ 
  
     } catch (error) {
       dispatch(

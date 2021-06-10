@@ -106,7 +106,7 @@ const Login = () => {
     "ss" : function() { return 20; }
   };
 
-  const info = {
+  let info = {
     "user" : "", 
     "pass" : "" 
   }
@@ -117,26 +117,16 @@ const Login = () => {
   }; 
 
    const basicLogin = () => {
+    
+    info.user = document.getElementById('input-user').value; 
+    info.pass = document.getElementById('input-pass').value; 
+
     if( info.user.length < 1 || info.pass.length < 1 ) {
       alert("es necesario el usuario y la contraseña"); 
     } else {
 
-      dispatch(LoginActions.sendData( info.user, info.pas)); 
-      /* 
-      let url = "http://127.0.0.1:5000/unprotected?user="+info.user+"&pass="+info.pass;  
-      const response = fetch( url, {method:'get'}).then((res)=> res.json()).then( function( json ) { 
-            if( json.message == 1 ) {
-              alert("Bienvenido");  
-              console.log( window.localStorage.getItem("LOGED_IN") ); 
-              window.localStorage.setItem("LOGED_IN", "IN"); 
-              console.log( window.localStorage.getItem("LOGED_IN") ); 
-              console.log("REDIRECCIONAR");
-              window.location.href = "politica-de-privacidad"; 
-            } else {
-              alert("Usuario desconocido"); 
-            }
-      }); */  
-
+      console.log( dispatch(LoginActions.sendData( info.user, info.pass)) ); 
+      
 
     }  
   }; 
@@ -154,13 +144,13 @@ const Login = () => {
               
         <div class="form-group text-left">
           <strong class="font-weight-bold" for="exampleInputEmail1">Correo electrónico</strong>
-          <input  onChange={setUser.user}  type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Introduce tu correo"/>
+          <input  onChange={setUser.user}  type="email" class="form-control" id="input-user" aria-describedby="emailHelp" placeholder="Introduce tu correo"/>
           <small id="emailHelp" class="form-text text-left">Nunca compartiremo tu correo con alguien más.</small>
         </div>
         <div class="form-group">
           <p></p>
           <strong for="exampleInputPassword1">Contraseña</strong>
-          <input type="password" onChange={setUser.pass} class="form-control" placeholder="Ingresa tu contraseña"/>
+          <input type="password" onChange={setUser.pass} id="input-pass" class="form-control" placeholder="Ingresa tu contraseña"/>
         </div>
         <div class="form-check">
           <input   type="checkbox" class="form-check-input" id="exampleCheck1"/>
