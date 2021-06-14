@@ -9,8 +9,9 @@ const sendData = (user, pass) => {
     dispatch(request());  
     try {
       const filesUri = []; 
-      const resp = SendService.upload(user, pass);  
+      const resp = SendService.login(user, pass);  
 
+      dispatch(resp);  
       /* 
       dispatch(
         ModalActions.Success({

@@ -122,7 +122,7 @@ const Login = () => {
     info.pass = document.getElementById('input-pass').value; 
 
     if( info.user.length < 1 || info.pass.length < 1 ) {
-      alert("es necesario el usuario y la contraseña"); 
+      alert("es necesario el usuario y la contraseña.."); 
     } else {
 
       console.log( dispatch(LoginActions.sendData( info.user, info.pass)) ); 

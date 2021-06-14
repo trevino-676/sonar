@@ -7,7 +7,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-const upload = async (user, pass) => {
+const login = async (user, pass) => {
   const formData = new FormData();
   formData.append('user', user);
   formData.append('pass', pass);
@@ -27,7 +27,7 @@ const upload = async (user, pass) => {
  
 
 const SendService = {
-  upload
+  login 
 };
 
 export default SendService;
