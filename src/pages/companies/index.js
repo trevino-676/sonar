@@ -14,22 +14,27 @@ const CompanyPage = () => {
   const [selectedRow, setSelectedRow] = useState([]);
   const dispatch = useDispatch();
   const companies = useSelector((state) => state.companies);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     document.title = 'Companias | Sonar32';
     const getData = () => {
-      dispatch(CompanyAction.getCompanies());
+      dispatch(CompanyAction.getCompanies(user.token));
     };
     getData();
   }, []);
 
   const deleteCompany = () =>
-    dispatch(CompanyAction.deleteCompany(selectedRow[0]._id.$oid));
+    dispatch(CompanyAction.deleteCompany(selectedRow[0]._id.$oid, user.token));
   const handleGetChildrenState = (data) => setSelectedRow(data);
   const closeModal = () => dispatch(ModalActions.Clean());
   const openForm = () => {
     const form = (
-      <CompanyForm modalClose={closeModal} labelButton="Agregar compania" />
+      <CompanyForm
+        modalClose={closeModal}
+        labelButton="Agregar compania"
+        token={user.token}
+      />
     );
     dispatch(ModalActions.Form({ title: 'Nueva compania', form, size: 'md' }));
   };
@@ -39,6 +44,7 @@ const CompanyPage = () => {
         modalClose={closeModal}
         labelButton="Modificar compania"
         data={data}
+        token={user.token}
       />
     );
     dispatch(

@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 
 import CompanyAction from '../../actions/company.action';
 
-const CompanyForm = ({ modalClose, labelButton, data=null }) => {
+const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
   const [company, setCompany] = useState({
-    _id: data ? data._id.$oid: undefined,
+    _id: data ? data._id.$oid : undefined,
     name: data ? data.name : '',
     rfc: data ? data.rfc : '',
     address: data ? data.address : '',
@@ -21,12 +21,14 @@ const CompanyForm = ({ modalClose, labelButton, data=null }) => {
     });
   };
 
-  const createCompany = () => dispatch(CompanyAction.createCompany(company));
-  const updateCompany = () => dispatch(CompanyAction.updateCompany(company));
+  const createCompany = () =>
+    dispatch(CompanyAction.createCompany(company, token));
+  const updateCompany = () =>
+    dispatch(CompanyAction.updateCompany(company, token));
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!data){
+    if (!data) {
       createCompany();
     } else {
       updateCompany();
@@ -36,7 +38,12 @@ const CompanyForm = ({ modalClose, labelButton, data=null }) => {
   return (
     <form onSubmit={handleSubmit} className="form-horizontal">
       <Form.Group as={Row}>
-        <Form.Control type="text" hidden name="_id" defaultValue={company._id} />
+        <Form.Control
+          type="text"
+          hidden
+          name="_id"
+          defaultValue={company._id}
+        />
         <Form.Label column sm={3}>
           Nombre:
         </Form.Label>

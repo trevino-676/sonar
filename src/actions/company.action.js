@@ -1,8 +1,9 @@
 import CompaniesConstants from '../constants/Companies.constants';
 import CompanyService from '../service/company';
 import ModalActions from './modal.action';
+import LoginActions from './login.action';
 
-const createCompany = (company) => {
+const createCompany = (company, token) => {
   const request = () => ({ type: CompaniesConstants.ADD_COMPANY_REQUEST });
   const success = (companySaved) => ({
     type: CompaniesConstants.ADD_COMPANY_REQUEST_SUCCESS,
@@ -16,7 +17,7 @@ const createCompany = (company) => {
     try {
       dispatch(request());
       dispatch(ModalActions.Clean());
-      const resp = await CompanyService.createCompany(company);
+      const resp = await CompanyService.createCompany(company, token);
       if (resp.status !== 200) {
         dispatch(fail(resp.data.message));
         dispatch(
@@ -28,7 +29,7 @@ const createCompany = (company) => {
       }
       dispatch(success(company));
       // eslint-disable-next-line no-use-before-define
-      dispatch(getCompanies());
+      dispatch(getCompanies(token));
       dispatch(
         ModalActions.Success({
           title: 'Compañia',
@@ -44,40 +45,52 @@ const createCompany = (company) => {
           body: e.message,
         })
       );
+      if (e.message.indexOf('401') > 0) {
+        dispatch(LoginActions.Logout());
+        window.location.reload();
+      }
     }
   };
 };
 
-const getCompanies = (type, filters) => {
+const getCompanies = (token, type = null, filters = null) => {
   const request = () => ({ type: CompaniesConstants.GET_COMPANIES_REQUEST });
   const success = (companies) => ({
     type: CompaniesConstants.GET_COMPANIES_REQUEST_SUCCESS,
     payload: companies,
   });
   const fail = (error) => ({
-    type: CompaniesConstants.ADD_COMPANY_REQUEST_FAIL,
+    type: CompaniesConstants.GET_COMPANIES_REQUEST_FAIL,
     payload: { error },
   });
   return async (dispatch) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {
-      const resp = await CompanyService.findCompanies(type, filters);
+      const resp = await CompanyService.findCompanies(type, filters, token);
       if (resp.status !== 200) {
         dispatch(fail(resp.data.message));
         dispatch(
-          ModalActions.Error({ header: 'Companias', body: resp.data.message })
+          ModalActions.Error({
+            header: 'Error empresas',
+            body: resp.data.message,
+          })
         );
+        return;
       }
+
       dispatch(success(resp.data.companies));
     } catch (e) {
-      dispatch(fail(e));
-      dispatch(ModalActions.Error({ header: 'Companias', body: e }));
+      if (e.message.indexOf('401') > 0) {
+        dispatch(LoginActions.Logout());
+        window.location.replace('/login');
+      }
+      // console.err(e);
     }
   };
 };
 
-const updateCompany = (company) => {
+const updateCompany = (company, token) => {
   const request = () => ({ type: CompaniesConstants.UPDATE_COMPANY_REQUEST });
   const success = (newCompany) => ({
     type: CompaniesConstants.UPDATE_COMPANY_REQUEST,
@@ -92,7 +105,7 @@ const updateCompany = (company) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {
-      const resp = await CompanyService.updateCompany(company);
+      const resp = await CompanyService.updateCompany(company, token);
       if (resp.status !== 200) {
         dispatch(fail(resp.data.message));
         dispatch(
@@ -100,18 +113,22 @@ const updateCompany = (company) => {
         );
       }
       dispatch(success(company));
-      dispatch(getCompanies());
+      dispatch(getCompanies(token));
       dispatch(
         ModalActions.Success({ title: 'Compania', body: resp.data.message })
       );
     } catch (e) {
       dispatch(fail(e));
       dispatch(ModalActions.Error({ title: 'Compania', body: e }));
+      if (e.message.indexOf('401') > 0) {
+        dispatch(LoginActions.Logout());
+        window.location.reload();
+      }
     }
   };
 };
 
-const deleteCompany = (id) => {
+const deleteCompany = (id, token) => {
   const request = () => ({ type: CompaniesConstants.DELETE_COMPANY_REQUEST });
   const success = () => ({
     type: CompaniesConstants.DELETE_COMPANY_REQUEST_SUCCESS,
@@ -125,7 +142,7 @@ const deleteCompany = (id) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {
-      const resp = await CompanyService.deleteCompany(id);
+      const resp = await CompanyService.deleteCompany(id, token);
       if (resp.status !== 200) {
         dispatch(fail(resp.data.message));
         dispatch(
@@ -133,13 +150,17 @@ const deleteCompany = (id) => {
         );
       }
       dispatch(success());
-      dispatch(getCompanies());
+      dispatch(getCompanies(token));
       dispatch(
         ModalActions.Success({ title: 'Company', body: resp.data.message })
       );
     } catch (e) {
       dispatch(fail(e));
       dispatch(ModalActions.Error({ title: 'Company', body: e }));
+      if (e.message.indexOf('401') > 0) {
+        dispatch(LoginActions.Logout());
+        window.location.reload();
+      }
     }
   };
 };
