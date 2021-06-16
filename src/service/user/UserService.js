@@ -8,6 +8,11 @@ const getHeaders = (token) => ({
 });
 
 const GetUsers = async (type, filters) => {
+  let data = {};
+  if (type && filters) {
+    data = { type, filters };
+  }
+
   const url = `${baseURL}/v1/user/all`;
   const token = localStorage.getItem('token');
 
@@ -16,7 +21,7 @@ const GetUsers = async (type, filters) => {
   }
 
   const headers = getHeaders(token);
-  const params = { type, filters };
+  const params = data;
   const resp = await axios.get(url, { headers, params });
   return resp;
 };
