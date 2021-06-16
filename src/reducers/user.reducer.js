@@ -2,8 +2,8 @@ import UserConstants from '../constants/user.constants';
 
 const token = localStorage.getItem('token');
 const initialState = token
-  ? { loggedIn: true, token }
-  : { loggedIn: false, token };
+  ? { loggedIn: true, token, user_list: [] }
+  : { loggedIn: false, token, user_list: [] };
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -23,6 +23,24 @@ const UserReducer = (state = initialState, action) => {
       return { ...state };
     case UserConstants.UPLOAD_FILE_REQUEST_SUCCESS:
       return { ...state, files: action.payload };
+    case UserConstants.GET_ALL_USERS_REQUEST:
+      return { ...state };
+    case UserConstants.GET_ALL_USERS_SUCCESS:
+      return { ...state, user_list: action.payload };
+    case UserConstants.GET_ALL_USERS_FAIL:
+      return { ...state };
+    case UserConstants.UPDATE_USER_REQUEST:
+      return { ...state };
+    case UserConstants.UPDATE_USER_SUCCESS:
+      return { ...state, updated_company: action.payload };
+    case UserConstants.UPDATE_USER_FAIL:
+      return { ...state, error: action.payload };
+    case UserConstants.DELETE_USER_REQUEST:
+      return { ...state };
+    case UserConstants.DELETE_USER_SUCCESS:
+      return { ...state };
+    case UserConstants.DELETE_USER_FAIL:
+      return { ...state, error: action.payload };
     default:
       return { ...state };
   }
