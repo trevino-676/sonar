@@ -27,7 +27,7 @@ const GetUsers = async (type, filters) => {
 };
 
 const UpdateUser = async (oldUser) => {
-  const url = `${baseURL}/v1/user`;
+  const url = `${baseURL}/v1/user/`;
   const token = localStorage.getItem('token');
 
   if (!token) {
@@ -50,7 +50,7 @@ const UpdateUser = async (oldUser) => {
 };
 
 const DeleteUser = async (id) => {
-  const url = `${baseURL}/v1/user`;
+  const url = `${baseURL}/v1/user/`;
   const token = localStorage.getItem('token');
 
   if (!token) {

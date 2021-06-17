@@ -26,7 +26,7 @@ const UserReducer = (state = initialState, action) => {
     case UserConstants.GET_ALL_USERS_REQUEST:
       return { ...state };
     case UserConstants.GET_ALL_USERS_SUCCESS:
-      return { ...state, user_list: action.payload.users };
+      return { ...state, user_list: action.payload };
     case UserConstants.GET_ALL_USERS_FAIL:
       return { ...state };
     case UserConstants.UPDATE_USER_REQUEST:
