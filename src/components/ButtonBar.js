@@ -8,12 +8,16 @@ const ButtonBar = ({
   deleteLabel,
 }) => (
   <ButtonToolbar>
-    <Button onClick={handleOpenForm} variant="outline-primary">
-      {addLabel}
-    </Button>
-    <Button onClick={handleDeleteForm} variant="outline-danger">
-      {deleteLabel}
-    </Button>
+    {handleOpenForm && (
+      <Button onClick={handleOpenForm} variant="outline-primary">
+        {addLabel}
+      </Button>
+    )}
+    {handleDeleteForm && (
+      <Button onClick={handleDeleteForm} variant="outline-danger">
+        {deleteLabel}
+      </Button>
+    )}
   </ButtonToolbar>
 );
 

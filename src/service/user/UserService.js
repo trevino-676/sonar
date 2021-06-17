@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:5000';
+const baseURL = 'https://www.sonar32.com.mx';
 
 const getHeaders = (token) => ({
   'Content-Type': 'application/json',
