@@ -128,7 +128,7 @@ const updateCompany = (company, token) => {
   };
 };
 
-const deleteCompany = (id, token) => {
+const deleteCompany = (id) => {
   const request = () => ({ type: CompaniesConstants.DELETE_COMPANY_REQUEST });
   const success = () => ({
     type: CompaniesConstants.DELETE_COMPANY_REQUEST_SUCCESS,
@@ -139,6 +139,7 @@ const deleteCompany = (id, token) => {
   });
 
   return async (dispatch) => {
+    const token = localStorage.getItem('token');
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {

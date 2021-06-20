@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from 'react-bootstrap';
 
@@ -7,11 +7,11 @@ import ModalActions from '../../actions/modal.action';
 import DataTable from '../../components/DataTable';
 import CompanyForm from './CompanyForm';
 import ButtonBar from '../../components/ButtonBar';
+import DeleteForm from '../../components/DeleteForm';
 
 import '../../styles/pages/company.css';
 
 const CompanyPage = () => {
-  const [selectedRow, setSelectedRow] = useState([]);
   const dispatch = useDispatch();
   const companies = useSelector((state) => state.companies);
   const user = useSelector((state) => state.user);
@@ -24,9 +24,7 @@ const CompanyPage = () => {
     getData();
   }, []);
 
-  const deleteCompany = () =>
-    dispatch(CompanyAction.deleteCompany(selectedRow[0]._id.$oid, user.token));
-  const handleGetChildrenState = (data) => setSelectedRow(data);
+  const deleteCompany = (id) => dispatch(CompanyAction.deleteCompany(id));
   const closeModal = () => dispatch(ModalActions.Clean());
   const openForm = () => {
     const form = (
@@ -51,6 +49,19 @@ const CompanyPage = () => {
       ModalActions.Form({ title: 'Modificar compania', form, size: 'md' })
     );
   };
+  const deleteModal = (id) => {
+    const form = (
+      <DeleteForm
+        onSubmit={deleteCompany}
+        id={id}
+        closeModal={closeModal}
+        message="¿Estas seguro de eliminar esta empresa?"
+        label="Eliminar"
+      />
+    );
+    const title = 'Eliminar Compania';
+    dispatch(ModalActions.Form({ title, form, size: 'md' }));
+  };
   const dataField = [
     {
       dataField: '_id.$oid',
@@ -73,12 +84,7 @@ const CompanyPage = () => {
     <Container>
       <h1 className="text-center">Empresas</h1>
       <div className="button-bar">
-        <ButtonBar
-          handleOpenForm={openForm}
-          handleDeleteForm={deleteCompany}
-          addLabel="Agregar empresa"
-          deleteLabel="Eliminar empresa"
-        />
+        <ButtonBar handleOpenForm={openForm} addLabel="Agregar empresa" />
       </div>
       {companies.companies !== undefined ? (
         <DataTable
@@ -86,7 +92,7 @@ const CompanyPage = () => {
           tableColumns={dataField}
           dataKey="_id.$oid"
           onModify={openModifyForm}
-          onSelected={handleGetChildrenState}
+          onDelete={deleteModal}
         />
       ) : (
         <h2>cargando...</h2>

@@ -1,33 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import { Button } from 'react-bootstrap';
 
-const DataTable = ({ tableData, tableColumns, dataKey, onModify, onSelected }) => {
-  const [selected, setSelected] = useState([]);
+const DataTable = ({
+  tableData,
+  tableColumns,
+  dataKey,
+  onModify,
+  onSelected,
+  onDelete,
+}) => {
   const onSelectRow = (row) => {
-    const findID = selected.find((data) => data._id.$oid === row._id.$oid);
-    if (!findID) {
-      setSelected([row]);
-    } else {
-      selected.splice(selected.indexOf(row), 1);
-    }
-    onSelected(selected);
+    onSelected(row);
   };
   const selectedRowProp = {
     mode: 'radio',
     clickToSelect: true,
     bgColor: '#91c4f7',
     hideSelectColumn: true,
-    onSelect: onSelectRow,
   };
   const options = {
-    onDoubleClick: (e, row) => onModify(row),
+    onClick: (e, row) => onSelectRow(row),
+  };
+
+  const actionButtonsColumn = {
+    text: 'Acciones',
+    formatter: (cell, row) => (
+      <div>
+        <Button onClick={() => onModify(row)}>
+          <i className="far fa-edit" />
+        </Button>
+        <Button onClick={() => onDelete(row._id.$oid)} variant="danger">
+          <i className="far fa-trash-alt" />
+        </Button>
+      </div>
+    ),
+    align: 'center',
   };
 
   return (
     <BootstrapTable
       keyField={dataKey}
       data={tableData}
-      columns={tableColumns}
+      columns={[...tableColumns, actionButtonsColumn]}
       selectRow={selectedRowProp}
       rowEvents={options}
     />
