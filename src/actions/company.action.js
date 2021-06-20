@@ -149,6 +149,7 @@ const deleteCompany = (id) => {
         dispatch(
           ModalActions.Error({ title: 'Company', body: resp.data.message })
         );
+        return;
       }
       dispatch(success());
       dispatch(getCompanies(token));

@@ -183,6 +183,12 @@ const deleteUser = (id) => {
 
     dispatch(success(resp));
     dispatch(getUsers());
+    dispatch(
+      ModalActions.Success({
+        title: 'Usuarios',
+        body: 'Se elmino el usuario correctamente',
+      })
+    );
   };
 };
 
