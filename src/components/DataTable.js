@@ -1,6 +1,7 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Button } from 'react-bootstrap';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 const DataTable = ({
   tableData,
@@ -45,6 +46,7 @@ const DataTable = ({
       columns={[...tableColumns, actionButtonsColumn]}
       selectRow={selectedRowProp}
       rowEvents={options}
+      pagination={paginationFactory()}
     />
   );
 };
