@@ -41,10 +41,6 @@ const Logout = () => {
     type: UserConstants.LOGOUT_USER_REQUEST_SUCCESS,
     payload: isLoggedIn,
   });
-  // const fail = (err) => ({
-  //   type: UserConstants.LOGOUT_USER_REQUEST_FAIL,
-  //   error: err,
-  // });
   return (dispatch) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
@@ -52,7 +48,7 @@ const Logout = () => {
     if (logout()) {
       localStorage.removeItem('token');
       dispatch(success(false));
-      window.location.replace('/');
+      window.location.replace('/login');
     }
   };
 };
