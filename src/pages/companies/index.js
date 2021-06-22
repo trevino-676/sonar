@@ -111,7 +111,7 @@ const CompanyPage = () => {
         <DataTable
           tableData={companies.companies}
           tableColumns={dataField}
-          dataKey="_id.$oid"
+          dataKey="ID"
           onModify={openModifyForm}
           onDelete={deleteModal}
         />
