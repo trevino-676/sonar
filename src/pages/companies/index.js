@@ -102,7 +102,7 @@ const CompanyPage = () => {
 
   return (
     <Container>
-      <h1 className="text-center">Empresas</h1>
+      <h1 className="text-center">Configuración de empresas</h1>
       <BreadcrumbComponent routes={routes} />
       <div className="button-bar">
         <ButtonBar handleOpenForm={openForm} addLabel="Agregar empresa" />
