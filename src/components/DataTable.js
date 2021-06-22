@@ -47,6 +47,9 @@ const DataTable = ({
       selectRow={selectedRowProp}
       rowEvents={options}
       pagination={paginationFactory()}
+      striped
+      hover
+      condensed
     />
   );
 };
