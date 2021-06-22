@@ -83,7 +83,7 @@ const getCompanies = (token, type = null, filters = null) => {
     } catch (e) {
       if (e.message.indexOf('401') > 0) {
         dispatch(LoginActions.Logout());
-        window.location.replace('/login');
+        window.location.reload();
       }
       // console.err(e);
     }
@@ -98,7 +98,7 @@ const updateCompany = (company, token) => {
   });
   const fail = (error) => ({
     type: CompaniesConstants.UPDATE_COMPANY_REQUEST_FAIL,
-    error,
+    payload: { error },
   });
 
   return async (dispatch) => {
@@ -135,7 +135,7 @@ const deleteCompany = (id) => {
   });
   const fail = (error) => ({
     type: CompaniesConstants.DELETE_COMPANY_REQUEST_FAIL,
-    error,
+    payload: { error },
   });
 
   return async (dispatch) => {
@@ -157,8 +157,8 @@ const deleteCompany = (id) => {
         ModalActions.Success({ title: 'Company', body: resp.data.message })
       );
     } catch (e) {
-      dispatch(fail(e));
-      dispatch(ModalActions.Error({ title: 'Company', body: e }));
+      dispatch(fail(e.message));
+      dispatch(ModalActions.Error({ title: 'Company', body: e.message }));
       if (e.message.indexOf('401') > 0) {
         dispatch(LoginActions.Logout());
         window.location.reload();
