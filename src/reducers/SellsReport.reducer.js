@@ -1,6 +1,10 @@
 import SellsReportsConstants from '../constants/SellsReports.constants';
 
-const SellsReportsReducer = (state, action) => {
+const initState = {
+  by_clients: [],
+};
+
+const SellsReportsReducer = (state = initState, action) => {
   switch (action.type) {
     case SellsReportsConstants.GET_SELL_REPORT_BY_CLIENT_REQUEST:
       return { ...state };
