@@ -1,7 +1,7 @@
 import SellsReportsConstants from '../constants/SellsReports.constants';
 
 const initState = {
-  by_clients: [],
+  by_clients: null,
 };
 
 const SellsReportsReducer = (state = initState, action) => {

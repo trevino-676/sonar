@@ -25,6 +25,7 @@ const byClients = (filters) => {
       if (!data) {
         dispatch(fail(failMessage));
         dispatch(ModalActions.Error({ title: 'Error', body: failMessage }));
+        return;
       }
       dispatch(success(data));
     } catch (err) {
