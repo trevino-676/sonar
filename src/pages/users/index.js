@@ -7,6 +7,7 @@ import ModalActions from '../../actions/modal.action';
 import DataTable from '../../components/DataTable';
 import UserForm from './UserForm';
 import DeleteForm from '../../components/DeleteForm';
+import BreadcrumbComponent from '../../components/BreadcrumbComponent';
 
 const UsersPage = () => {
   const dispatch = useDispatch();
@@ -68,9 +69,28 @@ const UsersPage = () => {
     getData();
   }, []);
 
+  const routes = [
+    {
+      name: 'Home',
+      path: '/',
+      active: false,
+    },
+    {
+      name: 'Configuración',
+      path: '/settings',
+      active: false,
+    },
+    {
+      name: 'Usuarios',
+      path: '/users',
+      active: true,
+    },
+  ];
+
   return (
     <Container>
-      <h1 className="text-center">Usuarios</h1>
+      <h1 className="text-center">Configuración de usuarios</h1>
+      <BreadcrumbComponent routes={routes} />
       {users.user_list && (
         <DataTable
           tableData={users.user_list}

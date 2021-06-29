@@ -2,17 +2,16 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 
-import UserActions from '../actions/user.action';
+import UserActions from '../actions/company.action';
 
 import '../styles/pages/settings.css';
 
-const Settings = () => {
-  const user = { name: 'Luis Manuel', last_name: 'Torres Treviño', rfc:"TOTL940915V19" };
+const Settings = ({ company }) => {
   const [data, setData] = useState({ cer: null, key: null, fiel: '' });
   const dispatch = useDispatch();
 
   const handleImputChange = (event) => {
-    if(event.target.files){
+    if (event.target.files) {
       setData({
         ...data,
         [event.target.name]: event.target.files[0],
@@ -24,37 +23,40 @@ const Settings = () => {
       });
     }
   };
-  
-  const encodefielPassword = fiel => window.btoa(unescape(encodeURIComponent(fiel)));
+
+  const encodefielPassword = (fiel) =>
+    window.btoa(unescape(encodeURIComponent(fiel)));
 
   const sendData = (event) => {
     event.preventDefault();
-    const files = []
-    if(data.cer){
+    const files = [];
+    if (data.cer) {
       files.push(data.cer);
     }
-    if(data.key){
+    if (data.key) {
       files.push(data.key);
     }
-    
-    if(data.fiel){
-      dispatch(UserActions.saveFieldPassword(user.rfc, encodefielPassword(data.fiel)));
+
+    if (data.fiel) {
+      dispatch(
+        UserActions.saveFieldPassword(
+          company.rfc,
+          encodefielPassword(data.fiel)
+        )
+      );
     }
-    
-    if(files.length > 0){
-      dispatch(UserActions.uploadFile(files, user.rfc));
+
+    if (files.length > 0) {
+      dispatch(UserActions.uploadFile(files, company.rfc));
     }
   };
-
-  
 
   return (
     <>
       <div className="settings-header">
         <div>
-          <h2>Configuración</h2>
+          <h2>Carga de documentos del SAT</h2>
         </div>
-        <div>{user.name}</div>
       </div>
       <p>Cambia tu contraseña FIEL y/o carga los archivos .cer y .key</p>
       <br />

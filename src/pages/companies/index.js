@@ -8,6 +8,7 @@ import DataTable from '../../components/DataTable';
 import CompanyForm from './CompanyForm';
 import ButtonBar from '../../components/ButtonBar';
 import DeleteForm from '../../components/DeleteForm';
+import BreadcrumbComponent from '../../components/BreadcrumbComponent';
 
 import '../../styles/pages/company.css';
 
@@ -17,7 +18,7 @@ const CompanyPage = () => {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    document.title = 'Companias | Sonar32';
+    document.title = 'Empresas | Sonar32';
     const getData = () => {
       dispatch(CompanyAction.getCompanies(user.token));
     };
@@ -30,23 +31,23 @@ const CompanyPage = () => {
     const form = (
       <CompanyForm
         modalClose={closeModal}
-        labelButton="Agregar compania"
+        labelButton="Agregar empresa"
         token={user.token}
       />
     );
-    dispatch(ModalActions.Form({ title: 'Nueva compania', form, size: 'md' }));
+    dispatch(ModalActions.Form({ title: 'Nueva empresa', form, size: 'md' }));
   };
   const openModifyForm = (data) => {
     const form = (
       <CompanyForm
         modalClose={closeModal}
-        labelButton="Modificar compania"
+        labelButton="Modificar empresa"
         data={data}
         token={user.token}
       />
     );
     dispatch(
-      ModalActions.Form({ title: 'Modificar compania', form, size: 'md' })
+      ModalActions.Form({ title: 'Modificar empresa', form, size: 'md' })
     );
   };
   const deleteModal = (id) => {
@@ -59,7 +60,7 @@ const CompanyPage = () => {
         label="Eliminar"
       />
     );
-    const title = 'Eliminar Compania';
+    const title = 'Eliminar empresa';
     dispatch(ModalActions.Form({ title, form, size: 'md' }));
   };
   const dataField = [
@@ -80,9 +81,29 @@ const CompanyPage = () => {
       text: 'Domicilio',
     },
   ];
+
+  const routes = [
+    {
+      name: 'Home',
+      path: '/',
+      active: false,
+    },
+    {
+      name: 'Configuración',
+      path: '/settings',
+      active: false,
+    },
+    {
+      name: 'Empresas',
+      path: '/companies',
+      active: true,
+    },
+  ];
+
   return (
     <Container>
-      <h1 className="text-center">Empresas</h1>
+      <h1 className="text-center">Configuración de empresas</h1>
+      <BreadcrumbComponent routes={routes} />
       <div className="button-bar">
         <ButtonBar handleOpenForm={openForm} addLabel="Agregar empresa" />
       </div>
@@ -90,7 +111,7 @@ const CompanyPage = () => {
         <DataTable
           tableData={companies.companies}
           tableColumns={dataField}
-          dataKey="_id.$oid"
+          dataKey="ID"
           onModify={openModifyForm}
           onDelete={deleteModal}
         />

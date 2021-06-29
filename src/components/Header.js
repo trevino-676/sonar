@@ -26,10 +26,8 @@ const Header = () => {
       <Nav className="mr-auto">
         {user.loggedIn ? (
           <Navbar.Collapse id="responsive-navbar-nav">
-            <NavDropdown title="Catalogos" id="collasible-navbar-nav">
-              <NavDropdown.Item href="/users">Usuarios</NavDropdown.Item>
-              <NavDropdown.Item href="/companies">Empresas</NavDropdown.Item>
-            </NavDropdown>
+            {/* <NavDropdown title="Catalogos" id="collasible-navbar-nav">
+            </NavDropdown> */}
             <NavDropdown title="Productos" id="collasible-navbar-nav">
               <NavDropdown.Item href="#Example">
                 Producto Ejemplo
@@ -41,6 +39,8 @@ const Header = () => {
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="usuario" id="collasible-navbar-nav">
+              <NavDropdown.Item href="/users">Usuarios</NavDropdown.Item>
+              <NavDropdown.Item href="/companies">Empresas</NavDropdown.Item>
               <NavDropdown.Item href="/settings">
                 Configuracion
               </NavDropdown.Item>
