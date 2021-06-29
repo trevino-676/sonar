@@ -3,6 +3,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
+import usePaginationOptions from '../hooks/usePaginationOptions';
+
 const ReportTable = ({
   tableData,
   tableColumns,
@@ -11,6 +13,7 @@ const ReportTable = ({
   expandColumns = null,
   expandDataKey = null,
 }) => {
+  const [options] = usePaginationOptions();
   const expandRow = {
     renderer: (row) => {
       const filterData = expandData.filter(
@@ -22,6 +25,9 @@ const ReportTable = ({
           keyField={expandDataKey}
           data={data}
           columns={expandColumns}
+          striped
+          hover
+          condensed
         />
       );
     },
@@ -33,8 +39,11 @@ const ReportTable = ({
         keyField={dataKey}
         data={tableData}
         columns={tableColumns}
-        pagination={paginationFactory()}
+        pagination={paginationFactory(options)}
         expandRow={expandData && expandRow}
+        striped
+        hover
+        condensed
       />
       <hr />
       <ReactHTMLTableToExcel
