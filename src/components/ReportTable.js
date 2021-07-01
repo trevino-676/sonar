@@ -14,24 +14,49 @@ const ReportTable = ({
   expandDataKey = null,
 }) => {
   const [options] = usePaginationOptions();
-  const expandRow = {
-    renderer: (row) => {
-      const filterData = expandData.filter(
-        (dataRow) => dataRow[0].rfc === row.rfc
-      );
-      const data = filterData[0].map((innerData) => innerData);
-      return (
+  if (expandData && expandColumns && expandDataKey) {
+    const expandRow = {
+      renderer: (row) => {
+        const filterData = expandData.filter(
+          (dataRow) => dataRow[0].rfc === row.rfc
+        );
+        const data = filterData[0].map((innerData) => innerData);
+        return (
+          <BootstrapTable
+            keyField={expandDataKey}
+            data={data}
+            columns={expandColumns}
+            striped
+            hover
+            condensed
+          />
+        );
+      },
+    };
+    return (
+      <>
         <BootstrapTable
-          keyField={expandDataKey}
-          data={data}
-          columns={expandColumns}
+          id="emp"
+          keyField={dataKey}
+          data={tableData}
+          columns={tableColumns}
+          pagination={paginationFactory(options)}
+          expandRow={expandData && expandRow}
           striped
           hover
           condensed
         />
-      );
-    },
-  };
+        <hr />
+        <ReactHTMLTableToExcel
+          className="btn btn-info"
+          table="emp"
+          filename="SellsByClient"
+          sheet="Sheet"
+          buttonText="Exportar a excel"
+        />
+      </>
+    );
+  }
   return (
     <>
       <BootstrapTable
@@ -40,7 +65,6 @@ const ReportTable = ({
         data={tableData}
         columns={tableColumns}
         pagination={paginationFactory(options)}
-        expandRow={expandData && expandRow}
         striped
         hover
         condensed
