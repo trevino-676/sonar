@@ -37,9 +37,16 @@ const useSellsFilterForm = () => {
     },
   ];
   const handleChangeFilter = (event) => {
+    let dateValue = 0;
+    if (event.target.name === 'from_date') {
+      dateValue = `${event.target.value}T00:00:00`;
+    } else if (event.target.name === 'to_date') {
+      dateValue = `${event.target.value}T23:59:59`;
+    }
+
     setFilter({
       ...filter,
-      [event.target.name]: event.target.value,
+      [event.target.name]: dateValue === 0 ? event.target.value : dateValue,
     });
   };
 

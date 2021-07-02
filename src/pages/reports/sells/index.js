@@ -71,6 +71,24 @@ const SellsByClient = () => {
       dataField: 'metodo_pago',
       text: 'Metodo de pago',
     },
+    {
+      dataField: 'subtotal',
+      text: 'Subtotal',
+      align: 'right',
+      formatter: priceFormatter,
+    },
+    {
+      dataField: 'iva',
+      text: 'IVA',
+      align: 'right',
+      formatter: priceFormatter,
+    },
+    {
+      dataField: 'total',
+      text: 'Total',
+      align: 'right',
+      formatter: priceFormatter,
+    },
   ];
 
   if (dataReport) {
@@ -81,6 +99,9 @@ const SellsByClient = () => {
         folio: folioData,
         serie: data.serie[folioIndex],
         metodo_pago: data.metodo_pago[folioIndex],
+        total: data.total_por_factura[folioIndex],
+        subtotal: data.subtotal_por_factura[folioIndex],
+        iva: data.iva_por_factura[folioIndex],
         fecha: data.fechas[folioIndex],
       }));
       return innerData;
