@@ -3,6 +3,7 @@ import Home from '../pages/Home';
 import Registro from '../pages/Registro';
 import SellsByClient from '../pages/reports/sells';
 import SellsByItems from '../pages/reports/sells/byItems/ReportByItems';
+import TaxablePerceptions from '../pages/reports/payroll/taxablePerceptions';
 
 export default {
   Login: {
@@ -24,5 +25,9 @@ export default {
   SellsByItem: {
     path: '/reports/sells/by_items',
     component: SellsByItems,
+  },
+  TaxablesPerceptions: {
+    path: '/report/payroll/taxables_perceptions',
+    component: TaxablePerceptions,
   },
 };

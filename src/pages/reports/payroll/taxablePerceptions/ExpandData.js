@@ -29,7 +29,7 @@ const useTaxablePerceptionsExpandData = (data, formatter) => {
   const expandedData = data
     ? data.map((row) => {
         const innerData = row.tipo_percepcion.map((perception, index) => ({
-          key: row.uuid,
+          key: `${row.uuid}//${index}`,
           rfc: row._id.rfc,
           tipo: perception,
           clave: row.claves[index],

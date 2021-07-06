@@ -18,7 +18,9 @@ const TaxablePerceptions = () => {
   );
   const [filter, handleChangeFilter, filterFields] =
     useFiltersTaxablePerceptions();
-  const currencyFormatter = (cell) => <span>$ {cell.toFixed(2)}</span>;
+  const currencyFormatter = (cell) => (
+    <span>$ {parseFloat(cell).toFixed(2)}</span>
+  );
   const [expandedColumns, expandedData] = useTaxablePerceptionsExpandData(
     dataReport,
     currencyFormatter
@@ -29,7 +31,6 @@ const TaxablePerceptions = () => {
   useEffect(() => {
     document.title = 'Reportes | Percepciones gravables';
   }, []);
-
   return (
     <Container>
       <FilterBar

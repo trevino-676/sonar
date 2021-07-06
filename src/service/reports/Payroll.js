@@ -13,8 +13,7 @@ const taxablePerceptions = async (filters) => {
         params: filters,
       }
     );
-
-    if (resp.statusCode !== 200) {
+    if (resp.status !== 200) {
       return null;
     }
     return resp.data.data;

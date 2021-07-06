@@ -21,7 +21,7 @@ const taxablesPerceptions = (filters) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {
-      const resp = PayrollReportService.taxablePerceptions(filters);
+      const resp = await PayrollReportService.taxablePerceptions(filters);
 
       if (!resp) {
         dispatch(fail(FailMessage));

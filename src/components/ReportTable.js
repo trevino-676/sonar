@@ -17,9 +17,10 @@ const ReportTable = ({
   if (expandData && expandColumns && expandDataKey) {
     const expandRow = {
       renderer: (row) => {
-        const filterData = expandData.filter(
-          (dataRow) => dataRow[0].rfc === row.rfc
-        );
+        const filterData = expandData.filter((dataRow) => {
+          if (row.rfc !== undefined) return dataRow[0].rfc === row.rfc;
+          return dataRow[0].rfc === row._id.rfc;
+        });
         const data = filterData[0].map((innerData) => innerData);
         return (
           <BootstrapTable
