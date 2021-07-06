@@ -3,6 +3,7 @@ import SellsReportsConstants from '../constants/SellsReports.constants';
 const initState = {
   by_clients: null,
   by_items: null,
+  by_services: null,
 };
 
 const SellsReportsReducer = (state = initState, action) => {
@@ -18,6 +19,12 @@ const SellsReportsReducer = (state = initState, action) => {
     case SellsReportsConstants.GET_SELL_REPORT_BY_ITEMS_SUCCESS:
       return { ...state, by_items: action.payload };
     case SellsReportsConstants.GET_SELL_REPORT_BY_ITEMS_FAIL:
+      return { ...state, error: action.payload.error };
+    case SellsReportsConstants.GET_SELL_REPORT_BY_SERVICES_REQUEST:
+      return { ...state };
+    case SellsReportsConstants.GET_SELL_REPORT_BY_SERVICES_SUCCESS:
+      return { ...state, by_services: action.payload };
+    case SellsReportsConstants.GET_SELL_REPORT_BY_SERVICES_FAIL:
       return { ...state, error: action.payload.error };
     default:
       return { ...state };
