@@ -44,9 +44,29 @@ const byItems = async (filters) => {
   }
 };
 
+const byServices = async (filters) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `jwt ${localStorage.getItem('token')}`,
+  };
+  try {
+    const resp = await axios.get(`${BaseURL}/v1/sellsreport/by_service`, {
+      headers,
+      params: filters,
+    });
+    if (resp.status === 200) {
+      return resp.data.data;
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
+};
+
 const SellReportsService = {
   byClients,
   byItems,
+  byServices,
 };
 
 export default SellReportsService;
