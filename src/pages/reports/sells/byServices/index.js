@@ -26,6 +26,7 @@ const SellsByServices = () => {
 
   return (
     <Container>
+      <h1>Reporte de ventas por servicios</h1>
       <FilterBar
         dataFields={formFields}
         onHandleChange={handleChangeFilter}

@@ -33,6 +33,7 @@ const TaxablePerceptions = () => {
   }, []);
   return (
     <Container>
+      <h1>Reporte de percepciones gravables</h1>
       <FilterBar
         dataFields={filterFields}
         onHandleChange={handleChangeFilter}

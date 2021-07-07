@@ -110,6 +110,7 @@ const SellsByClient = () => {
 
   return (
     <Container>
+      <h1>Reporte de ventas por clientes</h1>
       <FilterBar
         dataFields={FilterForm}
         onHandleChange={handleChangeFilter}

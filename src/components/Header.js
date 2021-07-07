@@ -28,14 +28,20 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             {/* <NavDropdown title="Catalogos" id="collasible-navbar-nav">
             </NavDropdown> */}
-            <NavDropdown title="Productos" id="collasible-navbar-nav">
-              <NavDropdown.Item href="#Example">
-                Producto Ejemplo
+            <NavDropdown title="Ventas" id="collasible-navbar-nav">
+              <NavDropdown.Item href="/reports/sells/by_client">
+                Reporte ventas por clientes
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/reports/sells/by_items">
+                Reporte ventas por articulos
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/reports/sells/by_services">
+                Reporte ventas por servicios
               </NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="Servicios" id="collasible-navbar-nav">
-              <NavDropdown.Item href="#Example">
-                Servicio Ejemplo
+            <NavDropdown title="Nomina" id="collasible-navbar-nav">
+              <NavDropdown.Item href="/reports/payroll/taxables_perceptions">
+                Reporte de percepciones gravadas
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="usuario" id="collasible-navbar-nav">
