@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// const BaseURL = "https://www.sonar32.com.mx"
-const BaseURL = 'http://localhost:5000';
+const BaseURL = 'https://www.sonar32.com.mx';
 
 const taxablePerceptions = async (filters) => {
   const headers = { 'Content-Type': 'application/json' };
