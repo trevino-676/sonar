@@ -50,7 +50,7 @@ const byServices = async (filters) => {
     Authorization: `jwt ${localStorage.getItem('token')}`,
   };
   try {
-    const resp = await axios.get(`${BaseURL}/v1/sellsreport/by_service`, {
+    const resp = await axios.get(`${BaseURL}/v1/sellsreport/by_services`, {
       headers,
       params: filters,
     });
