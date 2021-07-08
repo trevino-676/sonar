@@ -3,7 +3,7 @@ import React from 'react';
 import Settings from '../pages/Settings';
 import CompanyPage from '../pages/companies';
 import UsersPage from '../pages/users';
-import SellsByClient from '../pages/reports/sells';
+import SellsByClient from '../pages/reports/sells/byClients';
 import SellsByItems from '../pages/reports/sells/byItems/ReportByItems';
 import TaxablePerceptions from '../pages/reports/payroll/taxablePerceptions';
 import SellsByServices from '../pages/reports/sells/byServices';

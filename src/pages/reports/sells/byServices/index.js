@@ -7,6 +7,8 @@ import FilterBar from '../../../../components/FiltersBar';
 import ReportTable from '../../../../components/ReportTable';
 import useDataColumns from './DataColumns';
 import useFilterForm from './FilterForm';
+import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
+import Routes from './BreadcrumbsRoutes';
 
 import '../../../../styles/reports.css';
 
@@ -26,7 +28,8 @@ const SellsByServices = () => {
 
   return (
     <Container>
-      <h1>Reporte de ventas por servicios</h1>
+      <h1 className="text-center">Reporte de ventas por servicios</h1>
+      <BreadcrumbComponent routes={Routes} />
       <FilterBar
         dataFields={formFields}
         onHandleChange={handleChangeFilter}

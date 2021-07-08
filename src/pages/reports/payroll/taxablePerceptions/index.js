@@ -8,6 +8,8 @@ import useTaxablePerceptionsExpandData from './ExpandData';
 import useDataColumns from './DatatableColumns';
 import FilterBar from '../../../../components/FiltersBar';
 import ReportTable from '../../../../components/ReportTable';
+import Routes from './BreadcrumbsRoutes';
+import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
 
 import '../../../../styles/reports.css';
 
@@ -33,7 +35,8 @@ const TaxablePerceptions = () => {
   }, []);
   return (
     <Container>
-      <h1>Reporte de percepciones gravables</h1>
+      <h1 className="text-center">Reporte de percepciones gravables</h1>
+      <BreadcrumbComponent routes={Routes} />
       <FilterBar
         dataFields={filterFields}
         onHandleChange={handleChangeFilter}

@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 
-import SellsReportsActions from '../../../actions/SellsReport.action';
+import SellsReportsActions from '../../../../actions/SellsReport.action';
 import useSellsFilterForm from './FilterForm';
-import FilterBar from '../../../components/FiltersBar';
-import ReportTable from '../../../components/ReportTable';
+import FilterBar from '../../../../components/FiltersBar';
+import ReportTable from '../../../../components/ReportTable';
+import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
+import Routes from './BreadcrumbsRoutes';
 
-import '../../../styles/reports.css';
+import '../../../../styles/reports.css';
 
 const SellsByClient = () => {
   const dispatch = useDispatch();
@@ -110,7 +112,8 @@ const SellsByClient = () => {
 
   return (
     <Container>
-      <h1>Reporte de ventas por clientes</h1>
+      <h1 className="text-center">Reporte de ventas por clientes</h1>
+      <BreadcrumbComponent routes={Routes} />
       <FilterBar
         dataFields={FilterForm}
         onHandleChange={handleChangeFilter}
