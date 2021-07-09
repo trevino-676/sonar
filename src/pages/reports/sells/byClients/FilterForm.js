@@ -50,7 +50,27 @@ const useSellsFilterForm = () => {
     });
   };
 
-  return [filter, FilterForm, handleChangeFilter];
+    const getTextFilters = () => {
+        let textFilters = '';
+        if (filter['datos.Rfc']){
+            textFilters += `Empresa: ${filter['datos.Rfc']}, `;
+        }
+        if (filter.from_date){
+            textFilters += `Desde: ${filter.from_date}, `;
+        }
+        if (filter.to_date) {
+            textFilters += `Hasta: ${filter.to_date}, `;
+        }
+        if (filter.rfc){
+            textFilters += `Cliente: ${filter.rfc}, `;
+        }
+        if (filter.status) {
+            textFilters += `Estatus: ${filter.status}`;
+        }
+        return textFilters;
+    };
+
+  return [filter, FilterForm, handleChangeFilter, getTextFilters];
 };
 
 export default useSellsFilterForm;

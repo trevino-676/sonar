@@ -8,7 +8,14 @@ const useFilterForm = () => {
   });
 
   const handleChangeFilter = (event) => {
-    setFilter({ ...filter, [event.target.name]: event.target.value });
+    let value = null;
+
+    if (event.target.name === 'from_date')
+        value = `${event.target.value}T00:00:00`;
+    if (event.target.name === 'to_date')
+        value = `${event.target.value}T23:59:59`;
+
+      setFilter({ ...filter, [event.target.name]: value ? value : event.target.value });
   };
 
   const FilterForm = [
@@ -29,7 +36,19 @@ const useFilterForm = () => {
     },
   ];
 
-  return [filter, handleChangeFilter, FilterForm];
+  const getTextFilter = () => {
+    let textFilter = '';
+    if (filter['datos.Rfc'])
+      textFilter += `Empresa: ${filter['datos.Rfc']}, `;
+    if (filter.from_date)
+      textFilter += `Desde: ${filter.from_date}, `;
+    if (filter.to_date)
+      textFilter += `Hasta: ${filter.to_date}`;
+
+    return textFilter;
+  }
+
+  return [filter, handleChangeFilter, FilterForm, getTextFilter];
 };
 
 export default useFilterForm;

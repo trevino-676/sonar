@@ -18,7 +18,7 @@ const TaxablePerceptions = () => {
   const dataReport = useSelector(
     (state) => state.payroll_reports.taxable_perceptions
   );
-  const [filter, handleChangeFilter, filterFields] =
+  const [filter, handleChangeFilter, filterFields, getTextFilters] =
     useFiltersTaxablePerceptions();
   const currencyFormatter = (cell) => (
     <span>$ {parseFloat(cell).toFixed(2)}</span>
@@ -43,6 +43,7 @@ const TaxablePerceptions = () => {
         onHandleClick={() => {
           onSubmit(filter);
         }}
+        textFilter={getTextFilters()}
       />
       <div className="report-area">
         {dataReport && (

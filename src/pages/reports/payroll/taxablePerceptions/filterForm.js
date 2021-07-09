@@ -44,7 +44,21 @@ const useFiltersTaxablePerceptions = () => {
     },
   ];
 
-  return [filter, handleChangeFilter, filterFields];
+    const getTextFilters = () => {
+        let text = '';
+        if (filter['datos.Rfc'])
+            text += `Empresa: ${filter['datos.Rfc']}, `;
+        if (filter.from_date)
+            text += `Desde: ${filter.from_date}, `;
+        if (filter.to_date)
+            text += `Hasta: ${filter.to_date}, `;
+        if (filter.rfc)
+            text += `Empleado: ${filter.rfc}`;
+
+        return text
+    }
+
+  return [filter, handleChangeFilter, filterFields, getTextFilters];
 };
 
 export default useFiltersTaxablePerceptions;

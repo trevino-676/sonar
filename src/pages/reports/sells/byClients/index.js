@@ -15,7 +15,7 @@ const SellsByClient = () => {
   const dispatch = useDispatch();
   let expandedData = [];
   const dataReport = useSelector((state) => state.sell_reports.by_clients);
-  const [filter, FilterForm, handleChangeFilter] = useSellsFilterForm();
+  const [filter, FilterForm, handleChangeFilter, getTextFilters] = useSellsFilterForm();
   useEffect(() => {
     document.title = 'Reportes | Ventas por clientes';
   }, [dataReport]);
@@ -120,6 +120,7 @@ const SellsByClient = () => {
         onHandleClick={() => {
           onSubmit(filter);
         }}
+        textFilter={getTextFilters()}
       />
       <div className="report-area">
         {dataReport && (

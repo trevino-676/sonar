@@ -36,7 +36,19 @@ const useFilterForm = () => {
     },
   ];
 
-  return [filters, handleChangeFilter, formFields];
+    const getTextFilters = () => {
+        let text = '';
+        if (filters["datos.Rfc"])
+            text += `Empresa: ${filters['datos.Rfc']}, `;
+        if (filters.from_date)
+            text += `Desde: ${filters.from_date}, `;
+        if (filters.to_date)
+            text += `Hasta: ${filters.to_date} `;
+
+        return text;
+    }
+
+  return [filters, handleChangeFilter, formFields, getTextFilters];
 };
 
 export default useFilterForm;

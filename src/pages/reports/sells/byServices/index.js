@@ -19,7 +19,7 @@ const SellsByServices = () => {
     <span>$ {parseFloat(cell).toFixed(2)}</span>
   );
   const [columns] = useDataColumns(currencyFormatter);
-  const [filters, handleChangeFilter, formFields] = useFilterForm();
+  const [filters, handleChangeFilter, formFields, getTextFilters] = useFilterForm();
   const onSubmit = (filter) => dispatch(SellsReportsActions.byServices(filter));
 
   useEffect(() => {
@@ -34,6 +34,7 @@ const SellsByServices = () => {
         dataFields={formFields}
         onHandleChange={handleChangeFilter}
         onHandleClick={() => onSubmit(filters)}
+        textFilter={getTextFilters()}
       />
       <div className="report-area">
         {dataReport && (

@@ -1,0 +1,10 @@
+.text-filters {
+    margin-left: 25px;
+    color: #A9A9A9;
+    font: bold;
+}
+
+.filters-header {
+    display: flex;
+    flex-direction: row;
+}

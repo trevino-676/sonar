@@ -10,11 +10,14 @@ import {
   Button,
 } from 'react-bootstrap';
 
-const FilterBar = ({ dataFields, onHandleChange, onHandleClick }) => (
+import '../styles/components/filterbar.css';
+
+const FilterBar = ({ dataFields, onHandleChange, onHandleClick, textFilter=null }) => (
   <Accordion defaultActiveKey="0">
     <Card>
-      <Accordion.Toggle as={Card.Header} eventKey="0">
-        Filtros
+      <Accordion.Toggle as={Card.Header} eventKey="0" className="filters-header">
+        <div>Filtros</div>
+        <div className="text-filters">{textFilter && textFilter}</div>
       </Accordion.Toggle>
       <Accordion.Collapse eventKey="0">
         <Card.Body>

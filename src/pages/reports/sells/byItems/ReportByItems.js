@@ -14,7 +14,7 @@ import '../../../../styles/reports.css';
 const SellsByItems = () => {
   const dispatch = useDispatch();
   const dataReport = useSelector((state) => state.sell_reports.by_items);
-  const [filter, handleChangeFilter, FilterForm] = useFilterForm();
+  const [filter, handleChangeFilter, FilterForm, getTextFilter] = useFilterForm();
   const priceFormatter = (cell) => <span>$ {cell.toFixed(2)}</span>;
   const onSubmit = (filters) => {
     dispatch(SellsReportsActions.byItems(filters));
@@ -60,6 +60,7 @@ const SellsByItems = () => {
         onHandleClick={() => {
           onSubmit(filter);
         }}
+        textFilter={getTextFilter()}
       />
       <div className="report-area">
         {dataReport && (
