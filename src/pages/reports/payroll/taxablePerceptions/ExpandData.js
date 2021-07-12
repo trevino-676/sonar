@@ -20,7 +20,7 @@ const useTaxablePerceptionsExpandData = (data, formatter) => {
     },
     {
       dataField: 'excento',
-      text: 'Importe excento',
+      text: 'Importe exento',
       align: 'right',
       formatter,
     },

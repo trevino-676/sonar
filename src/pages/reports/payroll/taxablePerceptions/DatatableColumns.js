@@ -16,7 +16,7 @@ const useDataColumns = (formatter) => {
     },
     {
       dataField: 'total_exento',
-      text: 'Excento',
+      text: 'Exento',
       align: 'right',
       formatter,
     },

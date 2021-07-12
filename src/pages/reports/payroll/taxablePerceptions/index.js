@@ -20,9 +20,10 @@ const TaxablePerceptions = () => {
   );
   const [filter, handleChangeFilter, filterFields, getTextFilters] =
     useFiltersTaxablePerceptions();
-  const currencyFormatter = (cell) => (
-    <span>$ {parseFloat(cell).toFixed(2)}</span>
-  );
+    const currencyFormatter = (cell) => {
+        const price = Intl.NumberFormat('en-US').format(parseFloat(cell).toFixed(2));
+        return (<span>${price}</span>);
+    };
   const [expandedColumns, expandedData] = useTaxablePerceptionsExpandData(
     dataReport,
     currencyFormatter

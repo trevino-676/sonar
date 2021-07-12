@@ -8,6 +8,7 @@ const useSellsFilterForm = () => {
     status: null,
     amount: null,
     'datos.Rfc': null,
+    name: null,
   });
   const FilterForm = [
     {
@@ -35,6 +36,11 @@ const useSellsFilterForm = () => {
       type: 'text',
       name: 'status',
     },
+    {
+      label: 'Cliente',
+      type: 'text',
+      name: 'name'
+    }
   ];
   const handleChangeFilter = (event) => {
     let dateValue = 0;
@@ -56,7 +62,7 @@ const useSellsFilterForm = () => {
             textFilters += `Empresa: ${filter['datos.Rfc']}, `;
         }
         if (filter.from_date){
-            textFilters += `Desde: ${filter.from_date}, `;
+            textFilters += `Desde: ${filter.from_date}, ` ;
         }
         if (filter.to_date) {
             textFilters += `Hasta: ${filter.to_date}, `;
@@ -65,8 +71,10 @@ const useSellsFilterForm = () => {
             textFilters += `Cliente: ${filter.rfc}, `;
         }
         if (filter.status) {
-            textFilters += `Estatus: ${filter.status}`;
+            textFilters += `Estatus: ${filter.status}, `;
         }
+        if (filter.name)
+            textFilters += `Empleado: ${filter.name}`;
         return textFilters;
     };
 

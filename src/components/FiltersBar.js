@@ -27,7 +27,7 @@ const FilterBar = ({ dataFields, onHandleChange, onHandleClick, textFilter=null 
                 <Col xs md={3} key={field.name}>
                   <InputGroup className="mb-3">
                     <InputGroup.Prepend>
-                      <InputGroup.Text>{field.label}:</InputGroup.Text>
+                    <InputGroup.Text><b>{field.label}</b>:</InputGroup.Text>
                     </InputGroup.Prepend>
                     <Form.Control
                       type={field.type}

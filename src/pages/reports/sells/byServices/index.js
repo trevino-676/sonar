@@ -15,9 +15,10 @@ import '../../../../styles/reports.css';
 const SellsByServices = () => {
   const dispatch = useDispatch();
   const dataReport = useSelector((state) => state.sell_reports.by_services);
-  const currencyFormatter = (cell) => (
-    <span>$ {parseFloat(cell).toFixed(2)}</span>
-  );
+    const currencyFormatter = (cell) => {
+        const price = Intl.NumberFormat("en-US").format(parseFloat(cell).toFixed(2));
+        return (<span>${price}</span>);
+    }
   const [columns] = useDataColumns(currencyFormatter);
   const [filters, handleChangeFilter, formFields, getTextFilters] = useFilterForm();
   const onSubmit = (filter) => dispatch(SellsReportsActions.byServices(filter));

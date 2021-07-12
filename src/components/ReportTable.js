@@ -5,6 +5,8 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 
 import usePaginationOptions from '../hooks/usePaginationOptions';
 
+import '../styles/components/ReportTable.css';
+
 const ReportTable = ({
   tableData,
   tableColumns,
@@ -27,6 +29,7 @@ const ReportTable = ({
             keyField={expandDataKey}
             data={data}
             columns={expandColumns}
+            headerClasses="table-header"
             striped
             hover
             condensed
@@ -43,6 +46,7 @@ const ReportTable = ({
           columns={tableColumns}
           pagination={paginationFactory(options)}
           expandRow={expandData && expandRow}
+          headerClasses="table-header"
           striped
           hover
           condensed
@@ -53,7 +57,7 @@ const ReportTable = ({
           table="emp"
           filename="SellsByClient"
           sheet="Sheet"
-          buttonText="Exportar a excel"
+          buttonText="Exportar a Excel"
         />
       </>
     );
@@ -66,6 +70,7 @@ const ReportTable = ({
         data={tableData}
         columns={tableColumns}
         pagination={paginationFactory(options)}
+        headerClasses="table-header"
         striped
         hover
         condensed

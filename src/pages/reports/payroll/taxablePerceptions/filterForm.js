@@ -6,6 +6,7 @@ const useFiltersTaxablePerceptions = () => {
     from_date: null,
     to_date: null,
     rfc: null,
+    name: null,
   });
 
   const handleChangeFilter = (event) => {
@@ -42,6 +43,11 @@ const useFiltersTaxablePerceptions = () => {
       type: 'text',
       name: 'rfc',
     },
+    {
+      label: 'Empleado',
+      type: 'text',
+      name: 'name'
+    }
   ];
 
     const getTextFilters = () => {
@@ -53,8 +59,9 @@ const useFiltersTaxablePerceptions = () => {
         if (filter.to_date)
             text += `Hasta: ${filter.to_date}, `;
         if (filter.rfc)
-            text += `Empleado: ${filter.rfc}`;
-
+            text += `Empleado (RFC): ${filter.rfc}, `;
+        if (filter.name)
+            text += `Empleado: ${filter.name}`
         return text
     }
 

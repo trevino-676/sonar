@@ -22,7 +22,10 @@ const SellsByClient = () => {
   const onSubmit = (filters) => {
     dispatch(SellsReportsActions.byClients(filters));
   };
-  const priceFormatter = (cell) => <span>$ {cell.toFixed(2)}</span>;
+    const priceFormatter = (cell) => {
+        const price = Intl.NumberFormat('en-US').format(parseFloat(cell).toFixed(2));
+        return (<span>${price}</span>);
+    };
   const dateFormatter = (cell) => {
     const date = new Date(cell);
     return <span>{date.toLocaleString()}</span>;
@@ -31,14 +34,17 @@ const SellsByClient = () => {
     {
       dataField: '_id',
       text: 'Cliente',
+      sort: true
     },
     {
       dataField: 'rfc',
       text: 'RFC',
+      sort: true,
     },
     {
       dataField: 'subtotal',
       text: 'Subtotal',
+      sort: true,
       align: 'right',
       formatter: priceFormatter,
     },
@@ -47,12 +53,14 @@ const SellsByClient = () => {
       text: 'IVA',
       align: 'right',
       formatter: priceFormatter,
+      sort: true,
     },
     {
       dataField: 'total',
       text: 'Total',
       align: 'right',
       formatter: priceFormatter,
+      sort: true,
     },
   ];
   const expandedColumns = [
