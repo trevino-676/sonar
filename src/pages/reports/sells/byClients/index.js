@@ -15,17 +15,20 @@ const SellsByClient = () => {
   const dispatch = useDispatch();
   let expandedData = [];
   const dataReport = useSelector((state) => state.sell_reports.by_clients);
-  const [filter, FilterForm, handleChangeFilter, getTextFilters] = useSellsFilterForm();
+  const [filter, FilterForm, handleChangeFilter, getTextFilters] =
+    useSellsFilterForm();
   useEffect(() => {
     document.title = 'Reportes | Ventas por clientes';
   }, [dataReport]);
   const onSubmit = (filters) => {
     dispatch(SellsReportsActions.byClients(filters));
   };
-    const priceFormatter = (cell) => {
-        const price = Intl.NumberFormat('en-US').format(parseFloat(cell).toFixed(2));
-        return (<span>${price}</span>);
-    };
+  const priceFormatter = (cell) => {
+    const price = Intl.NumberFormat('en-US').format(
+      parseFloat(cell).toFixed(2)
+    );
+    return <span>${price}</span>;
+  };
   const dateFormatter = (cell) => {
     const date = new Date(cell);
     return <span>{date.toLocaleString()}</span>;
@@ -34,7 +37,7 @@ const SellsByClient = () => {
     {
       dataField: '_id',
       text: 'Cliente',
-      sort: true
+      sort: true,
     },
     {
       dataField: 'rfc',

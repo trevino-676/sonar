@@ -15,7 +15,7 @@ const useFilterForm = () => {
     if (event.target.name === 'to_date')
         value = `${event.target.value}T23:59:59`;
 
-      setFilter({ ...filter, [event.target.name]: value ? value : event.target.value });
+      setFilter({ ...filter, [event.target.name]: value || event.target.value });
   };
 
   const FilterForm = [
