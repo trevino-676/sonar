@@ -1,7 +1,10 @@
 import Login from '../pages/Login';
 import Home from '../pages/Home';
 import Registro from '../pages/Registro';
-
+import Nomina from '../pages/reports/nomina/deduccionesNomina';
+import Percepcciones from '../pages/reports/nomina/percepcionesNomina';
+import Pagos from '../pages/reports/nomina/pagosNomina';
+import NominaOtrosPagos from '../pages/reports/nomina/otrosPagosNomina';
 export default {
   Login: {
     component: Login,
@@ -14,5 +17,29 @@ export default {
   UserRegistry: {
     component: Registro,
     path: '/registry',
+  },
+  UserRegistry: {
+    component: Registro,
+    path: '/registry',
+  },
+  Nomina: {
+    component: Nomina,
+    path: '/nomina',
+  },
+    Percepcciones: {
+    component: Percepcciones,
+    path: '/nominaPercepciones',
+  },
+  Pagos: {
+    component: Pagos,
+    path: '/pagosNomina',
+  },
+  NominaOtrosPagos: {
+    component: NominaOtrosPagos,
+    path: '/otrosPagosNomina',
+  },
+  Proveedores: {
+    component: NominaOtrosPagos,
+    path: '/otrosPagosNomina',
   },
 };
