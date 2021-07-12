@@ -1,5 +1,20 @@
 stages:
+  - format
   - build
+
+check-format-stage:
+  image: node:latest
+  stage: format
+  cache:
+    paths:
+      - node_modules/
+  before_script:
+    - npm install
+  script:
+    - npm run format
+  only:
+    - test
+    - master
 
 docker-build-test:
   image: docker:latest
