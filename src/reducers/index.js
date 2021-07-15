@@ -5,6 +5,7 @@ import ModalReducer from './modal.reducer';
 import CompanyReducer from './Companies.reducer';
 import SellsReportsReducer from './SellsReport.reducer';
 import PayrollReportsReducer from './payroll.reducer';
+import RetentionsReducer from './RetentionsReport.reducer';
 
 const rootReducer = combineReducers({
   user: UserReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   companies: CompanyReducer,
   sell_reports: SellsReportsReducer,
   payroll_reports: PayrollReportsReducer,
+  retention_report: RetentionsReducer,
 });
 
 export default rootReducer;
