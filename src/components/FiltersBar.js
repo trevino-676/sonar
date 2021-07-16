@@ -10,12 +10,23 @@ import {
   Button,
 } from 'react-bootstrap';
 
+import SelectComponent from './SelectInputComponent';
+
 import '../styles/components/filterbar.css';
 
-const FilterBar = ({ dataFields, onHandleChange, onHandleClick, textFilter=null }) => (
+const FilterBar = ({
+  dataFields,
+  onHandleChange,
+  onHandleClick,
+  textFilter = null,
+}) => (
   <Accordion defaultActiveKey="0">
     <Card>
-      <Accordion.Toggle as={Card.Header} eventKey="0" className="filters-header">
+      <Accordion.Toggle
+        as={Card.Header}
+        eventKey="0"
+        className="filters-header"
+      >
         <div>Filtros</div>
         <div className="text-filters">{textFilter && textFilter}</div>
       </Accordion.Toggle>
@@ -27,13 +38,23 @@ const FilterBar = ({ dataFields, onHandleChange, onHandleClick, textFilter=null 
                 <Col xs md={3} key={field.name}>
                   <InputGroup className="mb-3">
                     <InputGroup.Prepend>
-                    <InputGroup.Text><b>{field.label}</b>:</InputGroup.Text>
+                      <InputGroup.Text>
+                        <b>{field.label}</b>:
+                      </InputGroup.Text>
                     </InputGroup.Prepend>
-                    <Form.Control
-                      type={field.type}
-                      name={field.name}
-                      onChange={(e) => onHandleChange(e)}
-                    />
+                    {field.type === 'Select' ? (
+                      <SelectComponent
+                        data={field.options}
+                        name={field.name}
+                        handleChange={onHandleChange}
+                      />
+                    ) : (
+                      <Form.Control
+                        type={field.type}
+                        name={field.name}
+                        onChange={(e) => onHandleChange(e)}
+                      />
+                    )}
                   </InputGroup>
                 </Col>
               ))}
