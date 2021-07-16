@@ -7,6 +7,7 @@ import SellsByClient from '../pages/reports/sells/byClients';
 import SellsByItems from '../pages/reports/sells/byItems/ReportByItems';
 import TaxablePerceptions from '../pages/reports/payroll/taxablePerceptions';
 import SellsByServices from '../pages/reports/sells/byServices';
+import RetentionReport from '../pages/reports/retentions/retentionReport';
 
 export default {
   Settings: {
@@ -36,5 +37,9 @@ export default {
   TaxablesPerceptions: {
     path: '/reports/payroll/taxables_perceptions',
     component: <TaxablePerceptions />,
+  },
+  RetentionReport: {
+    path: '/reports/retentions/',
+    component: <RetentionReport />,
   },
 };

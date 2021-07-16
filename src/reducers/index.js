@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   companies: CompanyReducer,
   sell_reports: SellsReportsReducer,
   payroll_reports: PayrollReportsReducer,
-  retention_report: RetentionsReducer,
+  retentions: RetentionsReducer,
 });
 
 export default rootReducer;
