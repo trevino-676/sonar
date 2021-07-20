@@ -9,7 +9,7 @@ const SelectComponent = ({ data, name, handleChange }) => (
       name={name}
       onChange={(e) => handleChange(e)}
     >
-      <option>Escoge un opcion</option>
+      <option value="">Escoge un opcion</option>
       {data.map((item) => (
         <option key={item.value} value={item.value}>
           {item.text}

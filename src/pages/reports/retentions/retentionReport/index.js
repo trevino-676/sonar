@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,6 +6,7 @@ import FilterBar from '../../../../components/FiltersBar';
 import ReportTable from '../../../../components/ReportTable';
 import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
 import RetentionsActions from '../../../../actions/RetentionReport.action';
+import CompanyActions from '../../../../actions/company.action';
 import useReportTitle from '../../../../hooks/useReportTitle';
 import useFormatters from '../../../../hooks/useFormatters';
 import useFilterForm from './FiltersForm';
@@ -16,12 +17,16 @@ import '../../../../styles/reports.css';
 
 const RetentionReport = () => {
   const dispatch = useDispatch();
+  const companies = useSelector((state) => state.companies.companies);
+  useEffect(() => {
+    dispatch(CompanyActions.getCompaniesByUser());
+  }, [dispatch]);
   const dataReport = useSelector((state) => state.retentions.retention_report);
   useReportTitle('Reportes | Retenciones');
   const [currencyFormatter] = useFormatters();
-  const [handleChangeFilter, formFields, submitFilters, getTextFilters] =
-    useFilterForm(dispatch, RetentionsActions.retentionReport, [], []);
   const [columns] = useDataColumns(currencyFormatter);
+  const [handleChangeFilter, formFields, submitFilters, getTextFilters] =
+    useFilterForm(dispatch, RetentionsActions.retentionReport, companies, []);
 
   return (
     <Container>
