@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'https://www.sonar32.com.mx';
+// const baseUrl = 'https://www.sonar32.com.mx';
+const baseUrl = 'http://localhost:5000';
 
 const headers = {
   'Content-Type': 'application/json',
@@ -53,11 +54,28 @@ const deleteCompany = async (id, token) => {
   return resp;
 };
 
+const getCompaniesByUser = async () => {
+  const token = localStorage.getItem('token');
+  const newHeaders = { ...headers, Authorization: `jwt ${token}` };
+  try {
+    const resp = await axios.get(`${baseUrl}/v1/company/by_user`, {
+      headers: newHeaders,
+    });
+    if (resp.status !== 200) {
+      return null;
+    }
+    return resp.data.data;
+  } catch (e) {
+    return null;
+  }
+};
+
 const CompanyService = {
   createCompany,
   findCompanies,
   updateCompany,
   deleteCompany,
+  getCompaniesByUser,
 };
 
 export default CompanyService;
