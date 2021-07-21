@@ -1,11 +1,16 @@
 import { useState } from 'react';
 
-const useFilterForm = () => {
+const useFilterForm = (companies) => {
   const [filters, setFilter] = useState({
     'datos.Rfc': null,
     from_date: null,
     to_date: null,
   });
+
+  const _companiesOptions = companies.map((company) => ({
+    value: company.rfc,
+    text: company.name,
+  }));
 
   const handleChangeFilter = (event) => {
     let value = null;
@@ -21,8 +26,9 @@ const useFilterForm = () => {
   const formFields = [
     {
       label: 'Empresa',
-      type: 'text',
+      type: 'Select',
       name: 'datos.Rfc',
+      options: _companiesOptions,
     },
     {
       label: 'Desde',
@@ -36,17 +42,14 @@ const useFilterForm = () => {
     },
   ];
 
-    const getTextFilters = () => {
-        let text = '';
-        if (filters["datos.Rfc"])
-            text += `Empresa: ${filters['datos.Rfc']}, `;
-        if (filters.from_date)
-            text += `Desde: ${filters.from_date}, `;
-        if (filters.to_date)
-            text += `Hasta: ${filters.to_date} `;
+  const getTextFilters = () => {
+    let text = '';
+    if (filters['datos.Rfc']) text += `Empresa: ${filters['datos.Rfc']}, `;
+    if (filters.from_date) text += `Desde: ${filters.from_date}, `;
+    if (filters.to_date) text += `Hasta: ${filters.to_date} `;
 
-        return text;
-    }
+    return text;
+  };
 
   return [filters, handleChangeFilter, formFields, getTextFilters];
 };

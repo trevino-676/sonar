@@ -1,28 +1,34 @@
 import { useState } from 'react';
 
-const useFilterForm = () => {
+const useFilterForm = (companies) => {
   const [filter, setFilter] = useState({
     'datos.Rfc': null,
     from_date: null,
     to_date: null,
   });
 
+  const _companiesOptions = companies.map((company) => ({
+    value: company.rfc,
+    text: company.name,
+  }));
+
   const handleChangeFilter = (event) => {
     let value = null;
 
     if (event.target.name === 'from_date')
-        value = `${event.target.value}T00:00:00`;
+      value = `${event.target.value}T00:00:00`;
     if (event.target.name === 'to_date')
-        value = `${event.target.value}T23:59:59`;
+      value = `${event.target.value}T23:59:59`;
 
-      setFilter({ ...filter, [event.target.name]: value || event.target.value });
+    setFilter({ ...filter, [event.target.name]: value || event.target.value });
   };
 
   const FilterForm = [
     {
       label: 'Empresa',
-      type: 'text',
+      type: 'Select',
       name: 'datos.Rfc',
+      options: _companiesOptions,
     },
     {
       label: 'Desde',
@@ -38,15 +44,12 @@ const useFilterForm = () => {
 
   const getTextFilter = () => {
     let textFilter = '';
-    if (filter['datos.Rfc'])
-      textFilter += `Empresa: ${filter['datos.Rfc']}, `;
-    if (filter.from_date)
-      textFilter += `Desde: ${filter.from_date}, `;
-    if (filter.to_date)
-      textFilter += `Hasta: ${filter.to_date}`;
+    if (filter['datos.Rfc']) textFilter += `Empresa: ${filter['datos.Rfc']}, `;
+    if (filter.from_date) textFilter += `Desde: ${filter.from_date}, `;
+    if (filter.to_date) textFilter += `Hasta: ${filter.to_date}`;
 
     return textFilter;
-  }
+  };
 
   return [filter, handleChangeFilter, FilterForm, getTextFilter];
 };

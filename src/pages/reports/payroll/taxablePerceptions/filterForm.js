@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useFiltersTaxablePerceptions = () => {
+const useFiltersTaxablePerceptions = (companies) => {
   const [filter, setFilter] = useState({
     'datos.Rfc': null,
     from_date: null,
@@ -8,6 +8,11 @@ const useFiltersTaxablePerceptions = () => {
     rfc: null,
     name: null,
   });
+
+  const _companiesOptions = companies.map((company) => ({
+    value: company.rfc,
+    text: company.name,
+  }));
 
   const handleChangeFilter = (event) => {
     let value = null;
@@ -25,8 +30,9 @@ const useFiltersTaxablePerceptions = () => {
   const filterFields = [
     {
       label: 'Empresa',
-      type: 'text',
+      type: 'Select',
       name: 'datos.Rfc',
+      options: _companiesOptions,
     },
     {
       label: 'Desde',
@@ -46,24 +52,19 @@ const useFiltersTaxablePerceptions = () => {
     {
       label: 'Empleado',
       type: 'text',
-      name: 'name'
-    }
+      name: 'name',
+    },
   ];
 
-    const getTextFilters = () => {
-        let text = '';
-        if (filter['datos.Rfc'])
-            text += `Empresa: ${filter['datos.Rfc']}, `;
-        if (filter.from_date)
-            text += `Desde: ${filter.from_date}, `;
-        if (filter.to_date)
-            text += `Hasta: ${filter.to_date}, `;
-        if (filter.rfc)
-            text += `Empleado (RFC): ${filter.rfc}, `;
-        if (filter.name)
-            text += `Empleado: ${filter.name}`
-        return text
-    }
+  const getTextFilters = () => {
+    let text = '';
+    if (filter['datos.Rfc']) text += `Empresa: ${filter['datos.Rfc']}, `;
+    if (filter.from_date) text += `Desde: ${filter.from_date}, `;
+    if (filter.to_date) text += `Hasta: ${filter.to_date}, `;
+    if (filter.rfc) text += `Empleado (RFC): ${filter.rfc}, `;
+    if (filter.name) text += `Empleado: ${filter.name}`;
+    return text;
+  };
 
   return [filter, handleChangeFilter, filterFields, getTextFilters];
 };

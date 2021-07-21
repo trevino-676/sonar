@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useSellsFilterForm = () => {
+const useSellsFilterForm = (companies) => {
   const [filter, setFilter] = useState({
     from_date: null,
     to_date: null,
@@ -10,11 +10,18 @@ const useSellsFilterForm = () => {
     'datos.Rfc': null,
     name: null,
   });
+
+  const _companiesOptions = companies.map((company) => ({
+    value: company.rfc,
+    text: company.name,
+  }));
+
   const FilterForm = [
     {
       label: 'Empresa',
-      text: 'text',
+      type: 'Select',
       name: 'datos.Rfc',
+      options: _companiesOptions,
     },
     {
       label: 'Desde',
@@ -32,15 +39,15 @@ const useSellsFilterForm = () => {
       name: 'rfc',
     },
     {
+      label: 'Cliente',
+      type: 'text',
+      name: 'name',
+    },
+    {
       label: 'Estatus',
       type: 'text',
       name: 'status',
     },
-    {
-      label: 'Cliente',
-      type: 'text',
-      name: 'name'
-    }
   ];
   const handleChangeFilter = (event) => {
     let dateValue = 0;
@@ -56,27 +63,26 @@ const useSellsFilterForm = () => {
     });
   };
 
-    const getTextFilters = () => {
-        let textFilters = '';
-        if (filter['datos.Rfc']){
-            textFilters += `Empresa: ${filter['datos.Rfc']}, `;
-        }
-        if (filter.from_date){
-            textFilters += `Desde: ${filter.from_date}, ` ;
-        }
-        if (filter.to_date) {
-            textFilters += `Hasta: ${filter.to_date}, `;
-        }
-        if (filter.rfc){
-            textFilters += `Cliente: ${filter.rfc}, `;
-        }
-        if (filter.status) {
-            textFilters += `Estatus: ${filter.status}, `;
-        }
-        if (filter.name)
-            textFilters += `Empleado: ${filter.name}`;
-        return textFilters;
-    };
+  const getTextFilters = () => {
+    let textFilters = '';
+    if (filter['datos.Rfc']) {
+      textFilters += `Empresa: ${filter['datos.Rfc']}, `;
+    }
+    if (filter.from_date) {
+      textFilters += `Desde: ${filter.from_date}, `;
+    }
+    if (filter.to_date) {
+      textFilters += `Hasta: ${filter.to_date}, `;
+    }
+    if (filter.rfc) {
+      textFilters += `Cliente: ${filter.rfc}, `;
+    }
+    if (filter.status) {
+      textFilters += `Estatus: ${filter.status}, `;
+    }
+    if (filter.name) textFilters += `Empleado: ${filter.name}`;
+    return textFilters;
+  };
 
   return [filter, FilterForm, handleChangeFilter, getTextFilters];
 };

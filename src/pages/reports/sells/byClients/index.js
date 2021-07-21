@@ -8,6 +8,7 @@ import FilterBar from '../../../../components/FiltersBar';
 import ReportTable from '../../../../components/ReportTable';
 import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
 import Routes from './BreadcrumbsRoutes';
+import CompanyActions from '../../../../actions/company.action';
 
 import '../../../../styles/reports.css';
 
@@ -15,11 +16,15 @@ const SellsByClient = () => {
   const dispatch = useDispatch();
   let expandedData = [];
   const dataReport = useSelector((state) => state.sell_reports.by_clients);
+  const companies = useSelector((state) => state.companies.companies);
   const [filter, FilterForm, handleChangeFilter, getTextFilters] =
-    useSellsFilterForm();
+    useSellsFilterForm(companies);
   useEffect(() => {
     document.title = 'Reportes | Ventas por clientes';
-  }, [dataReport]);
+    const getCompaniesData = () =>
+      dispatch(CompanyActions.getCompaniesByUser());
+    getCompaniesData();
+  }, []);
   const onSubmit = (filters) => {
     dispatch(SellsReportsActions.byClients(filters));
   };
