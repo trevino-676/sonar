@@ -34,16 +34,15 @@ const BaseURL = 'https://www.sonar32.com.mx';
 const expand = null;   
 
     const obtenerDatos = async () => {
-      alert("..");  
       //const data = await fetch(`${BaseURL}/v1/niminaReports/deducciones`); 
-      const data = await fetch("http://127.0.0.1:5000/deducciones?empresa=GPR070228780&empleado=VIEA940203HY0");   
+      const data = await fetch("http://127.0.0.1:5000/complementosDePago?empresa=ATU11090254A&empleado=VIEA940203HY0");   
       const users = await data.json();  
 
       console.log("--"); 
       console.log(users)
       console.log("--"); 
       setEquipo(users.elements); 
-      setSubs(users.percepciones); 
+      setSubs(users.percepciones);   
       //expand = users.sub;  
       console.log( expandedColumns ); 
       console.log(users);  
@@ -51,7 +50,7 @@ const expand = null;
     }
   React.useEffect(
       () => {
-        document.title = 'Nomina - '; 
+        document.title = 'Nomina - Complementos de Pago'; 
         //obtenerDatos(); 
       }
     , [])
@@ -67,43 +66,43 @@ const dataColumns = [{
   text: 'id'
 }, {
   dataField: 'empleado',
-  text: 'Empleado'
+  text: 'Nombre'
 }, 
 {
   dataField: 'rfc',
-  text: 'Total Deducciones'
+  text: 'Fecha'
 },  
 { 
   dataField: 'price',
-  text: 'Total Percepciones'
+  text: 'Monto'
 }, 
 {
   dataField: 'otrospagos',
-  text: 'Otros pagos'
+  text: 'RFC'
 }]; 
 
 const dataColumnsExpand = [{
-  dataField: 'id',
-  text: 'id'
+  dataField: 'Serie',
+  text: 'Serie'
 },
 {
-  dataField: 'Clave',
+  dataField: 'ImpSaldoInsoluto',
   text: 'Clave'  
 }, 
-{
-  dataField: 'TipoDeduccion',
+{ 
+  dataField: 'Folio',
   text: 'TipoDeduccion'
 }, 
 {
-  dataField: 'Concepto',
+  dataField: 'MonedaDR',
   text: 'Concepto'
 }, 
 {
-  dataField: 'Importe',
+  dataField: 'MetodoDePagoDR',
   text: 'Importe'
 },
 {
-  dataField: 'fecha',
+  dataField: 'ImpSaldoAnt',
   text: 'Fecha'
 }
   ]; 
@@ -125,7 +124,7 @@ const expandRow =  [
  
   return(
 <div> 
- <div> <h2> Deducciones de nomina </h2> </div> 
+ <div> <h2> Complmentos de pagos </h2> </div> 
   
   <div class="card">
   <div class="card-header">
@@ -139,15 +138,17 @@ const expandRow =  [
     <div class="input-group-prepend">
       <div class="input-group-text">RFC EMPRESA</div>
     </div>
-    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="XAXX010101000
-"/>
+    <select class="form-control"> 
+      <option>ATU11090254A</option>
+      <option>ATU11090254C</option>
+    </select> 
   </div>
     </div> 
     <div class="col-lg-3">
      <span>&nbsp;</span> 
       <div class="input-group mb-2 mr-sm-2">
     <div class="input-group-prepend">
-      <div class="input-group-text">RFC EMPLEADO</div>
+      <div class="input-group-text">RFC BENEFICIARIO</div>
     </div>
     <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="XAXX010101000
 "/>

@@ -29,9 +29,9 @@ const Menu = () => {
 const [equipo, setEquipo] = React.useState([]);  
 
     const obtenerDatos = async () => {
-
-      //const data = await fetch("http://127.0.0.1:5000/deducciones"); 
-      const data = await fetch(`${BaseURL}/v1/niminaReports/deducciones`); 
+   
+      const data = await fetch("http://127.0.0.1:5000/deducciones"); 
+      //const data = await fetch(`${BaseURL}/v1/niminaReports/deducciones`); 
       const users = await data.json();  
       setEquipo(users); 
       

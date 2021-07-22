@@ -5,6 +5,10 @@ import Nomina from '../pages/reports/nomina/deduccionesNomina';
 import Percepcciones from '../pages/reports/nomina/percepcionesNomina';
 import Pagos from '../pages/reports/nomina/pagosNomina';
 import NominaOtrosPagos from '../pages/reports/nomina/otrosPagosNomina';
+import Proveedores from '../pages/reports/nomina/proveedores';
+import complementosDePago from '../pages/reports/nomina/complementosDePago';
+ 
+
 export default {
   Login: {
     component: Login,
@@ -38,8 +42,13 @@ export default {
     component: NominaOtrosPagos,
     path: '/otrosPagosNomina',
   },
-  Proveedores: {
-    component: NominaOtrosPagos,
-    path: '/otrosPagosNomina',
+  Proveedores: {     
+    component: Proveedores,
+    path: '/proveedores',
+  },    
+  complementosDePago: {     
+    component: complementosDePago,
+    path: '/complementosDePago',
   },
 };
+ 
