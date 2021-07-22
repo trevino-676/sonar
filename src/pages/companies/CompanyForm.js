@@ -10,15 +10,29 @@ const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
     name: data ? data.name : '',
     rfc: data ? data.rfc : '',
     address: data ? data.address : '',
-    users: data ? data.users : [],
+    key_file: data ? data.key_file : null,
+    cer_file: data ? data.cer_file : null,
+    fiel: data ? data.fiel : '',
   });
+  const [fileData, setFileData] = useState({
+    cer: null,
+    key: null,
+  });
+
   const dispatch = useDispatch();
 
+  const _encodeFielPassword = (fiel) =>
+    window.btoa(unescape(encodeURIComponent(fiel)));
+
   const handleInputChange = (event) => {
-    setCompany({
-      ...company,
-      [event.target.name]: event.target.value,
-    });
+    if (event.target.files) {
+      setFileData({ ...fileData, [event.target.name]: event.target.files[0] });
+    } else {
+      setCompany({
+        ...company,
+        [event.target.name]: event.target.value,
+      });
+    }
   };
 
   const createCompany = () =>
@@ -28,10 +42,28 @@ const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const files = [];
+    if (fileData.cer) {
+      files.push(fileData.cer);
+    }
+    if (fileData.key) {
+      files.push(fileData.key);
+    }
+    if (company.fiel) {
+      dispatch(
+        CompanyAction.setFielPassword(
+          company,
+          _encodeFielPassword(company.fiel)
+        )
+      );
+    }
     if (!data) {
       createCompany();
     } else {
       updateCompany();
+    }
+    if (files.length > 0) {
+      dispatch(CompanyAction.uploadFile(company, files));
     }
   };
 
@@ -82,6 +114,33 @@ const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
             onChange={handleInputChange}
             name="address"
             value={company.address}
+          />
+        </Col>
+      </Form.Group>
+      <Form.Group as={Row}>
+        <Form.Label column sm={3}>
+          Archivo .cer
+        </Form.Label>
+        <Col sm={9}>
+          <Form.File name="cer" id="cer" onChange={handleInputChange} />
+        </Col>
+      </Form.Group>
+      <Form.Group as={Row}>
+        <Form.Label column sm={3}>
+          Archivo .key
+        </Form.Label>
+        <Col sm={9}>
+          <Form.File name="key" id="key" onChange={handleInputChange} />
+        </Col>
+      </Form.Group>
+      <Form.Group as={Row}>
+        <Form.Label>Contraseña FIEL</Form.Label>
+        <Col sm={9}>
+          <Form.Control
+            type="password"
+            placeholder="FIEL"
+            onChange={handleInputChange}
+            name="fiel"
           />
         </Col>
       </Form.Group>

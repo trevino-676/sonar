@@ -70,12 +70,54 @@ const getCompaniesByUser = async () => {
   }
 };
 
+const uploadFile = async ({ rfc }, file) => {
+  const token = localStorage.getItem('token');
+  const newHeaders = { ...headers, Authorization: `jwt ${token}` };
+  const formData = new FormData();
+  formData.append('file', file);
+  try {
+    const resp = await axios.post(
+      `${baseUrl}/v1/company/${rfc}/upload`,
+      formData,
+      {
+        headers: newHeaders,
+      }
+    );
+    if (resp.status !== 200) {
+      return null;
+    }
+    return resp.data.status;
+  } catch (e) {
+    return null;
+  }
+};
+
+const setFielPassword = async ({ rfc }, fielPassword) => {
+  const data = {
+    rfc,
+    fiel: fielPassword,
+  };
+  const token = localStorage.getItem('token');
+  const newHeaders = { ...headers, Authorization: `jwt ${token}` };
+  try {
+    const resp = await axios.post(`${baseUrl}/v1/company/fiel`, data, {
+      headers: newHeaders,
+    });
+    if (resp.status !== 200) return null;
+    return resp.data.status;
+  } catch (e) {
+    return null;
+  }
+};
+
 const CompanyService = {
   createCompany,
   findCompanies,
   updateCompany,
   deleteCompany,
   getCompaniesByUser,
+  uploadFile,
+  setFielPassword,
 };
 
 export default CompanyService;
