@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      {children}
+      <div className="content">{children}</div>
       <Footer />
       <CommonModal
         header={modal.title}
