@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseUrl = 'https://www.sonar32.com.mx';
-// const baseUrl = 'http://localhost:5000';
+//  const baseUrl = 'http://localhost:5000';
 
 const headers = {
   'Content-Type': 'application/json',
