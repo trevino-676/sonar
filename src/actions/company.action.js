@@ -150,15 +150,13 @@ const getCompaniesByUser = () => {
             body: 'Error al obtener las empresas',
           })
         );
-        dispatch(LoginActions.Logout());
-        window.location.reload();
         return;
       }
       dispatch(success(companies));
     } catch (e) {
-      dispatch(fail('Error al obtener las empresas'));
-      dispatch(LoginActions.Logout());
-      window.location.reload();
+      // dispatch(fail('Error al obtener las empresas'));
+      // dispatch(LoginActions.Logout());
+      // window.location.reload();
     }
   };
 };

@@ -1,13 +1,21 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-undef */
 /* eslint-disable func-names */
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import LoginActions from '../actions/login.action';
 import ModalActions from '../actions/modal.action';
 
+import '../styles/pages/login.css';
+
 const Login = () => {
+  const [login, setLogin] = useState({
+    username: null,
+    password: null,
+  });
   const dispatch = useDispatch();
   const facebookLogin = () => {
     console.log('FB iniciado');
@@ -120,31 +128,27 @@ const Login = () => {
     pass: '',
   };
 
-  const setUser = {
-    user: (element) => {
-      const user = element.target.value;
-      info.user = user;
-    },
-    pass: (element) => {
-      const pass = element.target.value;
-      info.pass = pass;
-    },
+  const handleChange = (event) => {
+    setLogin({
+      ...login,
+      [event.target.name]: event.target.value,
+    });
   };
 
-  const basicLogin = () => {
+  const basicLogin = (event) => {
+    event.preventDefault();
+    console.log(login);
     dispatch(ModalActions.Clean());
-    if (info.user.length < 1 || info.pass.length < 1) {
+    if (!login.username || !login.password) {
       dispatch(
         ModalActions.Alert({
-          title: 'Login',
-          body: 'Debes de ingresar el usuario y contraseña',
+          title: 'Datos incompletos',
+          body: 'Ingresa el correo o la contraseña',
         })
       );
-    } else {
-      dispatch(
-        LoginActions.Login({ username: info.user, password: info.pass })
-      );
+      return;
     }
+    dispatch(LoginActions.Login(login));
   };
 
   googleLogin();
@@ -152,94 +156,34 @@ const Login = () => {
 
   return (
     <>
-      <script src="https://connect.facebook.net/en_US/sdk.js" />
-      <div className="row page-content">
-        <div className="col-lg-12">
-          <div className="container-login">
-            <div className="content-login">
-              <div className="form-group text-left">
-                <strong
-                  className="font-weight-bold"
-                  htmlFor="exampleInputEmail1"
-                >
-                  Correo electrónico
-                </strong>
-                <input
-                  onChange={setUser.user}
-                  type="email"
-                  className="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Introduce tu correo"
-                />
-                <small id="emailHelp" className="form-text text-left">
-                  Nunca compartiremo tu correo con alguien más.
-                </small>
-              </div>
-              <div className="form-group">
-                <strong htmlFor="exampleInputPassword1">Contraseña</strong>
-                <input
-                  type="password"
-                  onChange={setUser.pass}
-                  className="form-control"
-                  placeholder="Ingresa tu contraseña"
-                />
-              </div>
-              <div className="form-check">
-                <input
-                  type="checkbox"
-                  className="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label className="form-check-label" htmlFor="exampleCheck1">
-                  Recordarme
-                </label>
-                <div>
-                  <a href="register">crear una cuenta cuenta</a>
-                </div>
-              </div>
-              <br />
-              <div className="btn-send">
-                <button
-                  type="button"
-                  onClick={basicLogin}
-                  className="btn btn-primary"
-                >
-                  Entrar
-                </button>
-              </div>
-              <div className="row">
-                <div className="col-lg-5 np">
-                  <hr />
-                </div>
-                <div className="col-lg-2 np option-social">o</div>
-                <div className="col-lg-5 np">
-                  <hr />
-                </div>
-              </div>
-              <div className="social-footer">
-                <div className="row">
-                  <div className="col-lg-6">
-                    <button
-                      onClick={facebookStart}
-                      className="btn-login btn-fb btn form-control"
-                      type="button"
-                    >
-                      Facebook
-                    </button>
-                  </div>
-                  <div className="col-lg-6 np">
-                    <button
-                      id="sign-in-or-out-button"
-                      className="btn btn-g form-control"
-                      type="button"
-                    >
-                      Google
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div className="login-area">
+        <div className="login-main-area">
+          <div className="login-header">
+            <h2>SONAR 32</h2>
+            <p>Bienvenido, ingresa con tu correo y contraseña</p>
+          </div>
+          <div className="login-main">
+            <form onSubmit={basicLogin}>
+              <input
+                type="email"
+                placeholder="Ingresa tu correo electronico"
+                name="username"
+                onChange={handleChange}
+              />
+              <input
+                type="password"
+                placeholder="Ingresa tu contraseña"
+                name="password"
+                onChange={handleChange}
+              />
+              <Button type="submit" variant="primary">
+                Ingresar
+              </Button>
+              <Button variant="info">Registrate</Button>
+            </form>
+          </div>
+          <div className="login-footer">
+            <Link to="/">¿Olvidaste tu contraseña?</Link>
           </div>
         </div>
       </div>
