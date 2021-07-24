@@ -179,11 +179,11 @@ const Login = () => {
               <Button type="submit" variant="primary">
                 Ingresar
               </Button>
-              <Button variant="info">Registrate</Button>
+              <Button variant="outline-primary">Registrate</Button>
             </form>
           </div>
           <div className="login-footer">
-            <Link to="/">¿Olvidaste tu contraseña?</Link>
+            <Link to="/recovery">¿Olvidaste tu contraseña?</Link>
           </div>
         </div>
       </div>
