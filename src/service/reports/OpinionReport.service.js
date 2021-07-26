@@ -1,16 +1,14 @@
 import axios from 'axios';
 
-//const BaseURL = 'http://localhost:5000';
 const BaseURL = 'https://www.sonar32.com.mx';
 
 const retentionReport = async (filters) => {
-  const headers = {
-    'Content-Type': 'application/json',
+  const headers = {'Content-Type': 'application/json',
     Authorization: `jwt ${localStorage.getItem('token')}`,
   };
 
   try {
-    const resp = await axios.get(`${BaseURL}/v1/retentions/reports/`, {
+    const resp = await axios.get(`${BaseURL}/v1/opinion/reports/`, {
       headers,
       params: filters,
     });
@@ -21,8 +19,8 @@ const retentionReport = async (filters) => {
   }
 };
 
-const RetentionsService = {
+const OpinionService = {
   retentionReport,
 };
 
-export default RetentionsService;
+export default OpinionService;
