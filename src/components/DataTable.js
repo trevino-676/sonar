@@ -5,6 +5,8 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 
 import usePaginationOptions from '../hooks/usePaginationOptions';
 
+import '../styles/components/ReportTable.css';
+
 const DataTable = ({
   tableData,
   tableColumns,
@@ -42,6 +44,7 @@ const DataTable = ({
       columns={[...tableColumns, actionButtonsColumn]}
       selectRow={selectedRowProp}
       pagination={paginationFactory(options)}
+      headerClasses="table-header"
       striped
       hover
       condensed

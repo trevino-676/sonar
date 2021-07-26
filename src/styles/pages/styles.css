@@ -1,70 +1,68 @@
-/* state clases */ 
+/* state clases */
 .hidden {
-	display: none; 
+  display: none;
 }
 .btn-active {
-	background-color: #dadada; 
+  background-color: #dadada;
 }
 
-/* -- */ 
+/* -- */
 
 .container-login {
-	padding: 15px; 
-	text-align: left; 
-}  
-.np { padding: 0px; }
+  padding: 15px;
+  text-align: left;
+}
+.np {
+  padding: 0px;
+}
 
-.option-social { text-align: center;  }
-.btn-send { text-align: center; }
+.option-social {
+  text-align: center;
+}
+.btn-send {
+  text-align: center;
+}
 .content-login {
-	padding: 20px; 
-	border: 1px solid #ced4da;
-	border-radius: 7px;  
-	display: inline-block;
-	text-align: left;
+  padding: 20px;
+  border: 1px solid #ced4da;
+  border-radius: 7px;
+  display: inline-block;
+  text-align: left;
 }
 
 .input-login {
-	margin-bottom: 10px; 
-	 
+  margin-bottom: 10px;
 }
 .content-footer-login {
-	text-align: center;
+  text-align: center;
 }
 .btn {
-	border-color: #04040426;
+  border-color: #04040426;
 }
 .btn-login {
-	padding-left: 25px;
-	background-position: left; 
-	background-repeat: no-repeat;
-	background-position-x: 2px;
-	height: 35px; 
-	background-size: contain;
+  padding-left: 25px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-position-x: 2px;
+  height: 35px;
+  background-size: contain;
 }
-.btn-g { 
-	background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 512 512' style='enable-background:new 0 0 512 512;' xml:space='preserve'%3E%3Cpath style='fill:%23FBBB00;' d='M113.47,309.408L95.648,375.94l-65.139,1.378C11.042,341.211,0,299.9,0,256 c0-42.451,10.324-82.483,28.624-117.732h0.014l57.992,10.632l25.404,57.644c-5.317,15.501-8.215,32.141-8.215,49.456 C103.821,274.792,107.225,292.797,113.47,309.408z'/%3E%3Cpath style='fill:%23518EF8;' d='M507.527,208.176C510.467,223.662,512,239.655,512,256c0,18.328-1.927,36.206-5.598,53.451 c-12.462,58.683-45.025,109.925-90.134,146.187l-0.014-0.014l-73.044-3.727l-10.338-64.535 c29.932-17.554,53.324-45.025,65.646-77.911h-136.89V208.176h138.887L507.527,208.176L507.527,208.176z'/%3E%3Cpath style='fill:%2328B446;' d='M416.253,455.624l0.014,0.014C372.396,490.901,316.666,512,256,512 c-97.491,0-182.252-54.491-225.491-134.681l82.961-67.91c21.619,57.698,77.278,98.771,142.53,98.771 c28.047,0,54.323-7.582,76.87-20.818L416.253,455.624z'/%3E%3Cpath style='fill:%23F14336;' d='M419.404,58.936l-82.933,67.896c-23.335-14.586-50.919-23.012-80.471-23.012 c-66.729,0-123.429,42.957-143.965,102.724l-83.397-68.276h-0.014C71.23,56.123,157.06,0,256,0 C318.115,0,375.068,22.126,419.404,58.936z'/%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E%0A");
+.btn-g {
 }
 .btn-fb {
-	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3C!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 291.319 291.319' style='enable-background:new 0 0 291.319 291.319;' xml:space='preserve'%3E%3Cg%3E%3Cpath style='fill:%233B5998;' d='M145.659,0c80.45,0,145.66,65.219,145.66,145.66c0,80.45-65.21,145.659-145.66,145.659 S0,226.109,0,145.66C0,65.219,65.21,0,145.659,0z'/%3E%3Cpath style='fill:%23FFFFFF;' d='M163.394,100.277h18.772v-27.73h-22.067v0.1c-26.738,0.947-32.218,15.977-32.701,31.763h-0.055 v13.847h-18.207v27.156h18.207v72.793h27.439v-72.793h22.477l4.342-27.156h-26.81v-8.366 C154.791,104.556,158.341,100.277,163.394,100.277z'/%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E%0A");
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='iso-8859-1'%3F%3E%3C!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 291.319 291.319' style='enable-background:new 0 0 291.319 291.319;' xml:space='preserve'%3E%3Cg%3E%3Cpath style='fill:%233B5998;' d='M145.659,0c80.45,0,145.66,65.219,145.66,145.66c0,80.45-65.21,145.659-145.66,145.659 S0,226.109,0,145.66C0,65.219,65.21,0,145.659,0z'/%3E%3Cpath style='fill:%23FFFFFF;' d='M163.394,100.277h18.772v-27.73h-22.067v0.1c-26.738,0.947-32.218,15.977-32.701,31.763h-0.055 v13.847h-18.207v27.156h18.207v72.793h27.439v-72.793h22.477l4.342-27.156h-26.81v-8.366 C154.791,104.556,158.341,100.277,163.394,100.277z'/%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3Cg%3E%3C/g%3E%3C/svg%3E%0A");
 }
-/* */ 
+/* */
 
 .slogan-container {
-	padding-top: 20vh; 
+  padding-top: 20vh;
 }
 .slogan-main-text {
-	font-weight: bolder;
-	color: #1877f2; 
+  font-weight: bolder;
+  color: #1877f2;
 }
-
 
 .page-content {
-	padding-top: 5vh; 
-	padding-bottom: 5vh; 
+  padding-top: 5vh;
+  padding-bottom: 5vh;
 }
- 
-
-
-  
- 

@@ -1,6 +1,10 @@
 import CompaniesConstants from '../constants/Companies.constants';
 
-const CompanyReducer = (state = [], action) => {
+const initialState = {
+  companies: [],
+};
+
+const CompanyReducer = (state = initialState, action) => {
   switch (action.type) {
     case CompaniesConstants.ADD_COMPANY_REQUEST:
       return { ...state };
@@ -10,7 +14,9 @@ const CompanyReducer = (state = [], action) => {
         name: action.payload.name,
         address: action.payload.address,
         rfc: action.payload.rfc,
-        users: action.payload.users,
+        key_file: action.payload.key_file,
+        cer_file: action.payload.cer_file,
+        fiel: action.payload.fiel,
       };
     case CompaniesConstants.ADD_COMPANY_REQUEST_FAIL:
       return { ...state, error: action.payload.error };
@@ -29,6 +35,9 @@ const CompanyReducer = (state = [], action) => {
         address: action.payload.address,
         rfc: action.payload.rfc,
         users: action.payload.users,
+        key_file: action.payload.key_file,
+        cer_file: action.payload.cer_file,
+        fiel: action.payload.fiel,
       };
     case CompaniesConstants.UPDATE_COMPANY_REQUEST_FAIL:
       return { ...state, error: action.payload.error };

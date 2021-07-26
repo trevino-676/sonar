@@ -1,8 +1,28 @@
-.footer {
-    display: flex;
-    justify-content: space-between;
+footer {
+  width: 100%;
+  background: #ffffff;
+  margin-top: 1rem;
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
 }
 
+footer ul {
+  padding: 0.75rem;
+  text-align: center;
+}
 
+footer ul li {
+  list-style: none;
+  display: inline-flex;
+  margin: 0rem 0.25rem;
+}
 
- 
+footer ul a {
+  color: #000000;
+  text-decoration: none;
+}
+
+footer ul a:hover {
+  text-decoration: underline;
+}

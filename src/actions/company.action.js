@@ -29,7 +29,7 @@ const createCompany = (company, token) => {
       }
       dispatch(success(company));
       // eslint-disable-next-line no-use-before-define
-      dispatch(getCompanies(token));
+      dispatch(getCompaniesByUser());
       dispatch(
         ModalActions.Success({
           title: 'Compañia',
@@ -113,7 +113,7 @@ const updateCompany = (company, token) => {
         );
       }
       dispatch(success(company));
-      dispatch(getCompanies(token));
+      dispatch(getCompaniesByUser(token));
       dispatch(
         ModalActions.Success({ title: 'Compania', body: resp.data.message })
       );
@@ -124,6 +124,41 @@ const updateCompany = (company, token) => {
         dispatch(LoginActions.Logout());
         window.location.reload();
       }
+    }
+  };
+};
+const getCompaniesByUser = () => {
+  const request = () => ({ type: CompaniesConstants.GET_COMPANIES_REQUEST });
+  const success = (companies) => ({
+    type: CompaniesConstants.GET_COMPANIES_REQUEST_SUCCESS,
+    payload: companies,
+  });
+  const fail = (error) => ({
+    type: CompaniesConstants.GET_COMPANIES_REQUEST_FAIL,
+    payload: { error },
+  });
+  return async (dispatch) => {
+    dispatch(request());
+    dispatch(ModalActions.Clean());
+    try {
+      const companies = await CompanyService.getCompaniesByUser();
+      if (!companies) {
+        dispatch(fail('Error al obtener las empresas'));
+        dispatch(
+          ModalActions.Error({
+            title: 'Error empresas',
+            body: 'Error al obtener las empresas',
+          })
+        );
+        dispatch(LoginActions.Logout());
+        window.location.reload();
+        return;
+      }
+      dispatch(success(companies));
+    } catch (e) {
+      dispatch(fail('Error al obtener las empresas'));
+      dispatch(LoginActions.Logout());
+      window.location.reload();
     }
   };
 };
@@ -152,7 +187,7 @@ const deleteCompany = (id) => {
         return;
       }
       dispatch(success());
-      dispatch(getCompanies(token));
+      dispatch(getCompaniesByUser());
       dispatch(
         ModalActions.Success({ title: 'Company', body: resp.data.message })
       );
@@ -167,11 +202,86 @@ const deleteCompany = (id) => {
   };
 };
 
+const uploadFile = (company, files) => {
+  const request = () => ({ type: CompaniesConstants.UPDATE_COMPANY_REQUEST });
+  const success = (updatedCompany) => ({
+    type: CompaniesConstants.UPDATE_COMPANY_REQUEST_SUCCES,
+    payload: updatedCompany,
+  });
+  const fail = (error) => ({
+    type: CompaniesConstants.UPDATE_COMPANY_REQUEST_FAIL,
+    payload: { error },
+  });
+  return async (dispatch) => {
+    dispatch(request());
+    dispatch(ModalActions.Clean());
+    try {
+      files.forEach(async (file) => {
+        const resp = await CompanyService.uploadFile(company, file);
+        if (!resp) {
+          dispatch(fail('Error al guardar el archivo en la empresa'));
+          dispatch(
+            ModalActions.Error({
+              title: 'Error empresa',
+              body: 'Error al guardar el archivo en la empresa',
+            })
+          );
+        }
+      });
+      dispatch(success(company));
+      dispatch(getCompaniesByUser());
+    } catch (e) {
+      dispatch(LoginActions.Logout());
+      window.location.reload();
+    }
+  };
+};
+
+const setFielPassword = (company, fieldEncodePassword) => {
+  const request = () => ({ type: CompaniesConstants.UPDATE_COMPANY_REQUEST });
+  const success = (updatedCompany) => ({
+    type: CompaniesConstants.UPDATE_COMPANY_REQUEST_SUCCES,
+    payload: updatedCompany,
+  });
+  const fail = (error) => ({
+    type: CompaniesConstants.UPDATE_COMPANY_REQUEST_FAIL,
+    payload: { error },
+  });
+  return async (dispatch) => {
+    dispatch(request());
+    dispatch(ModalActions.Clean());
+    try {
+      const resp = await CompanyService.setFielPassword(
+        company,
+        fieldEncodePassword
+      );
+      if (!resp) {
+        dispatch(fail('Error al guardar el archivo en la empresa'));
+        dispatch(
+          ModalActions.Error({
+            title: 'Error empresa',
+            body: 'Error al guardar el archivo en la empresa',
+          })
+        );
+        return;
+      }
+      dispatch(success(company));
+      dispatch(getCompaniesByUser());
+    } catch (e) {
+      dispatch(LoginActions.Logout());
+      window.location.reload();
+    }
+  };
+};
+
 const CompanyActions = {
   createCompany,
   getCompanies,
   updateCompany,
   deleteCompany,
+  getCompaniesByUser,
+  uploadFile,
+  setFielPassword,
 };
 
 export default CompanyActions;

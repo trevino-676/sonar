@@ -1,7 +1,6 @@
-// TODO: Quitar el codigo hardcodeado de las opciones de empresas y tipos de retenciones
 import { useState } from 'react';
 
-const useFilterForm = (dispatch, action, companiesOptions, typeOptions) => {
+const useFilterForm = (dispatch, action, companies) => {
   const [filters, setFilters] = useState({
     'datos.Rfc': null,
     from_date: null,
@@ -21,21 +20,18 @@ const useFilterForm = (dispatch, action, companiesOptions, typeOptions) => {
     });
   };
 
+  const _companiesOptions = companies.map((company) => ({
+    value: company.rfc,
+    text: company.name,
+    id: company._id.$oid,
+  }));
+
   const formFields = [
     {
       label: 'Empresa',
       type: 'Select',
       name: 'datos.Rfc',
-      options: [
-        {
-          value: 'PGT190401156',
-          text: 'LA PICANHA GRILL TACOS SA DE CV',
-        },
-        {
-          value: 'GPR070228780',
-          text: 'GLOBAL PRESER, S.A. DE C.V.',
-        },
-      ],
+      options: _companiesOptions,
     },
     {
       label: 'Tipo retencion',

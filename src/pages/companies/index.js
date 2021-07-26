@@ -20,7 +20,7 @@ const CompanyPage = () => {
   useEffect(() => {
     document.title = 'Empresas | Sonar32';
     const getData = () => {
-      dispatch(CompanyAction.getCompanies(user.token));
+      dispatch(CompanyAction.getCompaniesByUser());
     };
     getData();
   }, []);

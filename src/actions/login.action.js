@@ -1,6 +1,7 @@
 import UserConstants from '../constants/user.constants';
 import useLogin from '../hooks/useLogin';
 import ModalActions from './modal.action';
+import CompanyActions from './company.action';
 
 const Login = (data) => {
   const request = () => ({ type: UserConstants.LOGIN_USER_REQUEST });
@@ -21,6 +22,7 @@ const Login = (data) => {
       if (resp.data.access_token !== '') {
         localStorage.setItem('token', resp.data.access_token);
         dispatch(success(resp.data.access_token));
+        dispatch(CompanyActions.getCompaniesByUser());
         window.location.replace('/');
       }
     } catch (e) {

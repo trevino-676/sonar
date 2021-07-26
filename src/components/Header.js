@@ -1,68 +1,87 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
+
 import LoginActions from '../actions/login.action';
 
-// Importar estilos del Header
 import '../styles/components/Header.css';
 
 const Header = () => {
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      bg="light"
-      className="header"
-      sticky="top"
-    >
-      <Navbar.Brand>
+    <nav>
+      <div className="logo">
         <Link to="/">Sonar 32</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Nav className="mr-auto">
-        {user.loggedIn ? (
-          <Navbar.Collapse id="responsive-navbar-nav">
-            {/* <NavDropdown title="Catalogos" id="collasible-navbar-nav">
-            </NavDropdown> */}
-            <NavDropdown title="Ventas" id="collasible-navbar-nav">
-              <NavDropdown.Item href="/reports/sells/by_client">
-                Reporte ventas por clientes
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/reports/sells/by_items">
-                Reporte ventas por articulos
-              </NavDropdown.Item>
-              <NavDropdown.Item href="/reports/sells/by_services">
-                Reporte ventas por servicios
-              </NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="Nomina" id="collasible-navbar-nav">
-              <NavDropdown.Item href="/reports/payroll/taxables_perceptions">
-                Reporte de percepciones gravadas
-              </NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="usuario" id="collasible-navbar-nav">
-              <NavDropdown.Item href="/users">Usuarios</NavDropdown.Item>
-              <NavDropdown.Item href="/companies">Empresas</NavDropdown.Item>
-              <NavDropdown.Item href="/settings">
-                Configuracion
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => dispatch(LoginActions.Logout())}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Navbar.Collapse>
-        ) : (
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav.Link href="/registry">Registro</Nav.Link>
-            <Nav.Link href="/login">Iniciar Sesion</Nav.Link>
-          </Navbar.Collapse>
-        )}
-      </Nav>
-    </Navbar>
+      </div>
+      {user.loggedIn && (
+        <>
+          <div className="menu">
+            <ul>
+              <li>Clientes</li>
+              <li>Proveedores</li>
+              <li>Nomina</li>
+              <li>Carga de informacion</li>
+            </ul>
+          </div>
+          <div className="options-menu">
+            <ul>
+              <li>
+                <i className="fas fa-bell" />
+              </li>
+              <li>
+                <Link to="/companies">
+                  <i className="fas fa-cog" />
+                </Link>
+              </li>
+              <li>
+                <div>Soporte</div>
+              </li>
+              <li>
+                <i
+                  className="fas fa-sign-out-alt"
+                  onClick={() => dispatch(LoginActions.Logout())}
+                />
+              </li>
+            </ul>
+          </div>
+        </>
+      )}
+      {!user.loggedIn && (
+        <>
+          <div className="menu">
+            <ul>
+              <li>Módulos</li>
+              <li>Planes</li>
+              <li>Acerca de nosotros</li>
+              <li>Contáctanos</li>
+            </ul>
+          </div>
+          <div className="options-menu">
+            <ul>
+              <li>
+                <Link to="/login">
+                  <Button variant="outline-primary" size="sm">
+                    INGRESA AQUÍ
+                  </Button>
+                </Link>
+              </li>
+              <li>
+                <Link to="/registry">
+                  <Button variant="primary" size="sm">
+                    COMIENZA AHORA
+                  </Button>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </>
+      )}
+    </nav>
   );
 };
 

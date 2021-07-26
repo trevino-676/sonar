@@ -10,6 +10,7 @@ import FilterBar from '../../../../components/FiltersBar';
 import ReportTable from '../../../../components/ReportTable';
 import Routes from './BreadcrumbsRoutes';
 import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
+import CompanyActions from '../../../../actions/company.action';
 
 import '../../../../styles/reports.css';
 
@@ -18,12 +19,15 @@ const TaxablePerceptions = () => {
   const dataReport = useSelector(
     (state) => state.payroll_reports.taxable_perceptions
   );
+  const companies = useSelector((state) => state.companies.companies);
   const [filter, handleChangeFilter, filterFields, getTextFilters] =
-    useFiltersTaxablePerceptions();
-    const currencyFormatter = (cell) => {
-        const price = Intl.NumberFormat('en-US').format(parseFloat(cell).toFixed(2));
-        return (<span>${price}</span>);
-    };
+    useFiltersTaxablePerceptions(companies);
+  const currencyFormatter = (cell) => {
+    const price = Intl.NumberFormat('en-US').format(
+      parseFloat(cell).toFixed(2)
+    );
+    return <span>${price}</span>;
+  };
   const [expandedColumns, expandedData] = useTaxablePerceptionsExpandData(
     dataReport,
     currencyFormatter
@@ -33,6 +37,7 @@ const TaxablePerceptions = () => {
     dispatch(PayrollReportAction.taxablesPerceptions(filters));
   useEffect(() => {
     document.title = 'Reportes | Percepciones gravables';
+    dispatch(CompanyActions.getCompaniesByUser());
   }, []);
   return (
     <Container>

@@ -35,7 +35,7 @@ const FilterBar = ({
           <Form>
             <Row>
               {_.map(dataFields, (field) => (
-                <Col xs md={3} key={field.name}>
+                <Col xs md={4} key={field.name}>
                   <InputGroup className="mb-3">
                     <InputGroup.Prepend>
                       <InputGroup.Text>

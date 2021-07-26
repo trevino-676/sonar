@@ -8,17 +8,22 @@ import FilterBar from '../../../../components/FiltersBar';
 import ReportTable from '../../../../components/ReportTable';
 import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
 import Routes from './BreadcrumbsRoutes';
+import CompanyActions from '../../../../actions/company.action';
 
 import '../../../../styles/reports.css';
 
 const SellsByItems = () => {
   const dispatch = useDispatch();
   const dataReport = useSelector((state) => state.sell_reports.by_items);
-  const [filter, handleChangeFilter, FilterForm, getTextFilter] = useFilterForm();
-    const priceFormatter = (cell) => {
-        const price = Intl.NumberFormat("en-US").format(parseFloat(cell).toFixed(2));
-        return (<span>${price}</span>);
-    }
+  const companies = useSelector((state) => state.companies.companies);
+  const [filter, handleChangeFilter, FilterForm, getTextFilter] =
+    useFilterForm(companies);
+  const priceFormatter = (cell) => {
+    const price = Intl.NumberFormat('en-US').format(
+      parseFloat(cell).toFixed(2)
+    );
+    return <span>${price}</span>;
+  };
   const onSubmit = (filters) => {
     dispatch(SellsReportsActions.byItems(filters));
   };
@@ -26,36 +31,39 @@ const SellsByItems = () => {
     {
       dataField: '_id.articulo',
       text: 'Articulo',
-      sort: true
+      sort: true,
     },
     {
       dataField: '_id.codigo',
       text: 'Codigo',
-      sort: true
+      sort: true,
     },
     {
       dataField: 'cantidad',
       text: 'Cantidad',
       align: 'right',
-      sort: true
+      sort: true,
     },
     {
       dataField: 'precio_unitario',
       text: 'Precio unitario',
       align: 'right',
       formatter: priceFormatter,
-      sort: true
+      sort: true,
     },
     {
       dataField: 'importe',
       text: 'Total',
       align: 'right',
       formatter: priceFormatter,
-      sort: true
+      sort: true,
     },
   ];
   useEffect(() => {
     document.title = 'Reportes | Ventas por articulos';
+    const getCompaniesInfo = () =>
+      dispatch(CompanyActions.getCompaniesByUser());
+    getCompaniesInfo();
   }, []);
 
   return (

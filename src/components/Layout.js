@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Container } from 'react-bootstrap';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -15,7 +14,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <Container>{children}</Container>
+      <div className="content">{children}</div>
       <Footer />
       <CommonModal
         header={modal.title}

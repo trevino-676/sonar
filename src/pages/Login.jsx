@@ -1,16 +1,18 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-undef */
+/* eslint-disable func-names */
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { Form, Button } from 'react-bootstrap';
 import LoginActions from '../actions/login.action';
+import ModalActions from '../actions/modal.action';
 
 const Login = () => {
   const dispatch = useDispatch();
   const facebookLogin = () => {
     console.log('FB iniciado');
 
-    window.fbAsyncInit = function () {
+    window.fbAsyncInit = () => {
       FB.init({
         appId: '850025339250150',
         xfbml: true,
@@ -20,12 +22,11 @@ const Login = () => {
     };
 
     (function (d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
+      const fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
         return;
       }
-      js = d.createElement(s);
+      const js = d.createElement(s);
       js.id = id;
       js.src = 'https://connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
@@ -35,25 +36,23 @@ const Login = () => {
   const facebookStart = () => {
     console.log('diálogo de inicio FB');
     window.FB.login(
-      function (response) {
-        if (response.status === 'connected') {
-          console.log(response);
-        }
+      (response) => {
+        if (response.status === 'connected') console.log('Entro!!');
       },
       { scope: 'public_profile' }
     );
   };
 
   const googleLogin = () => {
-    var s = document.createElement('script');
+    let s = document.createElement('script');
     s.setAttribute('src', 'https://apis.google.com/js/api.js');
     s.onload = googleStart;
     document.body.appendChild(s);
   };
 
   const googleStart = () => {
-    var GoogleAuth;
-    var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+    let GoogleAuth;
+    const SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
     console.log('----------');
     handleClientLoad();
     function handleClientLoad() {
@@ -62,7 +61,7 @@ const Login = () => {
     }
 
     function initClient() {
-      var discoveryUrl =
+      const discoveryUrl =
         'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
       gapi.client
         .init({
@@ -72,12 +71,12 @@ const Login = () => {
           discoveryDocs: [discoveryUrl],
           scope: SCOPE,
         })
-        .then(function () {
+        .then(() => {
           GoogleAuth = gapi.auth2.getAuthInstance();
           GoogleAuth.isSignedIn.listen(updateSigninStatus);
-          var user = GoogleAuth.currentUser.get();
+          // const user = GoogleAuth.currentUser.get();
           setSigninStatus();
-          var el = document.getElementById('sign-in-or-out-button');
+          const el = document.getElementById('sign-in-or-out-button');
           el.addEventListener('click', handleAuthClick, false);
           /*
       $('#revoke-access-button').click(function() {
@@ -98,8 +97,8 @@ const Login = () => {
     }
 
     function setSigninStatus() {
-      var user = GoogleAuth.currentUser.get();
-      var isAuthorized = user.hasGrantedScopes(SCOPE);
+      const user = GoogleAuth.currentUser.get();
+      const isAuthorized = user.hasGrantedScopes(SCOPE);
       if (isAuthorized) {
         console.log('SI');
       } else {
@@ -113,9 +112,7 @@ const Login = () => {
   };
 
   const fun = {
-    ss: function () {
-      return 20;
-    },
+    ss: () => 20,
   };
 
   const info = {
@@ -124,39 +121,29 @@ const Login = () => {
   };
 
   const setUser = {
-    user: function (element) {
-      let u_user = element.target.value;
-      console.log(u_user);
-      info.user = u_user;
+    user: (element) => {
+      const user = element.target.value;
+      info.user = user;
     },
-    pass: function (element) {
-      let pass = element.target.value;
-      console.log(pass);
+    pass: (element) => {
+      const pass = element.target.value;
       info.pass = pass;
     },
   };
 
   const basicLogin = () => {
+    dispatch(ModalActions.Clean());
     if (info.user.length < 1 || info.pass.length < 1) {
-      alert('es necesario el usuario y la contraseña');
+      dispatch(
+        ModalActions.Alert({
+          title: 'Login',
+          body: 'Debes de ingresar el usuario y contraseña',
+        })
+      );
     } else {
       dispatch(
         LoginActions.Login({ username: info.user, password: info.pass })
       );
-      /* 
-      let url = "http://127.0.0.1:5000/unprotected?user="+info.user+"&pass="+info.pass;  
-      const response = fetch( url, {method:'get'}).then((res)=> res.json()).then( function( json ) { 
-            if( json.message == 1 ) {
-              alert("Bienvenido");  
-              console.log( window.localStorage.getItem("LOGED_IN") ); 
-              window.localStorage.setItem("LOGED_IN", "IN"); 
-              console.log( window.localStorage.getItem("LOGED_IN") ); 
-              console.log("REDIRECCIONAR");
-              window.location.href = "politica-de-privacidad"; 
-            } else {
-              alert("Usuario desconocido"); 
-            }
-      }); */
     }
   };
 
@@ -167,11 +154,14 @@ const Login = () => {
     <>
       <script src="https://connect.facebook.net/en_US/sdk.js" />
       <div className="row page-content">
-        <div className="col-lg-6">
+        <div className="col-lg-12">
           <div className="container-login">
             <div className="content-login">
               <div className="form-group text-left">
-                <strong className="font-weight-bold" for="exampleInputEmail1">
+                <strong
+                  className="font-weight-bold"
+                  htmlFor="exampleInputEmail1"
+                >
                   Correo electrónico
                 </strong>
                 <input
@@ -187,8 +177,7 @@ const Login = () => {
                 </small>
               </div>
               <div className="form-group">
-                <p></p>
-                <strong for="exampleInputPassword1">Contraseña</strong>
+                <strong htmlFor="exampleInputPassword1">Contraseña</strong>
                 <input
                   type="password"
                   onChange={setUser.pass}
@@ -202,7 +191,7 @@ const Login = () => {
                   className="form-check-input"
                   id="exampleCheck1"
                 />
-                <label className="form-check-label" for="exampleCheck1">
+                <label className="form-check-label" htmlFor="exampleCheck1">
                   Recordarme
                 </label>
                 <div>
@@ -211,7 +200,11 @@ const Login = () => {
               </div>
               <br />
               <div className="btn-send">
-                <button onClick={basicLogin} className="btn btn-primary">
+                <button
+                  type="button"
+                  onClick={basicLogin}
+                  className="btn btn-primary"
+                >
                   Entrar
                 </button>
               </div>
@@ -230,6 +223,7 @@ const Login = () => {
                     <button
                       onClick={facebookStart}
                       className="btn-login btn-fb btn form-control"
+                      type="button"
                     >
                       Facebook
                     </button>
@@ -238,6 +232,7 @@ const Login = () => {
                     <button
                       id="sign-in-or-out-button"
                       className="btn btn-g form-control"
+                      type="button"
                     >
                       Google
                     </button>
@@ -245,15 +240,6 @@ const Login = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="col-lg-6">
-          <div className="slogan-container">
-            <h1 className="slogan-main-text">Sonar32</h1>
-            <h4>
-              Sonar32 te ayuda a comunicarte y compartir con las personas que
-              forman parte de tu vida.
-            </h4>
           </div>
         </div>
       </div>
