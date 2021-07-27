@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Settings from '../pages/Settings';
-import CompanyPage from '../pages/companies';
+import ConfigurationLayout from '../components/ConfigurationLayout';
 import UsersPage from '../pages/users';
 import SellsByClient from '../pages/reports/sells/byClients';
 import SellsByItems from '../pages/reports/sells/byItems/ReportByItems';
@@ -10,13 +9,9 @@ import SellsByServices from '../pages/reports/sells/byServices';
 import RetentionReport from '../pages/reports/retentions/retentionReport';
 
 export default {
-  Settings: {
-    component: <Settings />,
-    path: '/settings',
-  },
   Company: {
-    component: <CompanyPage />,
-    path: '/companies',
+    component: <ConfigurationLayout />,
+    path: '/settings',
   },
   Users: {
     component: <UsersPage />,

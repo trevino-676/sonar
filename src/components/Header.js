@@ -16,7 +16,14 @@ const Header = () => {
   return (
     <nav>
       <div className="logo">
-        <Link to="/">Sonar 32</Link>
+        <Link to="/">
+          <img
+            src="https://sonar32.s3.us-east-2.amazonaws.com/main_logo.png"
+            alt="logo"
+            width="100"
+            height="30"
+          />
+        </Link>
       </div>
       {user.loggedIn && (
         <>
@@ -34,7 +41,7 @@ const Header = () => {
                 <i className="fas fa-bell" />
               </li>
               <li>
-                <Link to="/companies">
+                <Link to="/settings">
                   <i className="fas fa-cog" />
                 </Link>
               </li>

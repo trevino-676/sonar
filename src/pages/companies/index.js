@@ -8,7 +8,6 @@ import DataTable from '../../components/DataTable';
 import CompanyForm from './CompanyForm';
 import ButtonBar from '../../components/ButtonBar';
 import DeleteForm from '../../components/DeleteForm';
-import BreadcrumbComponent from '../../components/BreadcrumbComponent';
 import useFormatters from '../../hooks/useFormatters';
 
 import '../../styles/pages/company.css';
@@ -97,28 +96,8 @@ const CompanyPage = () => {
     },
   ];
 
-  const routes = [
-    {
-      name: 'Home',
-      path: '/',
-      active: false,
-    },
-    {
-      name: 'Configuración',
-      path: '/settings',
-      active: false,
-    },
-    {
-      name: 'Empresas',
-      path: '/companies',
-      active: true,
-    },
-  ];
-
   return (
     <Container>
-      <BreadcrumbComponent routes={routes} />
-      <h1 className="text-center">Configuración de empresas</h1>
       <div className="button-bar">
         <ButtonBar handleOpenForm={openForm} addLabel="Agregar empresa" />
       </div>
