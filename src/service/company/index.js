@@ -66,6 +66,9 @@ const getCompaniesByUser = async () => {
     }
     return resp.data.data;
   } catch (e) {
+    if (e.message.indexOf('401') > 0) {
+      throw e;
+    }
     return null;
   }
 };

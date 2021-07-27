@@ -9,6 +9,7 @@ import CompanyForm from './CompanyForm';
 import ButtonBar from '../../components/ButtonBar';
 import DeleteForm from '../../components/DeleteForm';
 import BreadcrumbComponent from '../../components/BreadcrumbComponent';
+import useFormatters from '../../hooks/useFormatters';
 
 import '../../styles/pages/company.css';
 
@@ -16,6 +17,9 @@ const CompanyPage = () => {
   const dispatch = useDispatch();
   const companies = useSelector((state) => state.companies);
   const user = useSelector((state) => state.user);
+  const { passwordFormatter, fieldFormatter } = useFormatters();
+  const handleFormatter = (cell) => passwordFormatter(cell);
+  const handleFieldFormatter = (cell) => fieldFormatter(cell);
 
   useEffect(() => {
     document.title = 'Empresas | Sonar32';
@@ -35,7 +39,7 @@ const CompanyPage = () => {
         token={user.token}
       />
     );
-    dispatch(ModalActions.Form({ title: 'Nueva empresa', form, size: 'md' }));
+    dispatch(ModalActions.Form({ title: 'Nueva empresa', form, size: 'lg' }));
   };
   const openModifyForm = (data) => {
     const form = (
@@ -47,7 +51,7 @@ const CompanyPage = () => {
       />
     );
     dispatch(
-      ModalActions.Form({ title: 'Modificar empresa', form, size: 'md' })
+      ModalActions.Form({ title: 'Modificar empresa', form, size: 'lg' })
     );
   };
   const deleteModal = (id) => {
@@ -65,20 +69,31 @@ const CompanyPage = () => {
   };
   const dataField = [
     {
-      dataField: '_id.$oid',
-      text: 'ID',
-    },
-    {
       dataField: 'name',
-      text: 'Nombre',
+      text: 'Razón social',
+      align: 'center',
     },
     {
       dataField: 'rfc',
       text: 'RFC',
     },
     {
-      dataField: 'address',
-      text: 'Domicilio',
+      dataField: 'fiel',
+      text: 'Contraseña',
+      formatter: handleFormatter,
+      align: 'center',
+    },
+    {
+      dataField: 'key_file',
+      text: 'Clave privada',
+      align: 'center',
+      formatter: handleFieldFormatter,
+    },
+    {
+      dataField: 'cer_file',
+      text: 'Certificado',
+      align: 'center',
+      formatter: handleFieldFormatter,
     },
   ];
 
@@ -102,8 +117,8 @@ const CompanyPage = () => {
 
   return (
     <Container>
-      <h1 className="text-center">Configuración de empresas</h1>
       <BreadcrumbComponent routes={routes} />
+      <h1 className="text-center">Configuración de empresas</h1>
       <div className="button-bar">
         <ButtonBar handleOpenForm={openForm} addLabel="Agregar empresa" />
       </div>

@@ -26,10 +26,14 @@ const DataTable = ({
     text: 'Acciones',
     formatter: (cell, row) => (
       <div>
-        <Button onClick={() => onModify(row)}>
+        <Button onClick={() => onModify(row)} title="Modificar">
           <i className="far fa-edit" />
         </Button>
-        <Button onClick={() => onDelete(row._id.$oid)} variant="danger">
+        <Button
+          onClick={() => onDelete(row._id.$oid)}
+          variant="danger"
+          title="Eliminar"
+        >
           <i className="far fa-trash-alt" />
         </Button>
       </div>

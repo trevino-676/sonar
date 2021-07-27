@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import CompanyAction from '../../actions/company.action';
 
+import '../../styles/components/modal.css';
+
 const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
   const [company, setCompany] = useState({
     _id: data ? data._id.$oid : undefined,
@@ -82,7 +84,7 @@ const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
         <Col sm={9}>
           <Form.Control
             type="text"
-            placeholder="nombre"
+            placeholder="Ingresa el nombre de la empresa"
             onChange={handleInputChange}
             name="name"
             value={company.name}
@@ -96,7 +98,7 @@ const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
         <Col sm={9}>
           <Form.Control
             type="text"
-            placeholder="rfc"
+            placeholder="Ingresa el rfc de la empresa"
             onChange={handleInputChange}
             name="rfc"
             value={company.rfc}
@@ -110,7 +112,7 @@ const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
         <Col sm={9}>
           <Form.Control
             type="text"
-            placeholder="direccion"
+            placeholder="Ingresa la direccion de la empresa"
             onChange={handleInputChange}
             name="address"
             value={company.address}
@@ -134,11 +136,13 @@ const CompanyForm = ({ modalClose, labelButton, token, data = null }) => {
         </Col>
       </Form.Group>
       <Form.Group as={Row}>
-        <Form.Label>Contraseña FIEL</Form.Label>
+        <Form.Label column sm={3}>
+          Contraseña FIEL
+        </Form.Label>
         <Col sm={9}>
           <Form.Control
             type="password"
-            placeholder="FIEL"
+            placeholder="Ingresa la fiel"
             onChange={handleInputChange}
             name="fiel"
           />

@@ -23,7 +23,7 @@ const RetentionReport = () => {
   }, [dispatch]);
   const dataReport = useSelector((state) => state.retentions.retention_report);
   useReportTitle('Reportes | Retenciones');
-  const [currencyFormatter] = useFormatters();
+  const { currencyFormatter } = useFormatters();
   const [columns] = useDataColumns(currencyFormatter);
   const [handleChangeFilter, formFields, submitFilters, getTextFilters] =
     useFilterForm(dispatch, RetentionsActions.retentionReport, companies, []);

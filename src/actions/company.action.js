@@ -154,9 +154,10 @@ const getCompaniesByUser = () => {
       }
       dispatch(success(companies));
     } catch (e) {
-      // dispatch(fail('Error al obtener las empresas'));
-      // dispatch(LoginActions.Logout());
-      // window.location.reload();
+      if (e.message.indexOf('401') > 0) {
+        dispatch(LoginActions.Logout());
+        window.location.reload();
+      }
     }
   };
 };
