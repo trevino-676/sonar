@@ -1,6 +1,10 @@
 const useTaxablePerceptionsExpandData = (data, formatter) => {
   const expandedColumns = [
     {
+      dataField: 'fecha',
+      text: 'Fecha de pago',
+    },
+    {
       dataField: 'tipo',
       text: 'Tipo',
     },
@@ -36,10 +40,15 @@ const useTaxablePerceptionsExpandData = (data, formatter) => {
           concepto: row.conceptos[index],
           gravado: row.importes_gravados[index],
           excento: row.importes_exento[index],
+          fecha: row.fecha_pago[index],
         }));
         return innerData;
       })
     : null;
+
+  if (expandedData) {
+    expandedData.sort((a, b) => new Date(a.fecha) > new Date(b.fecha));
+  }
 
   return [expandedColumns, expandedData];
 };
