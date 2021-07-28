@@ -7,6 +7,7 @@ import Pagos from '../pages/reports/nomina/pagosNomina';
 import NominaOtrosPagos from '../pages/reports/nomina/otrosPagosNomina';
 import Proveedores from '../pages/reports/nomina/proveedores';
 import complementosDePago from '../pages/reports/nomina/complementosDePago';
+import OpinionReport from '../pages/reports/opinion/opinionReport';
  
 
 export default {
@@ -49,6 +50,10 @@ export default {
   complementosDePago: {     
     component: complementosDePago,
     path: '/complementosDePago',
+  },
+  OpinionReport: {
+    path: '/reports/opinion',
+    component: OpinionReport,
   },
 };
  

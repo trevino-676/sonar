@@ -20,7 +20,7 @@ const OpinionReport = () => {
     useReportTitle('Reportes | Opinion');
     const [currencyFormatter] = useFormatters();
     const [handleChangeFilter, formFields, submitFilters, getTextFilters] =
-      useFilterForm(dispatch, OpinionActions.opinionReport, [], []);
+      useFilterForm(dispatch, OpinionActions.opinionReport, []);
     const [columns] = useDataColumns(currencyFormatter);
   
     return (
