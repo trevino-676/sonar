@@ -7,6 +7,7 @@ import SellsByItems from '../pages/reports/sells/byItems/ReportByItems';
 import TaxablePerceptions from '../pages/reports/payroll/taxablePerceptions';
 import SellsByServices from '../pages/reports/sells/byServices';
 import RetentionReport from '../pages/reports/retentions/retentionReport';
+import OpinionReport from '../pages/reports/opinion/opinionReport';
 
 export default {
   Company: {
@@ -37,4 +38,8 @@ export default {
     path: '/reports/retentions/',
     component: <RetentionReport />,
   },
+  OpinionReport: {
+    path: '/reports/opinion',
+    component: <OpinionReport  />,
+  }
 };

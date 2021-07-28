@@ -68,7 +68,7 @@ class Registro extends React.Component {
         alert("Las contraseñas no coinciden"); 
       } else {
         document.getElementsByClassName("container-login")[0].innerHTML = "<h1>Registrado</h1>"; 
-        let url = "http://127.0.0.1:5000/registerPerson?nombre="+this.info.name+"&correo="+this.info.mail+"&password="+this.info.pass;  
+        let url = "http://10.200.10.50:5000/registerPerson?nombre="+this.info.name+"&correo="+this.info.mail+"&password="+this.info.pass;  
         const response = window.fetch( url, {method:'GET' }).then((res)=> res.json()).then( function( json ) { 
                console.log( json ); 
           }); 
