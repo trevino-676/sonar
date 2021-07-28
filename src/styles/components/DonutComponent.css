@@ -1,0 +1,43 @@
+.donut-component {
+  display: grid;
+  grid-template-rows: 3.5rem 11.88rem 1.94rem;
+  grid-template-columns: 8rem 19rem;
+  grid-template-areas:
+    'title graph'
+    'top graph'
+    'detail detail';
+}
+
+.donut-component .donut-title {
+  grid-area: title;
+  text-align: right;
+}
+
+.donut-component .donut-title h4 {
+  color: #1b2cc1;
+  font-weight: bold;
+}
+
+.donut-component .donut-top {
+  grid-area: top;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1rem;
+}
+
+.donut-component .donut-graph {
+  grid-area: graph;
+}
+
+.donut-component .donut-detail {
+  grid-area: detail;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut-component .donut-detail > a {
+  text-decoration: underline;
+  color: #091543;
+}
