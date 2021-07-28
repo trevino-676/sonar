@@ -45,8 +45,9 @@ const useFilterForm = (companies) => {
   const getTextFilter = () => {
     let textFilter = '';
     if (filter['datos.Rfc']) textFilter += `Empresa: ${filter['datos.Rfc']}, `;
-    if (filter.from_date) textFilter += `Desde: ${filter.from_date}, `;
-    if (filter.to_date) textFilter += `Hasta: ${filter.to_date}`;
+    if (filter.from_date)
+      textFilter += `Desde: ${filter.from_date.split('T')[0]}, `;
+    if (filter.to_date) textFilter += `Hasta: ${filter.to_date.split('T')[0]}`;
 
     return textFilter;
   };

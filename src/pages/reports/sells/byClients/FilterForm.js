@@ -69,10 +69,10 @@ const useSellsFilterForm = (companies) => {
       textFilters += `Empresa: ${filter['datos.Rfc']}, `;
     }
     if (filter.from_date) {
-      textFilters += `Desde: ${filter.from_date}, `;
+      textFilters += `Desde: ${filter.from_date.split('T')[0]}, `;
     }
     if (filter.to_date) {
-      textFilters += `Hasta: ${filter.to_date}, `;
+      textFilters += `Hasta: ${filter.to_date.split('T')[0]}, `;
     }
     if (filter.rfc) {
       textFilters += `Cliente: ${filter.rfc}, `;

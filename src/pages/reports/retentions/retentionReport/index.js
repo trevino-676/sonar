@@ -27,6 +27,28 @@ const RetentionReport = () => {
   const [columns] = useDataColumns(currencyFormatter);
   const [handleChangeFilter, formFields, submitFilters, getTextFilters] =
     useFilterForm(dispatch, RetentionsActions.retentionReport, companies, []);
+  let dataReportWithClave;
+
+  if (dataReport) {
+    dataReportWithClave = dataReport.map((data) => {
+      let clave;
+      switch (data._id.clave) {
+        case '001':
+          clave = 'ISR';
+          break;
+        case '002':
+          clave = 'IVA';
+          break;
+        case '003':
+          clave = 'IEPS';
+          break;
+        default:
+          clave = '';
+          break;
+      }
+      return { ...data, clave };
+    });
+  }
 
   return (
     <Container>
@@ -41,7 +63,7 @@ const RetentionReport = () => {
       <br />
       {dataReport && (
         <ReportTable
-          tableData={dataReport}
+          tableData={dataReportWithClave}
           tableColumns={columns}
           dataKey="uuid"
         />

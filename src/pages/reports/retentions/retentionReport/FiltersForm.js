@@ -71,8 +71,9 @@ const useFilterForm = (dispatch, action, companies) => {
   const getTextFilters = () => {
     let text = '';
     if (filters['datos.Rfc']) text += `Empresa: ${filters['datos.Rfc']}, `;
-    if (filters.from_date) text += `Desde: ${filters.from_date}, `;
-    if (filters.to_date) text += `Hasta: ${filters.to_date}, `;
+    if (filters.from_date)
+      text += `Desde: ${filters.from_date.split('T')[0]}, `;
+    if (filters.to_date) text += `Hasta: ${filters.to_date.split('T')[0]}, `;
     if (filters.type) text += `Tipo retencion: ${filters.type}`;
 
     return text;

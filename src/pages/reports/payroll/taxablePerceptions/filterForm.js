@@ -59,8 +59,8 @@ const useFiltersTaxablePerceptions = (companies) => {
   const getTextFilters = () => {
     let text = '';
     if (filter['datos.Rfc']) text += `Empresa: ${filter['datos.Rfc']}, `;
-    if (filter.from_date) text += `Desde: ${filter.from_date}, `;
-    if (filter.to_date) text += `Hasta: ${filter.to_date}, `;
+    if (filter.from_date) text += `Desde: ${filter.from_date.split('T')[0]}, `;
+    if (filter.to_date) text += `Hasta: ${filter.to_date.split('T')[0]}, `;
     if (filter.rfc) text += `Empleado (RFC): ${filter.rfc}, `;
     if (filter.name) text += `Empleado: ${filter.name}`;
     return text;
