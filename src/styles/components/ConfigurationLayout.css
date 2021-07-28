@@ -31,3 +31,7 @@
 .config-group .config-main {
   flex-grow: 2;
 }
+
+.active {
+  background: rgba(33, 129, 235, 0.11);
+}
