@@ -10,6 +10,7 @@ import useFilterForm from './FilterForm';
 import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
 import Routes from './BreadcrumbsRoutes';
 import CompanyActions from '../../../../actions/company.action';
+import useFormatters from '../../../../hooks/useFormatters';
 
 import '../../../../styles/reports.css';
 
@@ -17,13 +18,9 @@ const SellsByServices = () => {
   const dispatch = useDispatch();
   const dataReport = useSelector((state) => state.sell_reports.by_services);
   const companies = useSelector((state) => state.companies.companies);
-  const currencyFormatter = (cell) => {
-    const price = Intl.NumberFormat('en-US').format(
-      parseFloat(cell).toFixed(2)
-    );
-    return <span>${price}</span>;
-  };
-  const [columns] = useDataColumns(currencyFormatter);
+  const { currencyFormatter } = useFormatters();
+  const formatter = (cell) => currencyFormatter('en-US', cell);
+  const [columns] = useDataColumns(formatter);
   const [filters, handleChangeFilter, formFields, getTextFilters] =
     useFilterForm(companies);
   const onSubmit = (filter) => dispatch(SellsReportsActions.byServices(filter));

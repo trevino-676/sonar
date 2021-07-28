@@ -9,6 +9,7 @@ import ReportTable from '../../../../components/ReportTable';
 import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
 import Routes from './BreadcrumbsRoutes';
 import CompanyActions from '../../../../actions/company.action';
+import useFormatters from '../../../../hooks/useFormatters';
 
 import '../../../../styles/reports.css';
 
@@ -17,6 +18,7 @@ const SellsByClient = () => {
   let expandedData = [];
   const dataReport = useSelector((state) => state.sell_reports.by_clients);
   const companies = useSelector((state) => state.companies.companies);
+  const { currencyFormatter } = useFormatters();
   const [filter, FilterForm, handleChangeFilter, getTextFilters] =
     useSellsFilterForm(companies);
   useEffect(() => {
@@ -28,12 +30,7 @@ const SellsByClient = () => {
   const onSubmit = (filters) => {
     dispatch(SellsReportsActions.byClients(filters));
   };
-  const priceFormatter = (cell) => {
-    const price = Intl.NumberFormat('en-US').format(
-      parseFloat(cell).toFixed(2)
-    );
-    return <span>${price}</span>;
-  };
+  const priceFormatter = (cell) => currencyFormatter('en-US', cell);
   const dateFormatter = (cell) => {
     const date = new Date(cell);
     return <span>{date.toLocaleString()}</span>;

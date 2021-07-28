@@ -3,6 +3,12 @@ import React from 'react';
 const useFormatters = () => {
   const currencyFormatter = (format, data) => {
     const price = Intl.NumberFormat(format).format(parseFloat(data).toFixed(2));
+    const separatedPrice = price.split('.');
+
+    if (separatedPrice.length > 1) {
+      if (separatedPrice[1].length < 2) price.concat('0');
+    }
+
     return <span>${price}</span>;
   };
   const DateFormatter = (data) => {

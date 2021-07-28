@@ -11,6 +11,7 @@ import ReportTable from '../../../../components/ReportTable';
 import Routes from './BreadcrumbsRoutes';
 import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
 import CompanyActions from '../../../../actions/company.action';
+import useFormatters from '../../../../hooks/useFormatters';
 
 import '../../../../styles/reports.css';
 
@@ -20,19 +21,15 @@ const TaxablePerceptions = () => {
     (state) => state.payroll_reports.taxable_perceptions
   );
   const companies = useSelector((state) => state.companies.companies);
+  const { currencyFormatter } = useFormatters();
   const [filter, handleChangeFilter, filterFields, getTextFilters] =
     useFiltersTaxablePerceptions(companies);
-  const currencyFormatter = (cell) => {
-    const price = Intl.NumberFormat('en-US').format(
-      parseFloat(cell).toFixed(2)
-    );
-    return <span>${price}</span>;
-  };
+  const formatter = (cell) => currencyFormatter('en-US', cell);
   const [expandedColumns, expandedData] = useTaxablePerceptionsExpandData(
     dataReport,
-    currencyFormatter
+    formatter
   );
-  const [dataColumns] = useDataColumns(currencyFormatter);
+  const [dataColumns] = useDataColumns(formatter);
   const onSubmit = (filters) =>
     dispatch(PayrollReportAction.taxablesPerceptions(filters));
   useEffect(() => {
