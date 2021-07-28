@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
 import '../styles/pages/password_recovery.css';
 
 const PasswordRecovery = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const handleChange = (event) => setEmail(event.target.value);
   const handleSubmit = (event) => {
