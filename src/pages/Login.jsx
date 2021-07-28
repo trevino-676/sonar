@@ -18,8 +18,6 @@ const Login = () => {
   });
   const dispatch = useDispatch();
   const facebookLogin = () => {
-    console.log('FB iniciado');
-
     window.fbAsyncInit = () => {
       FB.init({
         appId: '850025339250150',
@@ -42,7 +40,6 @@ const Login = () => {
   };
 
   const facebookStart = () => {
-    console.log('diálogo de inicio FB');
     window.FB.login(
       (response) => {
         if (response.status === 'connected') console.log('Entro!!');
@@ -123,11 +120,6 @@ const Login = () => {
     ss: () => 20,
   };
 
-  const info = {
-    user: '',
-    pass: '',
-  };
-
   const handleChange = (event) => {
     setLogin({
       ...login,
@@ -137,7 +129,6 @@ const Login = () => {
 
   const basicLogin = (event) => {
     event.preventDefault();
-    console.log(login);
     dispatch(ModalActions.Clean());
     if (!login.username || !login.password) {
       dispatch(
@@ -180,6 +171,29 @@ const Login = () => {
                 Ingresar
               </Button>
               <Button variant="outline-primary">Registrate</Button>
+              <div className="login-snbuttons">
+                <Button
+                  variant="outline-secondary"
+                  type="button"
+                  title="Inicia sesion con facebook"
+                  onClick={facebookStart}
+                >
+                  <span>
+                    <i className="fab fa-facebook" />
+                  </span>
+                  Facebook
+                </Button>
+                <Button
+                  variant="outline-secondary"
+                  type="button"
+                  title="Inicia sesion con google"
+                >
+                  <span>
+                    <i className="fab fa-google" />
+                  </span>
+                  Google
+                </Button>
+              </div>
             </form>
           </div>
           <div className="login-footer">

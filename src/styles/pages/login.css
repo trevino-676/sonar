@@ -8,7 +8,7 @@
 .login-main-area {
   background-color: #ffffff;
   width: 350px;
-  height: 400px;
+  height: 600px;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
 
 .login-header {
   text-align: center;
-  height: 75px;
+  height: 10px;
 }
 .login-header h2 {
   font-weight: bold;
@@ -47,10 +47,24 @@
   margin-bottom: 1rem;
   font-size: 12px;
   height: 35px;
+  padding-left: 1rem;
 }
 
 .login-main > form > button {
   margin-bottom: 0.5rem;
+}
+
+.login-main .login-snbuttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-main .login-snbuttons button {
+  width: 48%;
+}
+
+.login-main .login-snbuttons button > span {
+  margin-right: 10px;
 }
 
 .login-footer {
