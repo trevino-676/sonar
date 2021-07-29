@@ -29,9 +29,15 @@ const Header = () => {
         <>
           <div className="menu">
             <ul>
-              <li>Clientes</li>
-              <li>Proveedores</li>
-              <li>Nomina</li>
+              <li>
+                <Link to="/clients">Clientes</Link>
+              </li>
+              <li>
+                <Link to="/providers">Proveedores</Link>
+              </li>
+              <li>
+                <Link to="/payroll">Nomina</Link>
+              </li>
               <li>Carga de informacion</li>
             </ul>
           </div>

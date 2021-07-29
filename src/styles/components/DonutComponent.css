@@ -1,7 +1,7 @@
 .donut-component {
   display: grid;
   grid-template-rows: 3.5rem 11.88rem 1.94rem;
-  grid-template-columns: 8rem 19rem;
+  grid-template-columns: 10rem 21rem;
   grid-template-areas:
     'title graph'
     'top graph'

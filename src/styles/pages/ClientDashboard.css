@@ -1,0 +1,13 @@
+.dashboard-content {
+  display: flex;
+  padding: 1rem;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.title {
+  color: #1b2cc1;
+  padding: 1rem;
+  margin-top: -1rem;
+  font-weight: bold;
+}

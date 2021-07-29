@@ -8,6 +8,7 @@ import TaxablePerceptions from '../pages/reports/payroll/taxablePerceptions';
 import SellsByServices from '../pages/reports/sells/byServices';
 import RetentionReport from '../pages/reports/retentions/retentionReport';
 import OpinionReport from '../pages/reports/opinion/opinionReport';
+import ClientDashboard from '../pages/dashboards/clients';
 
 export default {
   Company: {
@@ -40,6 +41,10 @@ export default {
   },
   OpinionReport: {
     path: '/reports/opinion',
-    component: <OpinionReport  />,
-  }
+    component: <OpinionReport />,
+  },
+  ClientDashboard: {
+    path: '/clients',
+    component: <ClientDashboard />,
+  },
 };

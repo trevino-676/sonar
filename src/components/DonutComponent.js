@@ -16,7 +16,7 @@ const DonutComponent = ({ top, data, title, route }) => (
     </div>
     <div className="donut-graph" id="donut-chart">
       <Chart
-        width="19rem"
+        width="21rem"
         height="15.18rem"
         chartType="PieChart"
         loader={<div>Cargando</div>}
