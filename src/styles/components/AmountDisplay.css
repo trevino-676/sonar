@@ -1,0 +1,25 @@
+.amount-display {
+  display: flex;
+  flex-direction: column;
+  width: 31rem;
+  height: 17.32rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.amount-display .amount-title h4 {
+  color: #1b2cc1;
+  font-weight: bold;
+}
+
+.amount-display .amount-title {
+  padding: 0.5rem;
+}
+
+.amount-display .amount-amount {
+  padding: 0.5rem;
+}
+
+.amount-display .amount-details a {
+  color: #091543;
+}

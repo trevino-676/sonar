@@ -3,6 +3,7 @@ import React from 'react';
 import DonutComponent from '../../../components/DonutComponent';
 import BreadcrumbComponent from '../../../components/BreadcrumbComponent';
 import routes from './BreadcrumbRoutes';
+import AmountDisplay from '../../../components/AmountDisplayComponent';
 
 import '../../../styles/pages/ClientDashboard.css';
 
@@ -36,6 +37,12 @@ const ClientDashboard = () => {
       <BreadcrumbComponent routes={routes} />
       <h1 className="title">Clientes</h1>
       <div className="dashboard-content">
+        <AmountDisplay
+          title="Ventas del mes"
+          amount={999999.99}
+          currency="es-MX"
+          route="/"
+        />
         {titles.map((title) => (
           <DonutComponent
             top={top}

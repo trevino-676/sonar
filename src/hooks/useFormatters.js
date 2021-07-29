@@ -45,11 +45,25 @@ const useFormatters = () => {
     );
   };
 
+  const currencyFormat = (format, amount) => {
+    const price = Intl.NumberFormat(format).format(
+      parseFloat(amount).toFixed(2)
+    );
+    const separatedPrice = price.split('.');
+
+    if (separatedPrice.length > 1) {
+      if (separatedPrice[1].length < 2) price.concat('0');
+    }
+
+    return price;
+  };
+
   return {
     currencyFormatter,
     DateFormatter,
     passwordFormatter,
     fieldFormatter,
+    currencyFormat,
   };
 };
 
