@@ -29,7 +29,7 @@ const useFormatters = () => {
 
   const fieldFormatter = (data) => {
     if (data) {
-      const url = `drumbot-robinhood.s3.amazonaws.com/${data}`;
+      const url = `https://drumbot-robinhood.s3.us-east-2.amazonaws.com/${data}`;
       return (
         <span>
           <a href={url}>
