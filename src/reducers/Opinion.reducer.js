@@ -1,7 +1,7 @@
 import OpinionConstants from '../constants/Opinion.constants';
 
 const initState = {
-  taxable_perceptions: null,
+  opinion_report: null,
 };
 
 const OpinionReportReducer = (state = initState, action) => {

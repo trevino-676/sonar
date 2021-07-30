@@ -7,21 +7,22 @@ import ReportTable from '../../../../components/ReportTable';
 import BreadcrumbComponent from '../../../../components/BreadcrumbComponent';
 import OpinionActions from '../../../../actions/OpinionReport.action';
 import useReportTitle from '../../../../hooks/useReportTitle';
-import useFormatters from '../../../../hooks/useFormatters';
 import useFilterForm from './FiltersForms';
 import Routes from './BreadcrumbsRoutes';
 import useDataColumns from './ReportData';
+import useFetchCompanies from '../../../../hooks/useFetchCompanies';
 
 import '../../../../styles/reports.css';
 
 const OpinionReport = () => {
   const dispatch = useDispatch();
   const dataReport = useSelector((state) => state.opinion.opinion_report);
+  const companies = useSelector((state) => state.companies.companies);
   useReportTitle('Sonar | Opinion de cumplimiento');
-  const [currencyFormatter] = useFormatters();
+  useFetchCompanies(dispatch);
   const [handleChangeFilter, formFields, submitFilters, getTextFilters] =
-    useFilterForm(dispatch, OpinionActions.opinionReport, []);
-  const [columns] = useDataColumns(currencyFormatter);
+    useFilterForm(dispatch, OpinionActions.opinionReport, companies);
+  const [columns] = useDataColumns();
 
   return (
     <Container>
