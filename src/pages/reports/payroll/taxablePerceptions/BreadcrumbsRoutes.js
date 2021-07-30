@@ -1,15 +1,11 @@
 const Routes = [
   {
-    name: 'Home',
+    name: 'Inicio',
     path: '/',
   },
   {
-    name: 'Nomina',
-    path: '#',
-  },
-  {
-    name: 'Reportes',
-    path: '#',
+    name: 'Nómina',
+    path: '/payroll',
   },
   {
     name: 'Precepciones gravables',

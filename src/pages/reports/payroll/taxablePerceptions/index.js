@@ -33,13 +33,13 @@ const TaxablePerceptions = () => {
   const onSubmit = (filters) =>
     dispatch(PayrollReportAction.taxablesPerceptions(filters));
   useEffect(() => {
-    document.title = 'Reportes | Percepciones gravables';
+    document.title = 'Sonar | Percepciones gravables';
     dispatch(CompanyActions.getCompaniesByUser());
   }, []);
   return (
     <Container>
-      <h1 className="text-center">Reporte de percepciones gravables</h1>
       <BreadcrumbComponent routes={Routes} />
+      <h1 className="title">Reporte de percepciones gravables</h1>
       <FilterBar
         dataFields={filterFields}
         onHandleChange={handleChangeFilter}

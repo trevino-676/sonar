@@ -1,15 +1,11 @@
 const Routes = [
   {
-    name: 'Home',
+    name: 'Inicio',
     path: '/',
   },
   {
-    name: 'Ventas',
-    path: '#',
-  },
-  {
-    name: 'Reportes',
-    path: '#',
+    name: 'Clientes',
+    path: '/clients',
   },
   {
     name: 'Ventas por servicios',

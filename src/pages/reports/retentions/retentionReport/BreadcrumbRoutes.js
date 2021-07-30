@@ -1,18 +1,14 @@
 const Routes = [
   {
-    name: 'Home',
+    name: 'Inicio',
     path: '/',
   },
   {
-    name: 'Retenciones',
-    path: '#',
+    name: 'Nómina',
+    path: '/payroll',
   },
   {
-    name: 'Reportes',
-    path: '#',
-  },
-  {
-    name: 'Retenciones',
+    name: 'Retenciones de nómina',
     path: '/reports/retentions/',
   },
 ];

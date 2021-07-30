@@ -22,7 +22,7 @@ const SellsByClient = () => {
   const [filter, FilterForm, handleChangeFilter, getTextFilters] =
     useSellsFilterForm(companies);
   useEffect(() => {
-    document.title = 'Reportes | Ventas por clientes';
+    document.title = 'Sonar | Ventas por clientes';
     const getCompaniesData = () =>
       dispatch(CompanyActions.getCompaniesByUser());
     getCompaniesData();
@@ -125,8 +125,8 @@ const SellsByClient = () => {
 
   return (
     <Container>
-      <h1 className="text-center">Reporte de ventas por clientes</h1>
       <BreadcrumbComponent routes={Routes} />
+      <h1 className="title">Reporte de ventas por clientes</h1>
       <FilterBar
         dataFields={FilterForm}
         onHandleChange={handleChangeFilter}

@@ -26,14 +26,14 @@ const SellsByServices = () => {
   const onSubmit = (filter) => dispatch(SellsReportsActions.byServices(filter));
 
   useEffect(() => {
-    document.title = 'Reportes | Ventas por servicios';
+    document.title = 'Sonar | Ventas por servicios';
     dispatch(CompanyActions.getCompaniesByUser());
   }, []);
 
   return (
     <Container>
-      <h1 className="text-center">Reporte de ventas por servicios</h1>
       <BreadcrumbComponent routes={Routes} />
+      <h1 className="title">Reporte de ventas por servicios</h1>
       <FilterBar
         dataFields={formFields}
         onHandleChange={handleChangeFilter}

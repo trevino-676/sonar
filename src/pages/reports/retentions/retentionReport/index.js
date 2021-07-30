@@ -22,7 +22,7 @@ const RetentionReport = () => {
     dispatch(CompanyActions.getCompaniesByUser());
   }, [dispatch]);
   const dataReport = useSelector((state) => state.retentions.retention_report);
-  useReportTitle('Reportes | Retenciones');
+  useReportTitle('Sonar | Retenciones');
   const { currencyFormatter } = useFormatters();
   const [columns] = useDataColumns(currencyFormatter);
   const [handleChangeFilter, formFields, submitFilters, getTextFilters] =
@@ -52,8 +52,8 @@ const RetentionReport = () => {
 
   return (
     <Container>
-      <h1 className="text-center">Reportes de retenciones</h1>
       <BreadcrumbComponent routes={Routes} />
+      <h1 className="title">Reporte de retenciones</h1>
       <FilterBar
         dataFields={formFields}
         onHandleChange={handleChangeFilter}

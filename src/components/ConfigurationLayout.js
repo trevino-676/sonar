@@ -96,7 +96,7 @@ const ConfigurationLayout = () => {
 
   return (
     <>
-      <h1>Configuración</h1>
+      <h1 className="title">Configuración</h1>
       <div className="config-group">
         <div className="config-aside item">
           <div

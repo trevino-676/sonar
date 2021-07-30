@@ -57,7 +57,7 @@ const SellsByItems = () => {
     },
   ];
   useEffect(() => {
-    document.title = 'Reportes | Ventas por articulos';
+    document.title = 'Sonar | Ventas por articulos';
     const getCompaniesInfo = () =>
       dispatch(CompanyActions.getCompaniesByUser());
     getCompaniesInfo();
@@ -65,8 +65,8 @@ const SellsByItems = () => {
 
   return (
     <Container>
-      <h1 className="text-center">Reporte de ventas por articulos</h1>
       <BreadcrumbComponent routes={Routes} />
+      <h1 className="title">Reporte de ventas por articulos</h1>
       <FilterBar
         dataFields={FilterForm}
         onHandleChange={handleChangeFilter}
