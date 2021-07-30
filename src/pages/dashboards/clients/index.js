@@ -4,11 +4,13 @@ import DonutComponent from '../../../components/DonutComponent';
 import BreadcrumbComponent from '../../../components/BreadcrumbComponent';
 import routes from './BreadcrumbRoutes';
 import AmountDisplay from '../../../components/AmountDisplayComponent';
+import useReportTitle from '../../../hooks/useReportTitle';
 
-import '../../../styles/pages/ClientDashboard.css';
+import '../../../styles/pages/Dashboard.css';
 
 const ClientDashboard = () => {
   // TODO: Mover los titulos, top y data a archivos independientes.
+  useReportTitle('Sonar | Clientes');
   const titles = [
     {
       title: 'Ventas por cliente',

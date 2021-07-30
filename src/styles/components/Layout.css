@@ -15,6 +15,13 @@ body {
   flex-direction: column;
 }
 
+.title {
+  color: #1b2cc1;
+  padding: 1rem;
+  margin-top: -1rem;
+  font-weight: bold;
+}
+
 .content {
   padding: 1rem;
   flex: 1;

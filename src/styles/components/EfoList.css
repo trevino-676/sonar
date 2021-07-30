@@ -1,0 +1,32 @@
+.efo-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 31rem;
+  height: 17.32rem;
+}
+
+/* .efo-component .efo-title {
+  padding: 0.5rem;
+} */
+
+.efo-component .efo-title h4 {
+  color: #1b2cc1;
+  font-weight: bold;
+}
+
+.efo-component .efo-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.efo-component .efo-list div {
+  padding: 0.1rem;
+  font-size: 1.5rem;
+}
+
+.efo-component .efo-footer a {
+  color: #091543;
+}

@@ -9,6 +9,7 @@ import SellsByServices from '../pages/reports/sells/byServices';
 import RetentionReport from '../pages/reports/retentions/retentionReport';
 import OpinionReport from '../pages/reports/opinion/opinionReport';
 import ClientDashboard from '../pages/dashboards/clients';
+import ProviderDashboard from '../pages/dashboards/providers';
 
 export default {
   Company: {
@@ -46,5 +47,9 @@ export default {
   ClientDashboard: {
     path: '/clients',
     component: <ClientDashboard />,
+  },
+  ProviderDashboard: {
+    path: '/providers',
+    component: <ProviderDashboard />,
   },
 };
