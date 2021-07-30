@@ -10,6 +10,7 @@ import RetentionReport from '../pages/reports/retentions/retentionReport';
 import OpinionReport from '../pages/reports/opinion/opinionReport';
 import ClientDashboard from '../pages/dashboards/clients';
 import ProviderDashboard from '../pages/dashboards/providers';
+import PayrollDashboard from '../pages/dashboards/payroll';
 
 export default {
   Company: {
@@ -51,5 +52,9 @@ export default {
   ProviderDashboard: {
     path: '/providers',
     component: <ProviderDashboard />,
+  },
+  PayrollDashboard: {
+    path: '/payroll',
+    component: <PayrollDashboard />,
   },
 };
