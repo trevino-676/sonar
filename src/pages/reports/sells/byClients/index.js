@@ -16,7 +16,7 @@ import '../../../../styles/reports.css';
 const SellsByClient = () => {
   const dispatch = useDispatch();
   let expandedData = [];
-  const dataReport = useSelector((state) => state.sell_reports.by_clients);
+  let dataReport = useSelector((state) => state.sell_reports.by_clients);
   const companies = useSelector((state) => state.companies.companies);
   const { currencyFormatter } = useFormatters();
   const [filter, FilterForm, handleChangeFilter, getTextFilters] =
@@ -30,7 +30,7 @@ const SellsByClient = () => {
   const onSubmit = (filters) => {
     dispatch(SellsReportsActions.byClients(filters));
   };
-  const priceFormatter = (cell) => currencyFormatter('en-US', cell);
+  const priceFormatter = (cell) => currencyFormatter('es-MX', cell);
   const dateFormatter = (cell) => {
     const date = new Date(cell);
     return <span>{date.toLocaleString()}</span>;
@@ -120,6 +120,15 @@ const SellsByClient = () => {
         fecha: data.fechas[folioIndex],
       }));
       return innerData;
+    });
+  }
+
+  if (dataReport) {
+    dataReport = dataReport.map((item) => {
+      if (item.rfc === 'XAXX010101000') {
+        return { ...item, _id: 'PUBLICO EN GENERAL' };
+      }
+      return { ...item };
     });
   }
 

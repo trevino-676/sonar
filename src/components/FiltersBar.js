@@ -9,10 +9,23 @@ import {
   Row,
   Button,
 } from 'react-bootstrap';
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 
 import SelectComponent from './SelectInputComponent';
 
 import '../styles/components/filterbar.css';
+
+const CustomToggle = ({ children, eventKey, onHandleClick }) => {
+  const decoratedOnClick = useAccordionToggle(eventKey, (event) => {
+    event.preventDefault();
+    onHandleClick();
+  });
+  return (
+    <Button type="submit" onClick={decoratedOnClick}>
+      {children}
+    </Button>
+  );
+};
 
 const FilterBar = ({
   dataFields,
@@ -65,15 +78,9 @@ const FilterBar = ({
                 md={{ span: 2, offset: 10 }}
                 className="justify-content-end"
               >
-                <Button
-                  type="submit"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onHandleClick();
-                  }}
-                >
+                <CustomToggle eventKey="0" onHandleClick={onHandleClick}>
                   Generar
-                </Button>
+                </CustomToggle>
               </Col>
             </Row>
           </Form>

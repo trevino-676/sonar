@@ -2,11 +2,14 @@ import React from 'react';
 
 const useFormatters = () => {
   const currencyFormatter = (format, data) => {
-    const price = Intl.NumberFormat(format).format(parseFloat(data).toFixed(2));
+    let price = Intl.NumberFormat(format).format(parseFloat(data).toFixed(2));
     const separatedPrice = price.split('.');
-
     if (separatedPrice.length > 1) {
-      if (separatedPrice[1].length < 2) price.concat('0');
+      if (separatedPrice[1].length < 2) {
+        price += '0';
+      }
+    } else {
+      price += '.00';
     }
 
     return <span>${price}</span>;
