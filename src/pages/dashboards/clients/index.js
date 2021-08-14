@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import DonutComponent from '../../../components/DonutComponent';
 import BreadcrumbComponent from '../../../components/BreadcrumbComponent';
 import routes from './BreadcrumbRoutes';
 import AmountDisplay from '../../../components/AmountDisplayComponent';
 import useReportTitle from '../../../hooks/useReportTitle';
+import SellsReportsActions from '../../../actions/SellsReport.action';
 
 import '../../../styles/pages/Dashboard.css';
 
 const ClientDashboard = () => {
   // TODO: Mover los titulos, top y data a archivos independientes.
   useReportTitle('Sonar | Clientes');
+  const totalReport = useSelector((state) => state.sell_reports.total_sells);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(SellsReportsActions.totalSells('PGT190401156'));
+  }, []);
   const titles = [
     {
       title: 'Ventas por cliente',
@@ -39,12 +46,14 @@ const ClientDashboard = () => {
       <BreadcrumbComponent routes={routes} />
       <h1 className="title">Clientes</h1>
       <div className="dashboard-content">
-        <AmountDisplay
-          title="Ventas del mes"
-          amount={999999.99}
-          currency="es-MX"
-          route="/"
-        />
+        {totalReport && (
+          <AmountDisplay
+            title="Ventas del mes"
+            amount={totalReport.total}
+            currency="es-MX"
+            route="/"
+          />
+        )}
         {titles.map((title) => (
           <DonutComponent
             top={top}

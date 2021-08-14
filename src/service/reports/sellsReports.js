@@ -62,10 +62,38 @@ const byServices = async (filters) => {
   }
 };
 
+const totalSells = async (companyRfc) => {
+  const date = new Date();
+  const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `jwt ${localStorage.getItem('token')}`,
+  };
+  const filters = {
+    'datos.Rfc': companyRfc,
+    from_date: fromDate.toISOString(),
+    to_date: date.toISOString(),
+  };
+  try {
+    const resp = await axios.get(`${BaseURL}/v1/sellsreport/total`, {
+      headers,
+      params: filters,
+    });
+
+    if (resp.status === 200) {
+      return resp.data.data;
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
+};
+
 const SellReportsService = {
   byClients,
   byItems,
   byServices,
+  totalSells,
 };
 
 export default SellReportsService;

@@ -102,10 +102,45 @@ const byServices = (filters) => {
   };
 };
 
+const totalSells = (companyRfc) => {
+  const failMessage =
+    'Hubo un error en la peticion del reporte de ventas por servicio';
+  const request = () => ({
+    type: SellsReportsConstants.GET_TOTAL_SELLS_REQUEST,
+  });
+  const success = (data) => ({
+    type: SellsReportsConstants.GET_TOTAL_SELLS_SUCCESS,
+    payload: data,
+  });
+  const fail = (error) => ({
+    type: SellsReportsConstants.GET_TOTAL_SELLS_FAIL,
+    payload: { error },
+  });
+
+  return async (dispatch) => {
+    dispatch(request());
+    dispatch(ModalActions.Clean());
+    try {
+      const data = await SellReportsService.totalSells(companyRfc);
+      if (!data) {
+        dispatch(fail(failMessage));
+        dispatch(ModalActions.Error({ title: 'Error', body: failMessage }));
+        return;
+      }
+      dispatch(success(data));
+    } catch (err) {
+      dispatch(fail(err.message));
+      dispatch(LoginActions.Logout());
+      window.location.reload();
+    }
+  };
+};
+
 const SellsReportsActions = {
   byClients,
   byItems,
   byServices,
+  totalSells,
 };
 
 export default SellsReportsActions;

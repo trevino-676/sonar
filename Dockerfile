@@ -9,6 +9,7 @@ RUN npm run build
 
 # producction environment
 FROM nginx:stable-alpine
+ENV TZ=America/Mexico_City
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/deafult.conf
 EXPOSE 80
