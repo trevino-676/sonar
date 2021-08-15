@@ -24,6 +24,18 @@ const OpinionReport = () => {
     useFilterForm(dispatch, OpinionActions.opinionReport, companies);
   const [columns] = useDataColumns();
 
+  if(dataReport){
+    const dataReport = dataReport.map((item) => {
+      if(item.Private === null){
+        if(item.Opinion_comp === null)
+          return {...item, Opinion_comp: "Pendiente"}
+        else
+          return {...item, Opinion_comp: item.Opinion_comp ? "Positiva" : "Negativa"}
+      }
+      return {...item, Opinion_comp: "Privada"}
+    });
+  }
+
   return (
     <Container>
       <BreadcrumbComponent routes={Routes} />

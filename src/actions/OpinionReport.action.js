@@ -30,11 +30,14 @@ const opinionReport = (filters) => {
       }
       dispatch(success(resp));
     } catch (err) {
-      dispatch(fail(err.message));
-      dispatch(LoginActions.Logout());
-      window.location.reload();
+      if(err.message.indexOf('401')>0){
+        dispatch(fail(err.message));
+        dispatch(LoginActions.Logout());
+        window.location.reload();
+      }
     }
   };
+
 };
 
 const OpinionActions = {

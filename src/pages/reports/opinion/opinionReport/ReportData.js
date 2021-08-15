@@ -13,7 +13,7 @@ const useDataColumns = () => {
         text: 'Estatus',
       },
     ];
-  
+
     return [columns];
   };
   

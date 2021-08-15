@@ -4,8 +4,9 @@ const useFiltersForm = (dispatch, action, companies) => {
   const [filter, setFilter] = useState({
     from_date: null,
     to_date: null,
-    rfc: null,
-    status: null,
+    'datos.Rfc': null,
+    Opinion_comp: null,
+    private: null,
   });
 
   const handleChangeFilter = (event) => {
@@ -14,6 +15,16 @@ const useFiltersForm = (dispatch, action, companies) => {
       value = `${event.target.value}T00:00:00`;
     if (event.target.name === 'to_date')
       value = `${event.target.value}T23:59:59`;
+    if(event.target.name === 'Opinion_comp' && event.target.value === 'Private'){
+        setFilter({...filter,Opinion_comp:'false',private:'true'})
+
+      return;
+    }
+    if(event.target.name === 'Opinion_comp' && event.target.value !== 'Private'){
+      setFilter({...filter,Opinion_comp:event.target.value,private:null})
+      
+    return; 
+  }
     setFilter({
       ...filter,
       [event.target.name]: value || event.target.value,
@@ -35,8 +46,26 @@ const useFiltersForm = (dispatch, action, companies) => {
     },
     {
       label: 'Estatus',
-      type: 'text',
+      type: 'Select',
       name: 'Opinion_comp',
+      options: [
+        {
+          value: 'true',
+          text: 'Positiva',
+        },
+        {
+          value: 'false',
+          text: 'Negativa',
+        },
+        {
+          value: 'null',
+          text: 'Pendiente',
+        },
+        {
+          value: 'Private',
+          text: 'Privada',
+        },
+      ],
     },
     {
       label: 'Desde',
@@ -54,6 +83,8 @@ const useFiltersForm = (dispatch, action, companies) => {
       name: '_id',
     }
   ];
+
+  
 
   const submitFilters = () => {
     dispatch(action(filter));
