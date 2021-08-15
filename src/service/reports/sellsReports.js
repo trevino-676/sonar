@@ -89,11 +89,38 @@ const totalSells = async (companyRfc) => {
   }
 };
 
+const detailedSells = async (companyRfc) => {
+  const date = new Date();
+  const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `jwt ${localStorage.getItem('token')}`,
+  };
+  const params = {
+    'datos.Rfc': companyRfc,
+    from_date: fromDate.toISOString(),
+    to_date: date.toISOString(),
+  };
+
+  try {
+    const resp = await axios.get(`${BaseURL}/v1/sellsreport/detailed`, {
+      headers,
+      params,
+    });
+
+    if (resp !== 200) return null;
+    return resp.data.data;
+  } catch (err) {
+    return null;
+  }
+};
+
 const SellReportsService = {
   byClients,
   byItems,
   byServices,
   totalSells,
+  detailedSells,
 };
 
 export default SellReportsService;

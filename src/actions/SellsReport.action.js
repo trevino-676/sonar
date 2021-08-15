@@ -103,8 +103,7 @@ const byServices = (filters) => {
 };
 
 const totalSells = (companyRfc) => {
-  const failMessage =
-    'Hubo un error en la peticion del reporte de ventas por servicio';
+  const failMessage = 'Hubo un error en la peticion del total de ventas';
   const request = () => ({
     type: SellsReportsConstants.GET_TOTAL_SELLS_REQUEST,
   });
@@ -136,11 +135,44 @@ const totalSells = (companyRfc) => {
   };
 };
 
+const detailedSells = (companyRfc) => {
+  const FAIL_MESSAGE =
+    'Hubo un error en la peticion del reporte de ventas detallado';
+  const request = () => ({
+    type: SellsReportsConstants.GET_DETAILED_SELLS_REQUEST,
+  });
+  const success = (data) => ({
+    type: SellsReportsConstants.GET_DETAILED_SELLS_SUCCESS,
+    payload: data,
+  });
+  const fail = (error) => ({
+    type: SellsReportsConstants.GET_DETAILED_SELLS_FAIL,
+    payload: { error },
+  });
+
+  return async (dispatch) => {
+    dispatch(request());
+    dispatch(ModalActions.Clean());
+    try {
+      const data = await SellReportsService.detailedSells(companyRfc);
+      if (!data) {
+        dispatch(fail(FAIL_MESSAGE));
+        dispatch(ModalActions.Error({ title: 'Error', body: FAIL_MESSAGE }));
+      }
+      dispatch(success(data));
+    } catch (err) {
+      dispatch(fail(FAIL_MESSAGE));
+      dispatch(ModalActions.Error({ title: 'Error', body: FAIL_MESSAGE }));
+    }
+  };
+};
+
 const SellsReportsActions = {
   byClients,
   byItems,
   byServices,
   totalSells,
+  detailedSells,
 };
 
 export default SellsReportsActions;
