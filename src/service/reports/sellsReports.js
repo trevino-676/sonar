@@ -63,16 +63,18 @@ const byServices = async (filters) => {
 };
 
 const totalSells = async (companyRfc) => {
-  const date = new Date();
-  const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  // const date = new Date();
+  // const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  const fromDate = '2021-05-01T00:00:00';
+  const toDate = '2021-05-31T23:59:59';
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `jwt ${localStorage.getItem('token')}`,
   };
   const filters = {
     'datos.Rfc': companyRfc,
-    from_date: fromDate.toISOString(),
-    to_date: date.toISOString(),
+    from_date: fromDate,
+    to_date: toDate,
   };
   try {
     const resp = await axios.get(`${BaseURL}/v1/sellsreport/total`, {
@@ -90,16 +92,18 @@ const totalSells = async (companyRfc) => {
 };
 
 const detailedSells = async (companyRfc) => {
-  const date = new Date();
-  const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  // const date = new Date();
+  const fromDate = '2021-05-01T00:00:00';
+  // const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  const toDate = '2021-05-31T23:59:59';
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `jwt ${localStorage.getItem('token')}`,
   };
   const params = {
     'datos.Rfc': companyRfc,
-    from_date: fromDate.toISOString(),
-    to_date: date.toISOString(),
+    from_date: fromDate,
+    to_date: toDate,
   };
 
   try {
@@ -108,7 +112,7 @@ const detailedSells = async (companyRfc) => {
       params,
     });
 
-    if (resp !== 200) return null;
+    if (resp.status !== 200) return null;
     return resp.data.data;
   } catch (err) {
     return null;

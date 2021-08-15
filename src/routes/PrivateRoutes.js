@@ -11,6 +11,7 @@ import OpinionReport from '../pages/reports/opinion/opinionReport';
 import ClientDashboard from '../pages/dashboards/clients';
 import ProviderDashboard from '../pages/dashboards/providers';
 import PayrollDashboard from '../pages/dashboards/payroll';
+import DetailedReport from '../pages/reports/DetailedReport';
 
 export default {
   Company: {
@@ -56,5 +57,9 @@ export default {
   PayrollDashboard: {
     path: '/payroll',
     component: <PayrollDashboard />,
+  },
+  DetailedReport: {
+    path: '/reports/detailed',
+    component: <DetailedReport />,
   },
 };

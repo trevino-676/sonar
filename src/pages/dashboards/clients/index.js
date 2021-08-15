@@ -34,7 +34,7 @@ const ClientDashboard = () => {
     id: item._id.$oid,
   }));
   useEffect(() => {
-    dispatch(SellsReportsActions.totalSells(company.rfc));
+    dispatch(SellsReportsActions.totalSells('PGT190401156'));
     dispatch(CompanyActions.getCompaniesByUser());
   }, []);
   const titles = [
@@ -59,7 +59,10 @@ const ClientDashboard = () => {
     ['Cliente 3', 50000.0],
     ['Cliente 4', 150000.0],
   ];
-
+  const passData = {
+    company: 'PGT190401156',
+    type: 'sells',
+  };
   return (
     <>
       <BreadcrumbComponent routes={routes} />
@@ -77,7 +80,8 @@ const ClientDashboard = () => {
             title="Ventas del mes"
             amount={totalReport.total}
             currency="es-MX"
-            route="/"
+            route="/reports/detailed"
+            data={passData}
           />
         )}
         {titles.map((title) => (
