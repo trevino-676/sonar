@@ -192,12 +192,53 @@ const deleteUser = (id) => {
   };
 };
 
+const saveUser = (user) => {
+  const ERROR_MESSAGE = 'Error al crear el usuario.';
+  const request = () => ({ type: UserConstants.SAVE_USER_REQUEST });
+  const success = (newUser) => ({
+    type: UserConstants.SAVE_USER_SUCCESS,
+    payload: newUser,
+  });
+  const fail = (error) => ({
+    type: UserConstants.SAVE_USER_FAIL,
+    payload: { error },
+  });
+
+  return async (dispatch) => {
+    dispatch(request());
+    dispatch(ModalActions.Clean());
+    try {
+      if (!(await UserService.saveUser(user))) {
+        dispatch(fail(ERROR_MESSAGE));
+        dispatch(
+          ModalActions.Error({ title: 'Error Usuario', body: ERROR_MESSAGE })
+        );
+        return;
+      }
+      dispatch(success(user));
+      dispatch(
+        ModalActions.Success({
+          title: 'Usuarios',
+          body: 'Se creo correctamente el usuario',
+        })
+      );
+      await new Promise((r) => setTimeout(r, 2000));
+    } catch (err) {
+      dispatch(fail(ERROR_MESSAGE));
+      dispatch(
+        ModalActions.Error({ title: 'Error Usuario', body: ERROR_MESSAGE })
+      );
+    }
+  };
+};
+
 const UserActions = {
   uploadFile,
   saveFieldPassword,
   getUsers,
   updateUser,
   deleteUser,
+  saveUser,
 };
 
 export default UserActions;

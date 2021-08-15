@@ -1,6 +1,6 @@
 import Login from '../pages/Login';
 import Home from '../pages/Home';
-import Registro from '../pages/Registro';
+import UserRegistry from '../pages/users/register';
 import PasswordRecovery from '../pages/PasswordRecovery';
 import Nomina from '../pages/reports/nomina/deduccionesNomina';
 import Percepcciones from '../pages/reports/nomina/percepcionesNomina';
@@ -19,7 +19,7 @@ export default {
     path: '/',
   },
   UserRegistry: {
-    component: Registro,
+    component: UserRegistry,
     path: '/registry',
   },
   Nomina: {
