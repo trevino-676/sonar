@@ -16,7 +16,7 @@ import '../../../../styles/reports.css';
 
 const OpinionReport = () => {
   const dispatch = useDispatch();
-  const dataReport = useSelector((state) => state.opinion.opinion_report);
+  let dataReport = useSelector((state) => state.opinion.opinion_report);
   const companies = useSelector((state) => state.companies.companies);
   useReportTitle('Sonar | Opinion de cumplimiento');
   useFetchCompanies(dispatch);
@@ -24,15 +24,19 @@ const OpinionReport = () => {
     useFilterForm(dispatch, OpinionActions.opinionReport, companies);
   const [columns] = useDataColumns();
 
-  if(dataReport){
-    const dataReport = dataReport.map((item) => {
-      if(item.Private === null){
-        if(item.Opinion_comp === null)
-          return {...item, Opinion_comp: "Pendiente"}
-        else
-          return {...item, Opinion_comp: item.Opinion_comp ? "Positiva" : "Negativa"}
+  if (dataReport) {
+    dataReport = dataReport.map((item) => {
+      // if (item.Private === null) {
+      if (item.Opinion_comp === null) {
+        return { ...item, Opinion_comp: 'Pendiente' };
       }
-      return {...item, Opinion_comp: "Privada"}
+
+      return {
+        ...item,
+        Opinion_comp: item.Opinion_comp ? 'Positiva' : 'Negativa',
+      };
+      // }
+      // return { ...item, Opinion_comp: 'Privada' };
     });
   }
 
