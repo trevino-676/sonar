@@ -110,8 +110,8 @@ const DetailedReport = () => {
       path: '/',
     },
     {
-      name: 'Clientes',
-      path: '/clients',
+      name: type === 'sells' ? 'Cliente' : 'Proveedores',
+      path: type === 'sells' ? '/clients' : '/providers',
     },
     {
       name: 'CFDIs emitidos',
@@ -121,7 +121,9 @@ const DetailedReport = () => {
   return (
     <>
       <BreadcrumbComponent routes={routes} />
-      <h1 className="title">CFDIs emitidos</h1>
+      <h1 className="title">
+        CFDIs {type === 'sells' ? 'emitidos' : 'recibidos'}
+      </h1>
       {data && (
         <ReportTable
           tableData={data}

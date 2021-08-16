@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AmountDisplay from '../../../components/AmountDisplayComponent';
 import BreadcrumbComponent from '../../../components/BreadcrumbComponent';
@@ -6,11 +6,23 @@ import DonutComponent from '../../../components/DonutComponent';
 import useReportTitle from '../../../hooks/useReportTitle';
 import routes from './BreadcrumbRoutes';
 import EfoList from '../../../components/EfoListComponent';
+import TotalServirce from '../../../service/reports/Total.service';
 
 import '../../../styles/pages/Dashboard.css';
 
 const ProviderDashboard = () => {
   useReportTitle('Sonar | Proveedores');
+  const [total, setTotal] = useState(null);
+  useEffect(async () => {
+    const params = {
+      fromDate: '2021-05-01T00:00:00',
+      toDate: '2021-05-31T23:59:59',
+      field: 'Receptor.Rfc',
+      rfc: 'PGT190401156',
+    };
+    const resp = await TotalServirce.getTotalData(params);
+    setTotal(resp.total);
+  }, [total]);
   const providersData = [
     {
       title: 'Compras por proveedor',
@@ -52,18 +64,19 @@ const ProviderDashboard = () => {
     company: 'PGT190401156',
     type: 'providers',
   };
-
   return (
     <>
       <BreadcrumbComponent routes={routes} />
       <h1 className="title">Proveedores - LA PICANHA GRILL TACOS SA DE CV</h1>
       <div className="dashboard-content">
-        <AmountDisplay
-          title="Compras del mes"
-          amount="11503.60"
-          route="/reports/detailed"
-          data={passData}
-        />
+        {total && (
+          <AmountDisplay
+            title="Compras del mes"
+            amount={total}
+            route="/reports/detailed"
+            data={passData}
+          />
+        )}
         {providersData.map((item) => (
           <DonutComponent
             top={item.top}
