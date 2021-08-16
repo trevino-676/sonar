@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect /* useState */ } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import DonutComponent from '../../../components/DonutComponent';
@@ -7,7 +7,7 @@ import routes from './BreadcrumbRoutes';
 import AmountDisplay from '../../../components/AmountDisplayComponent';
 import useReportTitle from '../../../hooks/useReportTitle';
 import SellsReportsActions from '../../../actions/SellsReport.action';
-import SelectComponent from '../../../components/SelectInputComponent';
+// import SelectComponent from '../../../components/SelectInputComponent';
 import CompanyActions from '../../../actions/company.action';
 
 import '../../../styles/pages/Dashboard.css';
@@ -16,23 +16,23 @@ const ClientDashboard = () => {
   // TODO: Mover los titulos, top y data a archivos independientes.
   useReportTitle('Sonar | Clientes');
   const totalReport = useSelector((state) => state.sell_reports.total_sells);
-  const companies = useSelector((state) => state.companies.companies);
+  // const companies = useSelector((state) => state.companies.companies);
   const dispatch = useDispatch();
-  const [company, setCompany] = useState({
-    rfc: '',
-  });
-  const handleChangeCompany = (event) => {
-    setCompany({
-      ...company,
-      [event.target.name]: event.target.value,
-    });
-    dispatch(SellsReportsActions.totalSells(company.rfc));
-  };
-  const _companiesOptions = companies.map((item) => ({
-    value: item.rfc,
-    text: item.name,
-    id: item._id.$oid,
-  }));
+  // const [company, setCompany] = useState({
+  //   rfc: '',
+  // });
+  // const handleChangeCompany = (event) => {
+  //   setCompany({
+  //     ...company,
+  //     [event.target.name]: event.target.value,
+  //   });
+  //   dispatch(SellsReportsActions.totalSells(company.rfc));
+  // };
+  // const _companiesOptions = companies.map((item) => ({
+  //   value: item.rfc,
+  //   text: item.name,
+  //   id: item._id.$oid,
+  // }));
   useEffect(() => {
     dispatch(SellsReportsActions.totalSells('PGT190401156'));
     dispatch(CompanyActions.getCompaniesByUser());
@@ -67,12 +67,7 @@ const ClientDashboard = () => {
     <>
       <BreadcrumbComponent routes={routes} />
       <div className="dashboard_title">
-        <h1 className="title">Clientes</h1>
-        <SelectComponent
-          name="rfc"
-          handleChange={handleChangeCompany}
-          data={_companiesOptions}
-        />
+        <h1 className="title">Clientes - LA PICANHA GRILL TACOS SA DE CV</h1>
       </div>
       <div className="dashboard-content">
         {totalReport && (

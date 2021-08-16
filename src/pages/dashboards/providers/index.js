@@ -48,13 +48,22 @@ const ProviderDashboard = () => {
     },
   ];
   const efoList = ['Preveedor X', 'Proveedor Y', 'Proveedor Z', 'Proveedor ∫'];
+  const passData = {
+    company: 'PGT190401156',
+    type: 'providers',
+  };
 
   return (
     <>
       <BreadcrumbComponent routes={routes} />
-      <h1 className="title">Proveedores</h1>
+      <h1 className="title">Proveedores - LA PICANHA GRILL TACOS SA DE CV</h1>
       <div className="dashboard-content">
-        <AmountDisplay title="Compras del mes" amount="11503.60" route="/" />
+        <AmountDisplay
+          title="Compras del mes"
+          amount="11503.60"
+          route="/reports/detailed"
+          data={passData}
+        />
         {providersData.map((item) => (
           <DonutComponent
             top={item.top}

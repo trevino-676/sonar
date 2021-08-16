@@ -7,6 +7,7 @@ import BreadcrumbComponent from '../../components/BreadcrumbComponent';
 import SellsReportsActions from '../../actions/SellsReport.action';
 import useReportTitle from '../../hooks/useReportTitle';
 import useFormatters from '../../hooks/useFormatters';
+import DetailedReportActions from '../../actions/detailed.action';
 
 const DetailedReport = () => {
   const location = useLocation();
@@ -19,23 +20,25 @@ const DetailedReport = () => {
   if (type === 'sells') {
     data = useSelector((state) => state.sell_reports.detailed_sells);
   } else {
-    data = null;
+    data = useSelector((state) => state.detailed.provider_detailed_report);
   }
   useEffect(() => {
     if (type === 'sells') {
       dispatch(SellsReportsActions.detailedSells(company));
+    } else {
+      dispatch(DetailedReportActions.getProviderDetailedReport(company));
     }
   }, []);
 
   const tableColumns = [
     {
       dataField: 'receptor',
-      text: 'Receptor',
+      text: type === 'sells' ? 'Receptor' : 'Emisor',
       sort: true,
     },
     {
       dataField: 'receptor_rfc',
-      text: 'RFC Receptor',
+      text: type === 'sells' ? 'RFC Receptor' : 'RFC Emisor',
       sort: true,
     },
     {
