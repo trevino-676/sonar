@@ -11,7 +11,7 @@ import NotFound from '../pages/NotFound';
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 
-const socketRoute = 'ws://127.0.0.1:6789/';
+const socketRoute = 'ws://localhost:80/';
 const socket = new WebSocket(socketRoute);
 
 const notification = (data) => {
