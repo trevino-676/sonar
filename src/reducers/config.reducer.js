@@ -1,8 +1,7 @@
 import ConfigConstants from '../constants/config.constants';
 
-const initialState = {
-  config: null,
-};
+const config = localStorage.getItem('config');
+const initialState = config ? { config } : { config: null };
 
 const ConfigReducer = (state = initialState, action) => {
   switch (action.type) {

@@ -30,10 +30,13 @@ const getUserConfig = () => {
 
     if (!config) {
       raiseModalError(dispatch, fail, ConfigConstants.GET_FAIL_MESSAGE);
+      return;
     }
     if (config === 401) {
       logout(dispatch, fail, LOGOUT_MESSAGE);
+      return;
     }
+    localStorage.setItem('config', config);
     dispatch(success(config));
   };
 };
@@ -51,9 +54,11 @@ const saveUserConfig = (config) => {
     const resp = await ConfigService.saveUserConfig(config);
     if (!resp) {
       raiseModalError(dispatch, fail, ConfigConstants.SAVE_FAIL_MESSAGE);
+      return;
     }
     if (resp === 401) {
       logout(dispatch, fail, LOGOUT_MESSAGE);
+      return;
     }
     dispatch(success(config));
     dispatch(
@@ -62,6 +67,7 @@ const saveUserConfig = (config) => {
         body: 'La configuracion se guardo correctamente',
       })
     );
+    dispatch(getUserConfig());
   };
 };
 
@@ -78,9 +84,11 @@ const updateUSerConfig = (config) => {
     const resp = await ConfigService.updateUserConfig(config);
     if (!resp) {
       raiseModalError(dispatch, fail, ConfigConstants.SAVE_FAIL_MESSAGE);
+      return;
     }
     if (resp === 401) {
       logout(dispatch, fail, LOGOUT_MESSAGE);
+      return;
     }
     dispatch(success(config));
     dispatch(
@@ -89,6 +97,7 @@ const updateUSerConfig = (config) => {
         body: 'La configuracion se guardo correctamente',
       })
     );
+    dispatch(getUserConfig());
   };
 };
 
