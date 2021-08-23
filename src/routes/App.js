@@ -37,18 +37,18 @@ import PrivateRoutes from './PrivateRoutes';
 const App = () => {
   const user = useSelector((state) => state.user);
 
-  useEffect(() => {
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      switch (data.type) {
-        case 'notification':
-          data.data.map((notify) => notification(notify));
-          break;
-        default:
-          break;
-      }
-    };
-  }, []);
+  // useEffect(() => {
+  //   socket.onmessage = (event) => {
+  //     const data = JSON.parse(event.data);
+  //     switch (data.type) {
+  //       case 'notification':
+  //         data.data.map((notify) => notification(notify));
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   };
+  // }, []);
 
   return (
     <BrowserRouter>
