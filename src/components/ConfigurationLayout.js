@@ -1,12 +1,22 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import CompanyPage from '../pages/companies';
+import SchedulerComponent from '../pages/config/scheduler';
+import ConfigActions from '../actions/config.action';
 
 import '../styles/components/ConfigurationLayout.css';
 
 const ConfigurationLayout = () => {
+  const dispatch = useDispatch();
+  const config = useSelector((state) => state.config.config);
+
+  useEffect(() => {
+    dispatch(ConfigActions.getUserConfig());
+  }, []);
+
   const [hiddenElements, setHiddenElements] = useState({
     companies: false,
     dashboard: true,
@@ -130,7 +140,7 @@ const ConfigurationLayout = () => {
         </div>
         <div className="config-main item">
           <div hidden={hiddenElements.companies}>
-            <CompanyPage />
+            <CompanyPage config={config} />
           </div>
           <div hidden={hiddenElements.dashboard}>
             <h1>dashboard</h1>
@@ -139,7 +149,7 @@ const ConfigurationLayout = () => {
             <h1>Notificaciones</h1>
           </div>
           <div hidden={hiddenElements.scheluder}>
-            <h1>Scheduler</h1>
+            <SchedulerComponent config={config} />
           </div>
         </div>
       </div>
