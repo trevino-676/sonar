@@ -7,12 +7,14 @@ import useReportTitle from '../../../hooks/useReportTitle';
 import routes from './BreadcrumbRoutes';
 import EfoList from '../../../components/EfoListComponent';
 import TotalServirce from '../../../service/reports/Total.service';
+import CFDIReports from '../../../service/clients/Clients.service';
 
 import '../../../styles/pages/Dashboard.css';
 
 const ProviderDashboard = () => {
   useReportTitle('Sonar | Proveedores');
   const [total, setTotal] = useState(null);
+  const [providerData, setProviderData] = useState(null);
   useEffect(async () => {
     const params = {
       fromDate: '2021-05-01T00:00:00',
@@ -20,45 +22,35 @@ const ProviderDashboard = () => {
       field: 'Receptor.Rfc',
       rfc: 'PGT190401156',
     };
-    const resp = await TotalServirce.getTotalData(params);
-    setTotal(resp.total);
-  }, [total]);
-  const providersData = [
-    {
-      title: 'Compras por proveedor',
-      path: '/providers',
-      top: ['Prov. 1', 'Prov. 2', 'Prov. 3', 'Prov. 4'],
-      data: [
-        ['Proveedores', 'Compras'],
-        ['Prov. 1', 200000.0],
-        ['Prov. 2', 300000.0],
-        ['Prov. 3', 135678.54],
-        ['Prov. 4', 16089.99],
-      ],
-    },
-    {
-      title: 'Complementos de pago',
-      path: '/providers',
-      top: ['Verificados', 'Pendientes', 'Faltantes'],
-      data: [
-        ['Tipo', 'Complementos'],
-        ['Verificados', 278],
-        ['Pendientes', 100],
-        ['Faltantes', 57],
-      ],
-    },
-    {
-      title: 'Opinión de cumplimiento',
-      path: '/reports/opinion',
-      top: ['Positiva', 'Negativa', 'Pendiente'],
-      data: [
-        ['Tipo', 'Opinion'],
-        ['Positiva', 50],
-        ['Negativa', 10],
-        ['Pendiente', 5],
-      ],
-    },
-  ];
+    let graficsData = [];
+    TotalServirce.getTotalData(params).then((resp)=>{
+      setTotal(resp.total);
+    });
+    let comp = await CFDIReports.countRequest('payment', 'PGT190401156', 'Receptor.Rfc', "datos.Total", "Diferencia");
+    CFDIReports.countRequest('principal', 'PGT190401156', 'Receptor.Rfc', "datos.Total", "datos.SubTotal").then((data) => {
+      let temp = {
+        title:"Complementos de pago",
+        path: '/providers',
+        top: ['', ''],
+        data: [['Tipo', 'Cantidad']],
+      }
+      try {
+        temp.data.push(["Con complemento", comp[0].count]);
+      } catch (error) {
+        comp = [{
+          count:0,
+          total:0,
+          subTotal:0
+        }]
+        temp.data.push(["Con complemento", comp[0].count]);
+      }
+      if (data) {
+        temp.data.push(["Sin complemento", data[0].count-comp[0].count]);
+      }
+      graficsData.push(temp);
+      setProviderData(graficsData);
+    }).catch(console.log);
+  }, []);
   const efoList = ['Preveedor X', 'Proveedor Y', 'Proveedor Z', 'Proveedor ∫'];
   const passData = {
     company: 'PGT190401156',
@@ -77,7 +69,7 @@ const ProviderDashboard = () => {
             data={passData}
           />
         )}
-        {providersData.map((item) => (
+        {providerData && providerData.map((item) => (
           <DonutComponent
             top={item.top}
             data={item.data}
