@@ -11,7 +11,7 @@ import NotFound from '../pages/NotFound';
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 
-const socketRoute = 'wss://ws.sonar32.com.mx';
+const socketRoute = 'wss://sws.sonar32.com.mx';
 const socket = new WebSocket(socketRoute);
 
 const notification = (data) => {
