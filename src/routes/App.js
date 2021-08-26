@@ -11,44 +11,44 @@ import NotFound from '../pages/NotFound';
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 
-// const socketRoute = 'ws://3.138.155.212:6789/';
-// const socket = new WebSocket(socketRoute);
+const socketRoute = 'wss://ws.sonar32.com.mx';
+const socket = new WebSocket(socketRoute);
 
-// const notification = (data) => {
-//   if (window.Notification) {
-//     if (Notification.permission === 'granted') {
-//       const _notify = new Notification(data.title, {
-//         body: data.body,
-//       });
-//     } else {
-//       Notification.requestPermission()
-//         .then((p) => {
-//           if (p === 'granted') {
-//             const _notify = new Notification(data.title, {
-//               body: data.body,
-//             });
-//           }
-//         })
-//         .catch(null);
-//     }
-//   }
-// };
+const notification = (data) => {
+  if (window.Notification) {
+    if (Notification.permission === 'granted') {
+      const _notify = new Notification(data.title, {
+        body: data.body,
+      });
+    } else {
+      Notification.requestPermission()
+        .then((p) => {
+          if (p === 'granted') {
+            const _notify = new Notification(data.title, {
+              body: data.body,
+            });
+          }
+        })
+        .catch(null);
+    }
+  }
+};
 
 const App = () => {
   const user = useSelector((state) => state.user);
 
-  // useEffect(() => {
-  //   socket.onmessage = (event) => {
-  //     const data = JSON.parse(event.data);
-  //     switch (data.type) {
-  //       case 'notification':
-  //         data.data.map((notify) => notification(notify));
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   };
-  // }, []);
+  useEffect(() => {
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      switch (data.type) {
+        case 'notification':
+          data.data.map((notify) => notification(notify));
+          break;
+        default:
+          break;
+      }
+    };
+  }, []);
 
   return (
     <BrowserRouter>
