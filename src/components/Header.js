@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
 import LoginActions from '../actions/login.action';
+import SystemConstants from '../constants/system.constants';
 
 import '../styles/components/Header.css';
 
@@ -18,7 +19,7 @@ const Header = () => {
       <div className="logo">
         <Link to="/">
           <img
-            src="https://sonar32.s3.us-east-2.amazonaws.com/main_logo.png"
+            src={SystemConstants.MAIN_LOGO}
             alt="logo"
             width="100"
             height="30"
