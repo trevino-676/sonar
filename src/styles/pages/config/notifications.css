@@ -1,0 +1,14 @@
+.notifications {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  justify-content: space-around;
+}
+
+.notifications label {
+  padding: 0.5rem;
+}
+
+.notifications input {
+  margin: 1rem;
+}
