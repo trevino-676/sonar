@@ -10,9 +10,9 @@ import '../../styles/pages/config/notifications.css';
 
 const NotificationsComponent = ({ config }) => {
   useReportTitle(SystemConstants.CONFIGURATION_NOTIFICATION);
-  const configNotifications = config.notifications || [];
+  const configNotifications = config.notifications;
   const dispatch = useDispatch();
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState(configNotifications);
   const onChange = (event) => {
     if (event.target.checked) {
       setNotifications([...notifications, event.target.value]);
