@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
 
 // Se importan en esta seccion la paginas de la aplicacion
@@ -11,7 +11,7 @@ import NotFound from '../pages/NotFound';
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 import SystemConstants from '../constants/system.constants';
-import useConfig from '../hooks/useConfig';
+import ConfigActions from '../actions/config.action';
 
 const socketRoute = 'wss://sws.sonar32.com.mx';
 // const socketRoute = 'ws://localhost:6789';
@@ -42,14 +42,14 @@ const notification = (data) => {
 };
 
 const App = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const config = useSelector((state) => state.config.config);
 
-  if (user.loggedIn && !config) {
-    useConfig(user.loggedIn);
-  }
-
   useEffect(() => {
+    if (user.loggedIn && !config) {
+      dispatch(ConfigActions.getUserConfig());
+    }
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       switch (data.type) {

@@ -50,6 +50,7 @@ const Logout = () => {
     const [logout] = useLogin();
     if (logout()) {
       localStorage.removeItem('token');
+      localStorage.removeItem('config');
       dispatch(success(false));
       window.location.replace('/login');
     }
