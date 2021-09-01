@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import ConfigActions from '../../actions/config.action';
+import ConfigActions from '../../../actions/config.action';
 
-import '../../styles/pages/config/scheduler.css';
+import '../../../styles/pages/config/scheduler.css';
 
 const SchedulerComponent = ({ config }) => {
   const dispatch = useDispatch();
@@ -12,6 +12,9 @@ const SchedulerComponent = ({ config }) => {
   const onChange = (event) => {
     setPeriod(event.target.value);
   };
+  useEffect(() => {
+    setPeriod(currentPeriod);
+  }, []);
   useEffect(() => {
     if (period !== currentPeriod) {
       const data = { ...config, period };

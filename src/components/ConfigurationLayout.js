@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import CompanyPage from '../pages/companies';
-import SchedulerComponent from '../pages/config/scheduler';
 import NotificationsComponent from '../pages/config/notifications';
 
 import '../styles/components/ConfigurationLayout.css';
@@ -144,7 +143,7 @@ const ConfigurationLayout = () => {
             <NotificationsComponent config={config} />
           </div>
           <div hidden={hiddenElements.scheluder}>
-            <SchedulerComponent config={config} />
+            <h1>Scheduler</h1>
           </div>
         </div>
       </div>
