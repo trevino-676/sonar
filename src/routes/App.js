@@ -11,6 +11,7 @@ import NotFound from '../pages/NotFound';
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 import SystemConstants from '../constants/system.constants';
+import useConfig from '../hooks/useConfig';
 
 const socketRoute = 'wss://sws.sonar32.com.mx';
 // const socketRoute = 'ws://localhost:6789';
@@ -42,6 +43,11 @@ const notification = (data) => {
 
 const App = () => {
   const user = useSelector((state) => state.user);
+  const config = useSelector((state) => state.config.config);
+
+  if (user.loggedIn && !config) {
+    useConfig(user.loggedIn);
+  }
 
   useEffect(() => {
     socket.onmessage = (event) => {
@@ -50,12 +56,14 @@ const App = () => {
         case 'notification':
           if (localStorage.getItem('token')) {
             data.data.forEach((notify) => {
-              notification(notify);
-              const socketData = {
-                action: 'seen',
-                notification: notify,
-              };
-              socket.send(JSON.stringify(socketData));
+              if (config.notifications.indexOf(notify.type) > -1) {
+                notification(notify);
+                const socketData = {
+                  action: 'seen',
+                  notification: notify,
+                };
+                socket.send(JSON.stringify(socketData));
+              }
             });
           }
           break;

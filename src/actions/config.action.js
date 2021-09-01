@@ -36,7 +36,7 @@ const getUserConfig = () => {
       logout(dispatch, fail, LOGOUT_MESSAGE);
       return;
     }
-    localStorage.setItem('config', config);
+    localStorage.setItem('config', JSON.stringify(config));
     dispatch(success(config));
   };
 };

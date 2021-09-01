@@ -1,6 +1,6 @@
 import ConfigConstants from '../constants/config.constants';
 
-const config = localStorage.getItem('config');
+const config = JSON.parse(localStorage.getItem('config'));
 const initialState = config ? { config } : { config: null };
 
 const ConfigReducer = (state = initialState, action) => {
