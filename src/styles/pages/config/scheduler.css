@@ -1,0 +1,14 @@
+.schedule {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  justify-content: space-around;
+}
+
+.schedule label {
+  padding: 0.5rem;
+}
+
+.schedule input {
+  margin: 1rem;
+}

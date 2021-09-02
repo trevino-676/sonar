@@ -41,6 +41,12 @@ const UserReducer = (state = initialState, action) => {
       return { ...state };
     case UserConstants.DELETE_USER_FAIL:
       return { ...state, error: action.payload };
+    case UserConstants.SAVE_USER_REQUEST:
+      return { ...state };
+    case UserConstants.SAVE_USER_SUCCESS:
+      return { ...state, new_user: action.payload };
+    case UserConstants.SAVE_USER_FAIL:
+      return { ...state, error: action.payload.error };
     default:
       return { ...state };
   }

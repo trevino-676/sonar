@@ -5,7 +5,7 @@ import useFormatters from '../hooks/useFormatters';
 
 import '../styles/components/AmountDisplay.css';
 
-const AmountDisplay = ({ title, amount, currency, route }) => {
+const AmountDisplay = ({ title, amount, currency, route, data }) => {
   const { currencyFormat } = useFormatters();
   let currencyType = '';
   switch (currency) {
@@ -29,7 +29,14 @@ const AmountDisplay = ({ title, amount, currency, route }) => {
         <h2>{`$${currencyFormat(currency, amount)} ${currencyType}`}</h2>
       </div>
       <div className="amount-details">
-        <Link to={route}>Ver detalles</Link>
+        <Link
+          to={{
+            pathname: route,
+            state: data,
+          }}
+        >
+          Ver detalles
+        </Link>
       </div>
     </div>
   );

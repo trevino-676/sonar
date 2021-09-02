@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import UserConstants from '../constants/user.constants';
 import useLogin from '../hooks/useLogin';
 import ModalActions from './modal.action';
@@ -49,6 +50,7 @@ const Logout = () => {
     const [logout] = useLogin();
     if (logout()) {
       localStorage.removeItem('token');
+      localStorage.removeItem('config');
       dispatch(success(false));
       window.location.replace('/login');
     }

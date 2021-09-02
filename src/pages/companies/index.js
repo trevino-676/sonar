@@ -12,9 +12,9 @@ import useFormatters from '../../hooks/useFormatters';
 
 import '../../styles/pages/company.css';
 
-const CompanyPage = () => {
+const CompanyPage = ({ config }) => {
   const dispatch = useDispatch();
-  const companies = useSelector((state) => state.companies);
+  const companies = useSelector((state) => state.companies.companies);
   const user = useSelector((state) => state.user);
   const { passwordFormatter, fieldFormatter } = useFormatters();
   const handleFormatter = (cell) => passwordFormatter(cell);
@@ -66,7 +66,22 @@ const CompanyPage = () => {
     const title = 'Eliminar empresa';
     dispatch(ModalActions.Form({ title, form, size: 'md' }));
   };
+
+  const data = companies.map((item) => {
+    if (item.rfc === config.main_company) return { ...item, fav: true };
+    return { ...item, fav: false };
+  });
+
   const dataField = [
+    {
+      dataField: 'fav',
+      text: '',
+      formatter: (cell) => (
+        <>
+          {cell ? <i className="fas fa-star" /> : <i className="far fa-star" />}
+        </>
+      ),
+    },
     {
       dataField: 'name',
       text: 'Razón social',
@@ -101,9 +116,9 @@ const CompanyPage = () => {
       <div className="button-bar">
         <ButtonBar handleOpenForm={openForm} addLabel="Agregar empresa" />
       </div>
-      {companies.companies !== undefined ? (
+      {data !== undefined ? (
         <DataTable
-          tableData={companies.companies}
+          tableData={data}
           tableColumns={dataField}
           dataKey="ID"
           onModify={openModifyForm}

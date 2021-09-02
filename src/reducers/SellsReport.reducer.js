@@ -4,6 +4,8 @@ const initState = {
   by_clients: null,
   by_items: null,
   by_services: null,
+  total_sells: null,
+  detailed_sells: null,
 };
 
 const SellsReportsReducer = (state = initState, action) => {
@@ -25,6 +27,18 @@ const SellsReportsReducer = (state = initState, action) => {
     case SellsReportsConstants.GET_SELL_REPORT_BY_SERVICES_SUCCESS:
       return { ...state, by_services: action.payload };
     case SellsReportsConstants.GET_SELL_REPORT_BY_SERVICES_FAIL:
+      return { ...state, error: action.payload.error };
+    case SellsReportsConstants.GET_TOTAL_SELLS_REQUEST:
+      return { ...state };
+    case SellsReportsConstants.GET_TOTAL_SELLS_SUCCESS:
+      return { ...state, total_sells: action.payload };
+    case SellsReportsConstants.GET_TOTAL_SELLS_FAIL:
+      return { ...state, error: action.payload.error };
+    case SellsReportsConstants.GET_DETAILED_SELLS_REQUEST:
+      return { ...state };
+    case SellsReportsConstants.GET_DETAILED_SELLS_SUCCESS:
+      return { ...state, detailed_sells: action.payload };
+    case SellsReportsConstants.GET_DETAILED_SELLS_FAIL:
       return { ...state, error: action.payload.error };
     default:
       return { ...state };

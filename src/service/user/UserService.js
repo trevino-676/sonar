@@ -71,10 +71,24 @@ const DeleteUser = async (id) => {
   }
 };
 
+const saveUser = async (user) => {
+  const url = `${baseURL}/v1/user/`;
+  const headers = { 'Content-Type': 'application/json' };
+  try {
+    const resp = await axios.post(url, user, { headers });
+    console.log(resp.status);
+    if (resp.status === 200) return true;
+    return false;
+  } catch (e) {
+    return false;
+  }
+};
+
 const UserService = {
   GetUsers,
   UpdateUser,
   DeleteUser,
+  saveUser,
 };
 
 export default UserService;

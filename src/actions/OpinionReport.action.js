@@ -21,7 +21,7 @@ const opinionReport = (filters) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {
-      const resp = await OpinionReportService.opinionReport(filters);
+      const resp = await OpinionReportService.retentionReport(filters);
 
       if (!resp) {
         dispatch(fail(FailMessage));
@@ -30,14 +30,13 @@ const opinionReport = (filters) => {
       }
       dispatch(success(resp));
     } catch (err) {
-      if(err.message.indexOf('401')>0){
+      if (err.message.indexOf('401') > 0) {
         dispatch(fail(err.message));
         dispatch(LoginActions.Logout());
         window.location.reload();
       }
     }
   };
-
 };
 
 const OpinionActions = {

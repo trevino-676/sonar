@@ -1,12 +1,17 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import CompanyPage from '../pages/companies';
+import NotificationsComponent from '../pages/config/notifications';
+import Scheduler from '../pages/config/scheduler';
 
 import '../styles/components/ConfigurationLayout.css';
 
 const ConfigurationLayout = () => {
+  const config = useSelector((state) => state.config.config);
+
   const [hiddenElements, setHiddenElements] = useState({
     companies: false,
     dashboard: true,
@@ -130,16 +135,16 @@ const ConfigurationLayout = () => {
         </div>
         <div className="config-main item">
           <div hidden={hiddenElements.companies}>
-            <CompanyPage />
+            <CompanyPage config={config} />
           </div>
           <div hidden={hiddenElements.dashboard}>
             <h1>dashboard</h1>
           </div>
           <div hidden={hiddenElements.notification}>
-            <h1>Notificaciones</h1>
+            <NotificationsComponent config={config} />
           </div>
           <div hidden={hiddenElements.scheluder}>
-            <h1>Scheduler</h1>
+            <Scheduler config={config} />
           </div>
         </div>
       </div>
