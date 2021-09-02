@@ -4,3 +4,13 @@
   flex-flow: row wrap;
   align-items: center;
 }
+
+.dashboard-header {
+  height: 2.25rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-header .select {
+  width: auto;
+}

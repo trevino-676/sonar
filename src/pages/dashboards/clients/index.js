@@ -7,7 +7,7 @@ import routes from './BreadcrumbRoutes';
 import AmountDisplay from '../../../components/AmountDisplayComponent';
 import useReportTitle from '../../../hooks/useReportTitle';
 import SellsReportsActions from '../../../actions/SellsReport.action';
-// import SelectComponent from '../../../components/SelectInputComponent';
+import SelectComponent from '../../../components/SelectInputComponent';
 import CompanyActions from '../../../actions/company.action';
 import CFDIReports from '../../../service/clients/Clients.service';
 import usePeriodData from '../../../hooks/usePeriodData';
@@ -23,29 +23,38 @@ const ClientDashboard = () => {
   const companies = useSelector((state) => state.companies.companies);
   const dispatch = useDispatch();
   const [fromDate, toDate] = usePeriodData(config.period);
-  // const [company, setCompany] = useState({
-  //   rfc: '',
-  // });
-  // const handleChangeCompany = (event) => {
-  //   setCompany({
-  //     ...company,
-  //     [event.target.name]: event.target.value,
-  //   });
-  //   dispatch(SellsReportsActions.totalSells(company.rfc));
-  // };
-  // const _companiesOptions = companies.map((item) => ({
-  //   value: item.rfc,
-  //   text: item.name,
-  //   id: item._id.$oid,
-  // }));
+  const [company, setCompany] = useState(config.main_company);
+  const [companyTitle, setCompanyTitle] = useState('');
+  const handleChangeCompany = (event) => {
+    setCompany(event.target.value);
+    setCompanyTitle(event.target.selectedOptions[0].text);
+  };
+  const _companiesOptions = companies.map((item) => ({
+    value: item.rfc,
+    text: item.name,
+    id: item._id.$oid,
+  }));
+
   useEffect(() => {
-    dispatch(
-      SellsReportsActions.totalSells(config.main_company, fromDate, toDate)
+    dispatch(SellsReportsActions.totalSells(company, fromDate, toDate));
+  }, [company]);
+
+  useEffect(() => {
+    const currentCompany = companies.filter(
+      (item) => item.rfc === config.main_company
     );
+    if (currentCompany.length > 0) {
+      setCompanyTitle(currentCompany[0].name);
+    }
+  }, [companies]);
+
+  useEffect(() => {
+    setCompany(config.main_company);
+    dispatch(SellsReportsActions.totalSells(company, fromDate, toDate));
     dispatch(CompanyActions.getCompaniesByUser());
     CFDIReports.groupRequest(
       'principal',
-      config.main_company,
+      company,
       'Receptor.Rfc',
       'datos.MetodoPago'
     )
@@ -105,15 +114,26 @@ const ClientDashboard = () => {
       .catch(console.log);
   }, []);
   const passData = {
-    company: config.main_company,
+    company,
     dates: { fromDate, toDate },
     type: 'sells',
   };
   return (
     <>
-      <BreadcrumbComponent routes={routes} />
+      <div className="dashboard-header">
+        <BreadcrumbComponent routes={routes} />
+        <div className="select">
+          <SelectComponent
+            className="select"
+            data={_companiesOptions}
+            name="rfc"
+            handleChange={handleChangeCompany}
+            defaultData={company}
+          />
+        </div>
+      </div>
       <div className="dashboard_title">
-        <h1 className="title">Clientes - LA PICANHA GRILL TACOS SA DE CV</h1>
+        <h1 className="title">Clientes - {companyTitle}</h1>
       </div>
       <div className="dashboard-content">
         {totalReport && (
