@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BaseURL = 'https://www.sonar32.com.mx';
 
-const retentionReport = async (filters) => {
+const opinionReport = async (filters) => {
   const headers = {'Content-Type': 'application/json',
     Authorization: `jwt ${localStorage.getItem('token')}`,
   };
@@ -20,7 +20,7 @@ const retentionReport = async (filters) => {
 };
 
 const OpinionService = {
-  retentionReport,
+  opinionReport,
 };
 
 export default OpinionService;

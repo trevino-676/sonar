@@ -9,6 +9,7 @@ import NotFound from '../pages/NotFound';
 import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 
+
 const App = () => {
   const user = useSelector((state) => state.user);
 
