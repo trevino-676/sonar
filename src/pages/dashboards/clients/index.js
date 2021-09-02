@@ -10,6 +10,7 @@ import SellsReportsActions from '../../../actions/SellsReport.action';
 // import SelectComponent from '../../../components/SelectInputComponent';
 import CompanyActions from '../../../actions/company.action';
 import CFDIReports from '../../../service/clients/Clients.service';
+import usePeriodData from '../../../hooks/usePeriodData';
 
 import '../../../styles/pages/Dashboard.css';
 
@@ -18,10 +19,10 @@ const ClientDashboard = () => {
   useReportTitle('Sonar | Clientes');
   const totalReport = useSelector((state) => state.sell_reports.total_sells);
   const config = useSelector((state) => state.config.config);
-  // console.log(config);
   const [listDonut, setListDonut] = useState(null);
-  // const companies = useSelector((state) => state.companies.companies);
+  const companies = useSelector((state) => state.companies.companies);
   const dispatch = useDispatch();
+  const [fromDate, toDate] = usePeriodData(config.period);
   // const [company, setCompany] = useState({
   //   rfc: '',
   // });
@@ -38,7 +39,9 @@ const ClientDashboard = () => {
   //   id: item._id.$oid,
   // }));
   useEffect(() => {
-    dispatch(SellsReportsActions.totalSells(config.main_company));
+    dispatch(
+      SellsReportsActions.totalSells(config.main_company, fromDate, toDate)
+    );
     dispatch(CompanyActions.getCompaniesByUser());
     CFDIReports.groupRequest(
       'principal',
@@ -103,6 +106,7 @@ const ClientDashboard = () => {
   }, []);
   const passData = {
     company: config.main_company,
+    dates: { fromDate, toDate },
     type: 'sells',
   };
   return (

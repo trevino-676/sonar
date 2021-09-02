@@ -102,7 +102,7 @@ const byServices = (filters) => {
   };
 };
 
-const totalSells = (companyRfc) => {
+const totalSells = (companyRfc, fromDate, toDate) => {
   const failMessage = 'Hubo un error en la peticion del total de ventas';
   const request = () => ({
     type: SellsReportsConstants.GET_TOTAL_SELLS_REQUEST,
@@ -120,7 +120,11 @@ const totalSells = (companyRfc) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {
-      const data = await SellReportsService.totalSells(companyRfc);
+      const data = await SellReportsService.totalSells(
+        companyRfc,
+        fromDate,
+        toDate
+      );
       if (!data) {
         dispatch(fail(failMessage));
         dispatch(ModalActions.Error({ title: 'Error', body: failMessage }));
@@ -135,7 +139,7 @@ const totalSells = (companyRfc) => {
   };
 };
 
-const detailedSells = (companyRfc) => {
+const detailedSells = (companyRfc, fromDate, toDate) => {
   const FAIL_MESSAGE =
     'Hubo un error en la peticion del reporte de ventas detallado';
   const request = () => ({
@@ -154,7 +158,11 @@ const detailedSells = (companyRfc) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {
-      const data = await SellReportsService.detailedSells(companyRfc);
+      const data = await SellReportsService.detailedSells(
+        companyRfc,
+        fromDate,
+        toDate
+      );
       if (!data) {
         dispatch(fail(FAIL_MESSAGE));
         dispatch(ModalActions.Error({ title: 'Error', body: FAIL_MESSAGE }));

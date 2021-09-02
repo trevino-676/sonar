@@ -11,7 +11,7 @@ import DetailedReportActions from '../../actions/detailed.action';
 
 const DetailedReport = () => {
   const location = useLocation();
-  const { type, company } = location.state;
+  const { type, company, dates } = location.state;
   let data = null;
   const dispatch = useDispatch();
   useReportTitle(`Sonar | ${type === 'sells' ? 'Clientes' : 'Proveedores'}`);
@@ -24,7 +24,9 @@ const DetailedReport = () => {
   }
   useEffect(() => {
     if (type === 'sells') {
-      dispatch(SellsReportsActions.detailedSells(company));
+      dispatch(
+        SellsReportsActions.detailedSells(company, dates.fromDate, dates.toDate)
+      );
     } else {
       dispatch(DetailedReportActions.getProviderDetailedReport(company));
     }

@@ -62,11 +62,7 @@ const byServices = async (filters) => {
   }
 };
 
-const totalSells = async (companyRfc) => {
-  // const date = new Date();
-  // const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
-  const fromDate = '2021-05-01T00:00:00';
-  const toDate = '2021-05-31T23:59:59';
+const totalSells = async (companyRfc, fromDate, toDate) => {
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `jwt ${localStorage.getItem('token')}`,
@@ -91,11 +87,7 @@ const totalSells = async (companyRfc) => {
   }
 };
 
-const detailedSells = async (companyRfc) => {
-  // const date = new Date();
-  const fromDate = '2021-05-01T00:00:00';
-  // const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
-  const toDate = '2021-05-31T23:59:59';
+const detailedSells = async (companyRfc, fromDate, toDate) => {
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `jwt ${localStorage.getItem('token')}`,
