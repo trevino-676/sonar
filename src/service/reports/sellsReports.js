@@ -111,12 +111,66 @@ const detailedSells = async (companyRfc, fromDate, toDate) => {
   }
 };
 
+const getTopByClients = async (params) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `jwt ${localStorage.getItem('token')}`,
+  };
+  try {
+    const resp = await axios.get(`${BaseURL}/v1/sellsreport/top/clients`, {
+      headers,
+      params,
+    });
+    if (resp.status !== 200) return null;
+    return resp.data.data;
+  } catch (err) {
+    return null;
+  }
+};
+
+const getTopByItems = async (params) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `jwt ${localStorage.getItem('token')}`,
+  };
+  try {
+    const resp = await axios.get(`${BaseURL}/v1/sellsreport/top/items`, {
+      headers,
+      params,
+    });
+    if (resp.status !== 200) return null;
+    return resp.data.data;
+  } catch (err) {
+    return null;
+  }
+};
+
+const getTopByService = async (params) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `jwt ${localStorage.getItem('token')}`,
+  };
+  try {
+    const resp = await axios.get(`${BaseURL}/v1/sellsreport/top/service`, {
+      headers,
+      params,
+    });
+    if (resp.status !== 200) return null;
+    return resp.data.data;
+  } catch (err) {
+    return null;
+  }
+};
+
 const SellReportsService = {
   byClients,
   byItems,
   byServices,
   totalSells,
   detailedSells,
+  getTopByClients,
+  getTopByItems,
+  getTopByService,
 };
 
 export default SellReportsService;
