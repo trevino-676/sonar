@@ -6,6 +6,9 @@ const initState = {
   by_services: null,
   total_sells: null,
   detailed_sells: null,
+  top_clients: null,
+  top_items: null,
+  top_services: null,
 };
 
 const SellsReportsReducer = (state = initState, action) => {
@@ -39,6 +42,24 @@ const SellsReportsReducer = (state = initState, action) => {
     case SellsReportsConstants.GET_DETAILED_SELLS_SUCCESS:
       return { ...state, detailed_sells: action.payload };
     case SellsReportsConstants.GET_DETAILED_SELLS_FAIL:
+      return { ...state, error: action.payload.error };
+    case SellsReportsConstants.GET_TOP_BY_CLIENTS_REQUEST:
+      return { ...state };
+    case SellsReportsConstants.GET_TOP_BY_CLIENTS_SUCCESS:
+      return { ...state, top_clients: action.payload };
+    case SellsReportsConstants.GET_TOP_BY_CLIENTS_FAIL:
+      return { ...state, error: action.payload.error };
+    case SellsReportsConstants.GET_TOP_BY_ITEMS_REQUEST:
+      return { ...state };
+    case SellsReportsConstants.GET_TOP_BY_ITEMS_SUCCESS:
+      return { ...state, top_items: action.payload };
+    case SellsReportsConstants.GET_TOP_BY_ITEMS_FAIL:
+      return { ...state, error: action.payload.error };
+    case SellsReportsConstants.GET_TOP_BY_SERVICES_REQUEST:
+      return { ...state };
+    case SellsReportsConstants.GET_TOP_BY_SERVICE_SUCCESS:
+      return { ...state, top_services: action.payload };
+    case SellsReportsConstants.GET_TOP_BY_SERVICE_FAIL:
       return { ...state, error: action.payload.error };
     default:
       return { ...state };
