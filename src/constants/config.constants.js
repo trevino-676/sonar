@@ -50,6 +50,29 @@ const ConfigConstants = {
       text: 'Mensualmente',
     },
   ],
+
+  RPAS_SCHEDULER: [
+    {
+      name: 'daily',
+      text: 'Diariamente',
+      value: 'daily',
+    },
+    {
+      name: 'weekly',
+      text: 'Semanalmente',
+      value: 'weekly',
+    },
+    {
+      name: 'fortnightly',
+      value: 'fortnightly',
+      text: 'Quincenalmente',
+    },
+    {
+      name: 'monthly',
+      value: 'monthly',
+      text: 'Mensualmente',
+    },
+  ],
 };
 
 export default ConfigConstants;
