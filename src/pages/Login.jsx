@@ -17,108 +17,108 @@ const Login = () => {
     password: null,
   });
   const dispatch = useDispatch();
-  const facebookLogin = () => {
-    window.fbAsyncInit = () => {
-      FB.init({
-        appId: '850025339250150',
-        xfbml: true,
-        version: 'v10.0',
-      });
-      FB.AppEvents.logPageView();
-    };
+  // const facebookLogin = () => {
+  //   window.fbAsyncInit = () => {
+  //     FB.init({
+  //       appId: '850025339250150',
+  //       xfbml: true,
+  //       version: 'v10.0',
+  //     });
+  //     FB.AppEvents.logPageView();
+  //   };
 
-    (function (d, s, id) {
-      const fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      const js = d.createElement(s);
-      js.id = id;
-      js.src = 'https://connect.facebook.net/en_US/sdk.js';
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
-  };
+  //   (function (d, s, id) {
+  //     const fjs = d.getElementsByTagName(s)[0];
+  //     if (d.getElementById(id)) {
+  //       return;
+  //     }
+  //     const js = d.createElement(s);
+  //     js.id = id;
+  //     js.src = 'https://connect.facebook.net/en_US/sdk.js';
+  //     fjs.parentNode.insertBefore(js, fjs);
+  //   })(document, 'script', 'facebook-jssdk');
+  // };
 
-  const facebookStart = () => {
-    window.FB.login(
-      (response) => {
-        if (response.status === 'connected') console.log('Entro!!');
-      },
-      { scope: 'public_profile' }
-    );
-  };
+  // const facebookStart = () => {
+  //   window.FB.login(
+  //     (response) => {
+  //       if (response.status === 'connected') console.log('Entro!!');
+  //     },
+  //     { scope: 'public_profile' }
+  //   );
+  // };
 
-  const googleLogin = () => {
-    let s = document.createElement('script');
-    s.setAttribute('src', 'https://apis.google.com/js/api.js');
-    s.onload = googleStart;
-    document.body.appendChild(s);
-  };
+  // const googleLogin = () => {
+  //   let s = document.createElement('script');
+  //   s.setAttribute('src', 'https://apis.google.com/js/api.js');
+  //   s.onload = googleStart;
+  //   document.body.appendChild(s);
+  // };
 
-  const googleStart = () => {
-    let GoogleAuth;
-    const SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
-    console.log('----------');
-    handleClientLoad();
-    function handleClientLoad() {
-      gapi.load('client:auth2', initClient);
-      console.log(gapi);
-    }
+  // const googleStart = () => {
+  //   let GoogleAuth;
+  //   const SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+  //   console.log('----------');
+  //   handleClientLoad();
+  //   function handleClientLoad() {
+  //     gapi.load('client:auth2', initClient);
+  //     console.log(gapi);
+  //   }
 
-    function initClient() {
-      const discoveryUrl =
-        'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
-      gapi.client
-        .init({
-          apiKey: 'AIzaSyBbW99HNi4hkZdpNC381-RRq63MXCmdDFs',
-          clientId:
-            '145180067857-iff01u76igkocukv6j1hfvjboe1bf97c.apps.googleusercontent.com',
-          discoveryDocs: [discoveryUrl],
-          scope: SCOPE,
-        })
-        .then(() => {
-          GoogleAuth = gapi.auth2.getAuthInstance();
-          GoogleAuth.isSignedIn.listen(updateSigninStatus);
-          // const user = GoogleAuth.currentUser.get();
-          setSigninStatus();
-          const el = document.getElementById('sign-in-or-out-button');
-          el.addEventListener('click', handleAuthClick, false);
-          /*
-      $('#revoke-access-button').click(function() {
-        revokeAccess();
-      }); */
-        });
-    }
-    function handleAuthClick() {
-      if (GoogleAuth.isSignedIn.get()) {
-        GoogleAuth.signOut();
-      } else {
-        GoogleAuth.signIn();
-      }
-    }
+  //   function initClient() {
+  //     const discoveryUrl =
+  //       'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+  //     gapi.client
+  //       .init({
+  //         apiKey: 'AIzaSyBbW99HNi4hkZdpNC381-RRq63MXCmdDFs',
+  //         clientId:
+  //           '145180067857-iff01u76igkocukv6j1hfvjboe1bf97c.apps.googleusercontent.com',
+  //         discoveryDocs: [discoveryUrl],
+  //         scope: SCOPE,
+  //       })
+  //       .then(() => {
+  //         GoogleAuth = gapi.auth2.getAuthInstance();
+  //         GoogleAuth.isSignedIn.listen(updateSigninStatus);
+  //         // const user = GoogleAuth.currentUser.get();
+  //         setSigninStatus();
+  //         const el = document.getElementById('sign-in-or-out-button');
+  //         el.addEventListener('click', handleAuthClick, false);
+  //         /*
+  //     $('#revoke-access-button').click(function() {
+  //       revokeAccess();
+  //     }); */
+  //       });
+  //   }
+  //   function handleAuthClick() {
+  //     if (GoogleAuth.isSignedIn.get()) {
+  //       GoogleAuth.signOut();
+  //     } else {
+  //       GoogleAuth.signIn();
+  //     }
+  //   }
 
-    function revokeAccess() {
-      GoogleAuth.disconnect();
-    }
+  //   function revokeAccess() {
+  //     GoogleAuth.disconnect();
+  //   }
 
-    function setSigninStatus() {
-      const user = GoogleAuth.currentUser.get();
-      const isAuthorized = user.hasGrantedScopes(SCOPE);
-      if (isAuthorized) {
-        console.log('SI');
-      } else {
-        console.log('NO');
-      }
-    }
+  //   function setSigninStatus() {
+  //     const user = GoogleAuth.currentUser.get();
+  //     const isAuthorized = user.hasGrantedScopes(SCOPE);
+  //     if (isAuthorized) {
+  //       console.log('SI');
+  //     } else {
+  //       console.log('NO');
+  //     }
+  //   }
 
-    function updateSigninStatus() {
-      setSigninStatus();
-    }
-  };
+  //   function updateSigninStatus() {
+  //     setSigninStatus();
+  //   }
+  // };
 
-  const fun = {
-    ss: () => 20,
-  };
+  // const fun = {
+  //   ss: () => 20,
+  // };
 
   const handleChange = (event) => {
     setLogin({
@@ -142,8 +142,8 @@ const Login = () => {
     dispatch(LoginActions.Login(login));
   };
 
-  googleLogin();
-  facebookLogin();
+  // googleLogin();
+  // facebookLogin();
 
   return (
     <>
@@ -176,7 +176,7 @@ const Login = () => {
                   variant="outline-secondary"
                   type="button"
                   title="Inicia sesion con facebook"
-                  onClick={facebookStart}
+                  // onClick={facebookStart}
                 >
                   <span>
                     <i className="fab fa-facebook" />

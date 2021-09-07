@@ -16,7 +16,7 @@ export default {
   },
   Home: {
     component: Home,
-    path: '/',
+    path: '/home',
   },
   UserRegistry: {
     component: UserRegistry,
