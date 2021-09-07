@@ -153,6 +153,7 @@ const ClientDashboard = () => {
               title={title.title}
               route={title.route}
               key={title.title}
+              passData={passData}
             />
           ))}
       </div>

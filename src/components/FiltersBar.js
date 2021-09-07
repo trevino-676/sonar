@@ -60,11 +60,13 @@ const FilterBar = ({
                         data={field.options}
                         name={field.name}
                         handleChange={onHandleChange}
+                        defaultData={field.default ? field.default : null}
                       />
                     ) : (
                       <Form.Control
                         type={field.type}
                         name={field.name}
+                        defaultValue={field.default ? field.default : null}
                         onChange={(e) => onHandleChange(e)}
                       />
                     )}

@@ -1,3 +1,6 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-case-declarations */
+// @ts-check
 import SellsReportsConstants from '../constants/SellsReports.constants';
 import ModalActions from './modal.action';
 import LoginActions from './login.action';
@@ -200,7 +203,7 @@ const getTopByClients = (rfc, fromDate, toDate) => {
       dispatch(fail(FAIL_MESSAGE));
       return;
     }
-    dispatch(success(data));
+    dispatch(success(_transformData(data, 'cliente')));
   };
 };
 
@@ -231,7 +234,7 @@ const getTopByItems = (rfc, fromDate, toDate) => {
       dispatch(fail(FAIL_MESSAGE));
       return;
     }
-    dispatch(success(data));
+    dispatch(success(_transformData(data, 'articulo')));
   };
 };
 
@@ -262,8 +265,35 @@ const getTopByService = (rfc, fromDate, toDate) => {
       dispatch(fail(FAIL_MESSAGE));
       return;
     }
-    dispatch(success(data));
+
+    dispatch(success(_transformData(data, 'servicio')));
   };
+};
+
+/** Convert the data to donut expected data depends the type.
+ * If doesn't support the type, returns null
+ * @param {any[]} data
+ * @param {string} type
+ * @returns {(any[]|null)}
+ */
+
+const _transformData = (data, type) => {
+  const titles = [[type, 'Ventas']];
+  let info;
+  switch (type) {
+    case 'cliente':
+      info = data.map((item) => [item._id.nombre, item.total]);
+      break;
+    case 'articulo':
+      info = data.map((item) => [item._id.articulo, item.importe]);
+      break;
+    case 'servicio':
+      info = data.map((item) => [item._id.servicio, item.importe]);
+      break;
+    default:
+      return null;
+  }
+  return [...titles, ...info];
 };
 
 const SellsReportsActions = {
