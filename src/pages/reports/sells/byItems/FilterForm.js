@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-const useFilterForm = (companies) => {
+const useFilterForm = (companies, company = null, dates = null) => {
   const [filter, setFilter] = useState({
-    'datos.Rfc': null,
-    from_date: null,
-    to_date: null,
+    'datos.Rfc': company || null,
+    from_date: dates.fromDate || null,
+    to_date: dates.toDate || null,
   });
 
-  const _companiesOptions = companies.map((company) => ({
-    value: company.rfc,
-    text: company.name,
+  const _companiesOptions = companies.map((item) => ({
+    value: item.rfc,
+    text: item.name,
   }));
 
   const handleChangeFilter = (event) => {
@@ -29,16 +29,19 @@ const useFilterForm = (companies) => {
       type: 'Select',
       name: 'datos.Rfc',
       options: _companiesOptions,
+      default: company,
     },
     {
       label: 'Desde',
       type: 'date',
       name: 'from_date',
+      default: dates.fromDate,
     },
     {
       label: 'Hasta',
       type: 'date',
       name: 'to_date',
+      default: dates.toDate,
     },
   ];
 

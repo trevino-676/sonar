@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import SellsReportsActions from '../../../../actions/SellsReport.action';
 import useFilterForm from './FilterForm';
@@ -14,11 +15,16 @@ import useFormatters from '../../../../hooks/useFormatters';
 import '../../../../styles/reports.css';
 
 const SellsByItems = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const dataReport = useSelector((state) => state.sell_reports.by_items);
   const companies = useSelector((state) => state.companies.companies);
-  const [filter, handleChangeFilter, FilterForm, getTextFilter] =
-    useFilterForm(companies);
+  const { company, dates } = location.state;
+  const [filter, handleChangeFilter, FilterForm, getTextFilter] = useFilterForm(
+    companies,
+    company,
+    dates
+  );
   const { currencyFormatter } = useFormatters();
   const priceFormatter = (cell) => currencyFormatter('en-US', cell);
   const onSubmit = (filters) => {
@@ -61,6 +67,7 @@ const SellsByItems = () => {
     const getCompaniesInfo = () =>
       dispatch(CompanyActions.getCompaniesByUser());
     getCompaniesInfo();
+    dispatch(SellsReportsActions.byItems(filter));
   }, []);
 
   return (
