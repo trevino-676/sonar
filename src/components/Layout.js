@@ -22,6 +22,7 @@ const Layout = ({ children }) => {
         footer={modal.footer}
         show={modal.show}
         size={modal.size}
+        centered={modal.centered}
       />
     </>
   );

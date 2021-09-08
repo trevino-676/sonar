@@ -7,12 +7,21 @@ import { Button } from 'react-bootstrap';
 
 import LoginActions from '../actions/login.action';
 import SystemConstants from '../constants/system.constants';
+import ModalActions from '../actions/modal.action';
+import RegistryWizard from '../pages/config/wizard';
 
 import '../styles/components/Header.css';
 
 const Header = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const openWizard = () => {
+    const form = <RegistryWizard />;
+    dispatch(ModalActions.Clean());
+    dispatch(
+      ModalActions.Form({ title: 'Sonar', form, size: 'lg', centered: false })
+    );
+  };
 
   return (
     <nav>
@@ -85,11 +94,9 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/registry">
-                  <Button variant="primary" size="sm">
-                    COMIENZA AHORA
-                  </Button>
-                </Link>
+                <Button variant="primary" size="sm" onClick={openWizard}>
+                  COMIENZA AHORA
+                </Button>
               </li>
             </ul>
           </div>

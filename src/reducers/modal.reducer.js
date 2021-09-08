@@ -19,6 +19,7 @@ const ModalReducer = (state = initialState, action) => {
         form: action.form.form,
         size: action.form.size,
         footer: true,
+        centered: action.form.centered,
       };
     case ModalConstants.SUCCESS:
       return {
