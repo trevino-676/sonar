@@ -37,6 +37,66 @@ const ClientDashboard = () => {
 
   useEffect(() => {
     dispatch(SellsReportsActions.totalSells(company, fromDate, toDate));
+    CFDIReports.groupRequest(
+      'principal',
+      {Rfc: company, fromDate: fromDate, toDate: toDate},
+      'Receptor.Rfc',
+      'datos.MetodoPago'
+    )
+      .then((data) => {
+        const temp = {
+          title: 'Metodos de pago',
+          path: '/providers',
+          top: [],
+          data: [['Tipo', 'Cantidad']],
+        };
+        if (data) {
+          data.forEach((d) => {
+            temp.top.push('');
+            temp.data.push([d._id, d.count]);
+          });
+        }
+        setListDonut([
+          temp,
+          {
+            title: 'Ventas por cliente',
+            route: '/reports/sells/by_client',
+            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
+            data: [
+              ['Clientes', 'Ventas'],
+              ['Cliente 1', 200000.0],
+              ['Cliente 2', 100000.0],
+              ['Cliente 3', 50000.0],
+              ['Cliente 4', 150000.0],
+            ],
+          },
+          {
+            title: 'Ventas por producto',
+            route: '/reports/sells/by_items',
+            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
+            data: [
+              ['Clientes', 'Ventas'],
+              ['Cliente 1', 200000.0],
+              ['Cliente 2', 100000.0],
+              ['Cliente 3', 50000.0],
+              ['Cliente 4', 150000.0],
+            ],
+          },
+          {
+            title: 'Ventas por servicios',
+            route: '/reports/sells/by_services',
+            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
+            data: [
+              ['Clientes', 'Ventas'],
+              ['Cliente 1', 200000.0],
+              ['Cliente 2', 100000.0],
+              ['Cliente 3', 50000.0],
+              ['Cliente 4', 150000.0],
+            ],
+          },
+        ]);
+      })
+      .catch(console.log);
   }, [company]);
 
   useEffect(() => {
@@ -52,9 +112,10 @@ const ClientDashboard = () => {
     setCompany(config.main_company);
     dispatch(SellsReportsActions.totalSells(company, fromDate, toDate));
     dispatch(CompanyActions.getCompaniesByUser());
+    console.log(company);
     CFDIReports.groupRequest(
       'principal',
-      company,
+      {Rfc: company, fromDate: fromDate, toDate: toDate},
       'Receptor.Rfc',
       'datos.MetodoPago'
     )

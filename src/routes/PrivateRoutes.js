@@ -8,12 +8,17 @@ import TaxablePerceptions from '../pages/reports/payroll/taxablePerceptions';
 import SellsByServices from '../pages/reports/sells/byServices';
 import RetentionReport from '../pages/reports/retentions/retentionReport';
 import OpinionReport from '../pages/reports/opinion/opinionReport';
+import HomePrivate from '../pages/dashboards/home';
 import ClientDashboard from '../pages/dashboards/clients';
 import ProviderDashboard from '../pages/dashboards/providers';
 import PayrollDashboard from '../pages/dashboards/payroll';
 import DetailedReport from '../pages/reports/DetailedReport';
 
 export default {
+  Home: {
+    component: <HomePrivate />,
+    path: '/',
+  },
   Company: {
     component: <ConfigurationLayout />,
     path: '/settings',

@@ -3,16 +3,14 @@ import axios from 'axios';
 const BaseURL = 'https://www.sonar32.com.mx';
 // const BaseURL = 'http://localhost:';
 
-const groupRequest = async (apiCol, companyRfc, fieldMatch = '', fieldGroup = '') => {
+const groupRequest = async (apiCol, company, fieldMatch = '', fieldGroup = '') => {
   // const date = new Date();
   // const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
-  const fromDate = '2021-05-01T00:00:00';
-  const toDate = '2021-05-31T23:59:59';
 
   const data = new FormData();
-  data.append('user', companyRfc);
-  data.append('dateBegin', fromDate);
-  data.append('dateEnd', toDate);
+  data.append('user', company.Rfc);
+  data.append('dateBegin', company.fromDate);
+  data.append('dateEnd', company.toDate);
   data.append('fieldMatch', fieldMatch);
   data.append('fieldGroup', fieldGroup);
 
@@ -31,14 +29,11 @@ const groupRequest = async (apiCol, companyRfc, fieldMatch = '', fieldGroup = ''
   }
 };
 
-const countRequest = async (apiCol, companyRfc, fieldMatch = '', total, subTotal) => {
-    const fromDate = '2021-05-01T00:00:00';
-    const toDate = '2021-05-31T23:59:59';
-  
+const countRequest = async (apiCol, company, fieldMatch = '', total, subTotal) => {
     const data = new FormData();
-    data.append('user', companyRfc);
-    data.append('dateBegin', fromDate);
-    data.append('dateEnd', toDate);
+    data.append('user', company.Rfc);
+    data.append('dateBegin', company.fromDate);
+    data.append('dateEnd', company.toDate);
     data.append('fieldMatch', fieldMatch);
     data.append('totalCol', total);
     data.append('subTotalCol', subTotal);

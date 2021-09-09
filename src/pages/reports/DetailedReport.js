@@ -14,21 +14,39 @@ const DetailedReport = () => {
   const { type, company, dates } = location.state;
   let data = null;
   const dispatch = useDispatch();
-  useReportTitle(`Sonar | ${type === 'sells' ? 'Clientes' : 'Proveedores'}`);
+  useReportTitle(`Sonar | ${type === 'sells' ? 'Clientes' : type === 'providers' ? 'Proveedores' : 'Distribución'}`);
   const { currencyFormatter, DateFormatter } = useFormatters();
   const currency = (cell) => currencyFormatter('es-MX', cell);
-  if (type === 'sells') {
-    data = useSelector((state) => state.sell_reports.detailed_sells);
-  } else {
-    data = useSelector((state) => state.detailed.provider_detailed_report);
+  
+  switch (type) {
+    case 'sells':
+      data = useSelector((state) => state.sell_reports.detailed_sells);
+      break;
+    case 'providers':
+      data = useSelector((state) => state.detailed.provider_detailed_report);
+      break;
+    case 'all':
+      data = useSelector((state) => state.detailed.provider_detailed_report);
+      break;
+    default:
+      data = useSelector((state) => state.sell_reports.detailed_sells);
+      break;
   }
   useEffect(() => {
-    if (type === 'sells') {
-      dispatch(
-        SellsReportsActions.detailedSells(company, dates.fromDate, dates.toDate)
-      );
-    } else {
-      dispatch(DetailedReportActions.getProviderDetailedReport(company));
+
+    switch (type) {
+      case 'sells':
+        dispatch(SellsReportsActions.detailedSells(company, dates.fromDate, dates.toDate));
+        break;
+      case 'providers':
+        dispatch(DetailedReportActions.getProviderDetailedReport(company, dates.fromDate, dates.toDate));
+        break;
+      case 'all':
+        dispatch(DetailedReportActions.getTotalDetailedReport(company, dates.fromDate, dates.toDate));
+        break;
+      default:
+        break;
+  
     }
   }, []);
 
@@ -112,8 +130,8 @@ const DetailedReport = () => {
       path: '/',
     },
     {
-      name: type === 'sells' ? 'Cliente' : 'Proveedores',
-      path: type === 'sells' ? '/clients' : '/providers',
+      name: type === 'sells' ? 'Cliente' : type === 'providers' ? 'Proveedores' : 'Distribución',
+      path: type === 'sells' ? '/clients' : type === 'providers' ? '/providers' : 'cfdi',
     },
     {
       name: 'CFDIs emitidos',
@@ -124,7 +142,7 @@ const DetailedReport = () => {
     <>
       <BreadcrumbComponent routes={routes} />
       <h1 className="title">
-        CFDIs {type === 'sells' ? 'emitidos' : 'recibidos'}
+        CFDIs {type === 'sells' ? 'emitidos' : type === 'providers' ? 'recibidos' : ''}
       </h1>
       {data && (
         <ReportTable
