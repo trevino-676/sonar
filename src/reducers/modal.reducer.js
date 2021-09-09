@@ -7,6 +7,7 @@ const initialState = {
   size: null,
   body: null,
   footer: false,
+  centered: true,
 };
 
 const ModalReducer = (state = initialState, action) => {

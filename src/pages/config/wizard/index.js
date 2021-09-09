@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { Tabs, Tab, ProgressBar, Modal, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
-import ModalActions from '../../actions/modal.action';
-import UserRegistry from '../users/register';
-import CompanyPage from '../companies';
+import ModalActions from '../../../actions/modal.action';
+import CompanyWizardPage from './company_wizard';
 
-const RegistryWizard = () => {
+const RegistryWizard = ({ config }) => {
   const dispatch = useDispatch();
-  const [key, setKey] = useState('registry');
+  const [key, setKey] = useState('company');
   const closeModal = () => dispatch(ModalActions.Clean());
   return (
     <>
@@ -18,12 +17,8 @@ const RegistryWizard = () => {
         onSelect={(k) => setKey(k)}
         className="mb-3"
       >
-        <Tab eventKey="registry" title="Registro">
-          <UserRegistry />
-        </Tab>
         <Tab eventKey="company" title="Empresas">
-          {/* <CompanyPage /> */}
-          <h2>Empresas</h2>
+          <CompanyWizardPage config={config} />
         </Tab>
         <Tab eventKey="notification" title="Notificaciones">
           <h1>Notificaciones</h1>

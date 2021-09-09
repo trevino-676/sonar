@@ -1,0 +1,23 @@
+.company-wizard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.company-wizard form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.company-wizard form input {
+  margin: 0.5rem;
+  width: 20rem;
+}
+
+.company-wizard form button {
+  margin: 1rem;
+}

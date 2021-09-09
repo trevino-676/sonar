@@ -47,7 +47,7 @@ const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const config = useSelector((state) => state.config.config);
-  const wizard = <RegistryWizard />;
+  const wizard = <RegistryWizard config={config} />;
 
   useEffect(() => {
     if (config && !('main_company' in config)) {
@@ -56,7 +56,7 @@ const App = () => {
         ModalActions.Form({
           title: 'Termina el proceso de registro',
           form: wizard,
-          size: 'xl',
+          size: 'lg',
           centered: false,
         })
       );
