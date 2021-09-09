@@ -223,6 +223,7 @@ const saveUser = (user) => {
         })
       );
       await new Promise((r) => setTimeout(r, 2000));
+      window.location.href = '/login';
     } catch (err) {
       dispatch(fail(ERROR_MESSAGE));
       dispatch(
