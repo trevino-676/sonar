@@ -7,7 +7,7 @@ import CompanyActions from '../../../actions/company.action';
 
 import '../../../styles/pages/config/company_wizard.css';
 
-const CompanyWizardPage = ({ config }) => {
+const CompanyWizardPage = ({ config, handleNextTab }) => {
   const dispatch = useDispatch();
   const name = useRef('');
   const rfc = useRef('');
@@ -25,6 +25,7 @@ const CompanyWizardPage = ({ config }) => {
       CompanyActions.createCompany(company, localStorage.getItem('token'))
     );
     // dispatch(ConfigActions.updateUSerConfig(configData));
+    handleNextTab('notification');
   };
 
   return (

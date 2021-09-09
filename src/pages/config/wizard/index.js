@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Tab, ProgressBar, Modal, Button } from 'react-bootstrap';
+import { Tabs, Tab, Modal, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import ModalActions from '../../../actions/modal.action';
@@ -18,7 +18,7 @@ const RegistryWizard = ({ config }) => {
         className="mb-3"
       >
         <Tab eventKey="company" title="Empresas">
-          <CompanyWizardPage config={config} />
+          <CompanyWizardPage config={config} handleNextTab={setKey} />
         </Tab>
         <Tab eventKey="notification" title="Notificaciones">
           <h1>Notificaciones</h1>

@@ -16,7 +16,7 @@ const createCompany = (company, token) => {
   return async (dispatch) => {
     try {
       dispatch(request());
-      dispatch(ModalActions.Clean());
+      // dispatch(ModalActions.Clean());
       const resp = await CompanyService.createCompany(company, token);
       if (resp.status !== 200) {
         dispatch(fail(resp.data.message));
@@ -30,12 +30,12 @@ const createCompany = (company, token) => {
       dispatch(success(company));
       // eslint-disable-next-line no-use-before-define
       dispatch(getCompaniesByUser());
-      dispatch(
-        ModalActions.Success({
-          title: 'Compañia',
-          body: 'Se agrego con exito una nueva compañia',
-        })
-      );
+      // dispatch(
+      //   ModalActions.Success({
+      //     title: 'Compañia',
+      //     body: 'Se agrego con exito una nueva compañia',
+      //   })
+      // );
     } catch (e) {
       dispatch(ModalActions.Clean());
       dispatch(fail(e.message));
