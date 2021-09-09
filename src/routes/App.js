@@ -12,6 +12,8 @@ import PublicRoutes from './PublicRoutes';
 import PrivateRoutes from './PrivateRoutes';
 import SystemConstants from '../constants/system.constants';
 import ConfigActions from '../actions/config.action';
+import ModalActions from '../actions/modal.action';
+import RegistryWizard from '../pages/config/wizard';
 
 const socketRoute = 'wss://sws.sonar32.com.mx';
 // const socketRoute = 'ws://localhost:6789';
@@ -45,6 +47,21 @@ const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const config = useSelector((state) => state.config.config);
+  const wizard = <RegistryWizard />;
+
+  useEffect(() => {
+    if (config && !('main_company' in config)) {
+      dispatch(ModalActions.Clean());
+      dispatch(
+        ModalActions.Form({
+          title: 'Termina el proceso de registro',
+          form: wizard,
+          size: 'xl',
+          centered: false,
+        })
+      );
+    }
+  }, [config]);
 
   useEffect(() => {
     if (user.loggedIn && !config) {
