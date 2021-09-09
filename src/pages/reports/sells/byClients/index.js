@@ -136,7 +136,6 @@ const SellsByClient = () => {
       return { ...item };
     });
   }
-  console.log(dataReport);
   return (
     <Container>
       <BreadcrumbComponent routes={Routes} />
