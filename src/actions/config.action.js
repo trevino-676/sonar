@@ -91,12 +91,12 @@ const updateUSerConfig = (config) => {
       return;
     }
     dispatch(success(config));
-    dispatch(
-      ModalActions.Success({
-        title: 'Configuracion guardada',
-        body: 'La configuracion se guardo correctamente',
-      })
-    );
+    // dispatch(
+    //   ModalActions.Success({
+    //     title: 'Configuracion guardada',
+    //     body: 'La configuracion se guardo correctamente',
+    //   })
+    // );
     dispatch(getUserConfig());
   };
 };

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import ModalActions from '../../../actions/modal.action';
 import CompanyWizardPage from './company_wizard';
+import NotificationsComponent from '../notifications';
 
 const RegistryWizard = ({ config }) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const RegistryWizard = ({ config }) => {
           <CompanyWizardPage config={config} handleNextTab={setKey} />
         </Tab>
         <Tab eventKey="notification" title="Notificaciones">
-          <h1>Notificaciones</h1>
+          <NotificationsComponent config={config} />
         </Tab>
         <Tab eventKey="scheduler" title="Schedulers">
           <h1>Scheduler</h1>
