@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Alert } from 'react-bootstrap';
 
-const AlertComponent = ({ content, variant, show = true }) => {
-  const [alertShow, setAlertShow] = useState(show);
+import AlertActions from '../actions/alert.action';
+
+const AlertComponent = ({ content, variant, show }) => {
+  const dispatch = useDispatch();
   return (
     <>
-      {alertShow && (
-        <Alert
-          variant={variant}
-          onClose={() => setAlertShow(false)}
-          dismissable
-        >
-          {content}
-        </Alert>
-      )}
+      <Alert
+        show={show}
+        variant={variant}
+        onClose={() => dispatch(AlertActions.clean())}
+        dismissible
+      >
+        {content}
+      </Alert>
     </>
   );
 };

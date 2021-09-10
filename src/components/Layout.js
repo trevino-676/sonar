@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Header from './Header';
 import Footer from './Footer';
 import CommonModal from './modal';
+import AlertComponent from './AlertComponent';
 
 // Aqui se importan los estilos del Layout
 import '../styles/components/Layout.css';
@@ -11,6 +12,7 @@ import '../styles/pages/styles.css';
 
 const Layout = ({ children }) => {
   const modal = useSelector((state) => state.modal);
+  const alert = useSelector((state) => state.alert);
   return (
     <>
       <Header />
@@ -23,6 +25,11 @@ const Layout = ({ children }) => {
         show={modal.show}
         size={modal.size}
         centered={modal.centered}
+      />
+      <AlertComponent
+        show={alert.show}
+        content={alert.content}
+        variant={alert.variant}
       />
     </>
   );

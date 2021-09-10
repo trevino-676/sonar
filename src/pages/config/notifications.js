@@ -6,6 +6,7 @@ import ConfigActions from '../../actions/config.action';
 import useReportTitle from '../../hooks/useReportTitle';
 import SystemConstants from '../../constants/system.constants';
 import ConfigConstants from '../../constants/config.constants';
+import AlertActions from '../../actions/alert.action';
 
 import '../../styles/pages/config/notifications.css';
 
@@ -32,6 +33,9 @@ const NotificationsComponent = ({ config }) => {
     if (configNotifications.length !== notifications.length) {
       const data = { ...config, notifications };
       dispatch(ConfigActions.updateUSerConfig(data));
+      dispatch(
+        AlertActions.success('Se guardo la configuracion correctamente')
+      );
     }
   }, [notifications]);
   return (
