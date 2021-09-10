@@ -8,6 +8,7 @@ import Pagos from '../pages/reports/nomina/pagosNomina';
 import NominaOtrosPagos from '../pages/reports/nomina/otrosPagosNomina';
 import Proveedores from '../pages/reports/nomina/proveedores';
 import complementosDePago from '../pages/reports/nomina/complementosDePago';
+import FormUploadFile from '../components/FormUploadFile';
 
 export default {
   Login: {
@@ -16,7 +17,7 @@ export default {
   },
   Home: {
     component: Home,
-    path: '/',
+    path: '/home',
   },
   UserRegistry: {
     component: UserRegistry,
@@ -49,5 +50,9 @@ export default {
   PasswordRecovery: {
     component: PasswordRecovery,
     path: '/recovery',
+  },
+  UploadFileComp: {
+    component: FormUploadFile,
+    path: '/uploadFileComp',
   },
 };

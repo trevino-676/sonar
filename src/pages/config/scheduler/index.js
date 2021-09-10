@@ -3,6 +3,7 @@ import { Tab, Tabs } from 'react-bootstrap';
 
 import SchedulerComponent from './scheduler';
 import ReminderScheduler from './reminders';
+import RPAScheduler from './rpa';
 
 const Scheduler = ({ config }) => (
   <>
@@ -13,8 +14,8 @@ const Scheduler = ({ config }) => (
       <Tab eventKey="recordatorios" title="Recordatorios">
         <ReminderScheduler config={config} />
       </Tab>
-      <Tab eventKey="rpa" title="Descarga de informacion" disabled>
-        <h1>RPA</h1>
+      <Tab eventKey="rpa" title="Descarga de informacion">
+        <RPAScheduler config={config}/>
       </Tab>
       <Tab eventKey="reportes" title="Reportes automaticos" disabled>
         <h1>Reportes</h1>
