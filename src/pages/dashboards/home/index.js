@@ -117,7 +117,6 @@ const HomePrivate = () => {
 		/// IVA e IEPS
 		CFDIReports.countRequest('principal', usrConf, 'datos.Rfc', 'impuestos.TrasladoIVA', 'impuestos.TrasladoIEPS').then((data) => {
 			if (data) {
-				console.log(data);
 				setTotalIVAEmi(data[0].total);
 				setTotalIEPSemi(data[0].subTotal);
 				reqCount = reqCount - 1;
@@ -156,11 +155,12 @@ const HomePrivate = () => {
 	}, [companies]);
 
 
-	useEffect(() => {
-		configDispatch(ConfigActions.getUserConfig());
+	useEffect(async () => {
+		await configDispatch(ConfigActions.getUserConfig());
 		setCompany(config.main_company);
-    configDispatch(CompanyActions.getCompaniesByUser());
+    	await configDispatch(CompanyActions.getCompaniesByUser());
 		setGDD();
+		console.log(config.graphics);
 	}, []);
 
 	const passData = {
@@ -194,14 +194,14 @@ const HomePrivate = () => {
 					route="/reports/detailed"
 					data={passData}
 				/>
-				{tipoComp && (<DonutComponent
+				{(tipoComp && config.graphics.cfdis) && (<DonutComponent
 					top={tipoComp.top}
 					data={tipoComp.data}
 					title={'Distribución de CFDIs'}
 					route={'/reports/'}
 				/>)}
 				{/* TO_DO: Crear vista de esta info */}
-				{totalEvsR && (<DonutComponent
+				{(totalEvsR && config.graphics.comp) && (<DonutComponent
 					top={totalEvsR.top}
 					data={totalEvsR.data}
 					title={'Emitidos vs Recibidos'}

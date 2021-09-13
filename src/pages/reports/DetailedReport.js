@@ -26,7 +26,7 @@ const DetailedReport = () => {
       data = useSelector((state) => state.detailed.provider_detailed_report);
       break;
     case 'all':
-      data = useSelector((state) => state.detailed.provider_detailed_report);
+      data = useSelector((state) => state.detailed.total_detailed_report);
       break;
     default:
       data = useSelector((state) => state.sell_reports.detailed_sells);
