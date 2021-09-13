@@ -31,46 +31,46 @@ const ConfigConstants = {
   REMINDERS_SCHEDULER: [
     {
       name: 'daily',
-      text: 'Diariamente',
+      text: 'Diario',
       value: 'daily',
     },
     {
       name: 'weekly',
-      text: 'Semanalmente',
+      text: 'Semanal',
       value: 'weekly',
     },
     {
       name: 'fortnightly',
       value: 'fortnightly',
-      text: 'Quincenalmente',
+      text: 'Quincenal',
     },
     {
       name: 'monthly',
       value: 'monthly',
-      text: 'Mensualmente',
+      text: 'Mensual',
     },
   ],
 
   RPAS_SCHEDULER: [
     {
       name: 'daily',
-      text: 'Diariamente',
+      text: 'Diario',
       value: 'daily',
     },
     {
       name: 'weekly',
-      text: 'Semanalmente',
+      text: 'Semanal',
       value: 'weekly',
     },
     {
       name: 'fortnightly',
       value: 'fortnightly',
-      text: 'Quincenalmente',
+      text: 'Quincenal',
     },
     {
       name: 'monthly',
       value: 'monthly',
-      text: 'Mensualmente',
+      text: 'Mensual',
     },
   ],
 };

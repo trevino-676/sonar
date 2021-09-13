@@ -30,12 +30,22 @@ const SchedulerComponent = ({ config }) => {
         <label htmlFor="fortnightly">
           <input
             type="radio"
+            value="weekly"
+            name="weekly"
+            checked={period === 'weekly'}
+            onChange={onChange}
+          />
+          Semanal
+        </label>
+        <label htmlFor="fortnightly">
+          <input
+            type="radio"
             value="fortnightly"
             name="fortnightly"
             checked={period === 'fortnightly'}
             onChange={onChange}
           />
-          Quincenalmente
+          Quincenal
         </label>
         <label htmlFor="monthly">
           <input
@@ -45,7 +55,7 @@ const SchedulerComponent = ({ config }) => {
             checked={period === 'monthly'}
             onChange={onChange}
           />
-          Mensualmente
+          Mensual
         </label>
         <label htmlFor="quarterly">
           <input
@@ -55,7 +65,7 @@ const SchedulerComponent = ({ config }) => {
             checked={period === 'quarterly'}
             onChange={onChange}
           />
-          Trimestralmente
+          Trimestral
         </label>
         <label htmlFor="biannual">
           <input
@@ -65,7 +75,7 @@ const SchedulerComponent = ({ config }) => {
             checked={period === 'biannual'}
             onChange={onChange}
           />
-          Semestralmente
+          Semestral
         </label>
       </div>
     </>
