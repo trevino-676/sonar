@@ -24,7 +24,8 @@ const Login = (data) => {
         localStorage.setItem('token', resp.data.access_token);
         dispatch(success(resp.data.access_token));
         dispatch(CompanyActions.getCompaniesByUser());
-        window.location.replace('/');
+        window.location.reload();
+        window.location.replace('/home');
       }
     } catch (e) {
       dispatch(fail(e));
