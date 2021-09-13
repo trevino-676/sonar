@@ -5,6 +5,7 @@ const SystemConstants = {
   // Page Titles
   CONFIGURATION_NOTIFICATION: 'sonar | notificaciones',
   CONFIGURATION_REMINDERS: 'sonar | recordatorios',
+  CONFIGURATION_DASHBOARDS: 'sonar | perzonalización'
 };
 
 export default SystemConstants;

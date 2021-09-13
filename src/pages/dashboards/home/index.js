@@ -67,9 +67,8 @@ const HomePrivate = () => {
 
   const configDispatch = useDispatch();
   const config = useSelector((state) => state.config.config);
-  console.log(config);
   const companies = useSelector((state) => state.companies.companies);
-  let [fromDate, toDate] = usePeriodData(config.period);
+  const [fromDate, toDate] = usePeriodData(config.period);
   const [company, setCompany] = useState(config.main_company);
   const [companyTitle, setCompanyTitle] = useState('');
 
@@ -187,15 +186,12 @@ const HomePrivate = () => {
     }
   }, [companies]);
 
-  useEffect(() => {
-    [fromDate, toDate] = usePeriodData(config.period);
-  }, [config]);
-
-  useEffect(() => {
-    configDispatch(ConfigActions.getUserConfig());
+  useEffect(async () => {
+    await configDispatch(ConfigActions.getUserConfig());
     setCompany(config.main_company);
-    configDispatch(CompanyActions.getCompaniesByUser());
+    await configDispatch(CompanyActions.getCompaniesByUser());
     setGDD();
+    console.log(config.graphics);
   }, []);
 
   const passData = {
@@ -229,7 +225,7 @@ const HomePrivate = () => {
           route="/reports/detailed"
           data={passData}
         />
-        {tipoComp && (
+        {tipoComp && config.graphics.cfdis && (
           <DonutComponent
             top={tipoComp.top}
             data={tipoComp.data}
@@ -238,7 +234,7 @@ const HomePrivate = () => {
           />
         )}
         {/* TO_DO: Crear vista de esta info */}
-        {totalEvsR && (
+        {totalEvsR && config.graphics.comp && (
           <DonutComponent
             top={totalEvsR.top}
             data={totalEvsR.data}

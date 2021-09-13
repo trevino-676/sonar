@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import CompanyPage from '../pages/companies';
 import NotificationsComponent from '../pages/config/notifications';
 import Scheduler from '../pages/config/scheduler';
+import DeshboardsConfigComponent from '../pages/config/dashboard';
 
 import '../styles/components/ConfigurationLayout.css';
 
@@ -138,7 +139,7 @@ const ConfigurationLayout = () => {
             <CompanyPage config={config} />
           </div>
           <div hidden={hiddenElements.dashboard}>
-            <h1>dashboard</h1>
+            <DeshboardsConfigComponent config={config} />
           </div>
           <div hidden={hiddenElements.notification}>
             <NotificationsComponent config={config} />
