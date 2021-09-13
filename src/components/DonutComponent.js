@@ -4,7 +4,7 @@ import { Chart } from 'react-google-charts';
 
 import '../styles/components/DonutComponent.css';
 
-const DonutComponent = ({ top, data, title, route }) => (
+const DonutComponent = ({ top, data, title, route, passData }) => (
   <div className="donut-component">
     <div className="donut-title">
       <h4>{title}</h4>
@@ -25,7 +25,14 @@ const DonutComponent = ({ top, data, title, route }) => (
       />
     </div>
     <div className="donut-detail">
-      <Link to={route}>Ver detalles</Link>
+      <Link
+        to={{
+          pathname: route,
+          state: passData,
+        }}
+      >
+        Ver detalles
+      </Link>
     </div>
   </div>
 );

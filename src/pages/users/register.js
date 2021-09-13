@@ -23,7 +23,6 @@ const UserRegistry = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     dispatch(UserActions.saveUser(user));
-    window.location.href = '/login';
   };
 
   return (

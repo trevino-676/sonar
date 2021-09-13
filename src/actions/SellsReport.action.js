@@ -1,3 +1,6 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-case-declarations */
+// @ts-check
 import SellsReportsConstants from '../constants/SellsReports.constants';
 import ModalActions from './modal.action';
 import LoginActions from './login.action';
@@ -175,12 +178,133 @@ const detailedSells = (companyRfc, fromDate, toDate) => {
   };
 };
 
+const getTopByClients = (rfc, fromDate, toDate) => {
+  const FAIL_MESSAGE =
+    'Hubo un error en la peticion del top de ventas por clientes';
+  const request = () => ({
+    type: SellsReportsConstants.GET_TOP_BY_CLIENTS_REQUEST,
+  });
+  const success = (data) => ({
+    type: SellsReportsConstants.GET_TOP_BY_CLIENTS_SUCCESS,
+    payload: data,
+  });
+  const fail = (error) => ({
+    type: SellsReportsConstants.GET_TOP_BY_CLIENTS_FAIL,
+    payload: { error },
+  });
+  return async (dispatch) => {
+    dispatch(request());
+    const data = await SellReportsService.getTopByClients({
+      'datos.Rfc': rfc,
+      from_date: fromDate,
+      to_date: toDate,
+    });
+    if (!data) {
+      dispatch(fail(FAIL_MESSAGE));
+      return;
+    }
+    dispatch(success(_transformData(data, 'cliente')));
+  };
+};
+
+const getTopByItems = (rfc, fromDate, toDate) => {
+  const FAIL_MESSAGE =
+    'Hubo un error en la peticion del reporte de ventas detallado';
+  const request = () => ({
+    type: SellsReportsConstants.GET_TOP_BY_ITEMS_REQUEST,
+  });
+  const success = (data) => ({
+    type: SellsReportsConstants.GET_TOP_BY_ITEMS_SUCCESS,
+    payload: data,
+  });
+  const fail = (error) => ({
+    type: SellsReportsConstants.GET_TOP_BY_ITEMS_FAIL,
+    payload: { error },
+  });
+
+  return async (dispatch) => {
+    dispatch(request());
+    const data = await SellReportsService.getTopByItems({
+      'datos.Rfc': rfc,
+      from_date: fromDate,
+      to_date: toDate,
+    });
+
+    if (!data) {
+      dispatch(fail(FAIL_MESSAGE));
+      return;
+    }
+    dispatch(success(_transformData(data, 'articulo')));
+  };
+};
+
+const getTopByService = (rfc, fromDate, toDate) => {
+  const FAIL_MESSAGE =
+    'Hubo un error en la peticion del reporte de ventas detallado';
+  const request = () => ({
+    type: SellsReportsConstants.GET_TOP_BY_SERVICES_REQUEST,
+  });
+  const success = (data) => ({
+    type: SellsReportsConstants.GET_TOP_BY_SERVICES_SUCCESS,
+    payload: data,
+  });
+  const fail = (error) => ({
+    type: SellsReportsConstants.GET_TOP_BY_SERVICES_FAIL,
+    payload: { error },
+  });
+
+  return async (dispatch) => {
+    dispatch(request());
+    const data = await SellReportsService.getTopByService({
+      'datos.Rfc': rfc,
+      from_date: fromDate,
+      to_date: toDate,
+    });
+
+    if (!data) {
+      dispatch(fail(FAIL_MESSAGE));
+      return;
+    }
+
+    dispatch(success(_transformData(data, 'servicio')));
+  };
+};
+
+/** Convert the data to donut expected data depends the type.
+ * If doesn't support the type, returns null
+ * @param {any[]} data
+ * @param {string} type
+ * @returns {(any[]|null)}
+ */
+
+const _transformData = (data, type) => {
+  const titles = [[type, 'Ventas']];
+  let info;
+  switch (type) {
+    case 'cliente':
+      info = data.map((item) => [item._id.nombre, item.total]);
+      break;
+    case 'articulo':
+      info = data.map((item) => [item._id.articulo, item.importe]);
+      break;
+    case 'servicio':
+      info = data.map((item) => [item._id.servicio, item.importe]);
+      break;
+    default:
+      return null;
+  }
+  return [...titles, ...info];
+};
+
 const SellsReportsActions = {
   byClients,
   byItems,
   byServices,
   totalSells,
   detailedSells,
+  getTopByClients,
+  getTopByItems,
+  getTopByService,
 };
 
 export default SellsReportsActions;

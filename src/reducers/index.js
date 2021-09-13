@@ -9,8 +9,10 @@ import RetentionsReducer from './RetentionsReport.reducer';
 import OpinionReportReducer from './Opinion.reducer';
 import DetailedReportReducer from './Detailed.reducer';
 import ConfigReducer from './config.reducer';
+import AlertReducer from './alert.reducer';
 
 const rootReducer = combineReducers({
+  alert: AlertReducer,
   user: UserReducer,
   modal: ModalReducer,
   companies: CompanyReducer,

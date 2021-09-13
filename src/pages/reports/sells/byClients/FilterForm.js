@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
-const useSellsFilterForm = (companies) => {
+const useSellsFilterForm = (companies, company, dates) => {
   const [filter, setFilter] = useState({
-    from_date: null,
-    to_date: null,
+    from_date: dates.fromDate,
+    to_date: dates.toDate,
     rfc: null,
     status: null,
     amount: null,
-    'datos.Rfc': null,
+    'datos.Rfc': company,
     name: null,
   });
 
-  const _companiesOptions = companies.map((company) => ({
-    value: company.rfc,
-    text: company.name,
+  const _companiesOptions = companies.map((item) => ({
+    value: item.rfc,
+    text: item.name,
   }));
 
   const FilterForm = [
@@ -22,16 +22,19 @@ const useSellsFilterForm = (companies) => {
       type: 'Select',
       name: 'datos.Rfc',
       options: _companiesOptions,
+      default: company,
     },
     {
       label: 'Desde',
       type: 'date',
       name: 'from_date',
+      default: dates.fromDate,
     },
     {
       label: 'Hasta',
       type: 'date',
       name: 'to_date',
+      default: dates.toDate,
     },
     {
       label: 'RFC',
