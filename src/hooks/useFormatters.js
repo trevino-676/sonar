@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const useFormatters = () => {
   const currencyFormatter = (format, data) => {
@@ -15,8 +16,8 @@ const useFormatters = () => {
     return <span>${price}</span>;
   };
   const DateFormatter = (data) => {
-    const date = new Date(data);
-    return <span>{date.toLocaleString()}</span>;
+    const date = moment(data);
+    return <span>{date.format('YYYY-MM-DD HH:mm:ss')}</span>;
   };
 
   const passwordFormatter = (data) => {
