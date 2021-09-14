@@ -219,18 +219,13 @@ const HomePrivate = () => {
       </div>
       <div className="dashboard-content">
         {/* TO_DO: Clonar grafica, poner las cantidades, Totales, TOTALES POR TIPO DE CFDI */}
-        <AmountDisplay
-          title="Compras del mes"
-          amount={100.1}
-          route="/reports/detailed"
-          data={passData}
-        />
         {tipoComp && config.graphics.cfdis && (
           <DonutComponent
             top={tipoComp.top}
             data={tipoComp.data}
             title="Distribución de CFDIs"
-            route="/reports/"
+            route="/reports/detailed"
+            passData={passData}
           />
         )}
         {/* TO_DO: Crear vista de esta info */}
@@ -239,7 +234,6 @@ const HomePrivate = () => {
             top={totalEvsR.top}
             data={totalEvsR.data}
             title="Emitidos vs Recibidos"
-            route="#"
           />
         )}
         {totalIVAEmi !== null && (
@@ -248,7 +242,7 @@ const HomePrivate = () => {
             amount={totalIVAEmi}
             currency="es-MX"
             route="/reports/detailed"
-            data={null}
+            data={passData}
           />
         )}
         {totalIEPSemi !== null && (
@@ -257,7 +251,7 @@ const HomePrivate = () => {
             amount={totalIEPSemi}
             currency="es-MX"
             route="/reports/detailed"
-            data={null}
+            data={passData}
           />
         )}
         {totalIVARec !== null && (
@@ -266,7 +260,7 @@ const HomePrivate = () => {
             amount={totalIVARec}
             currency="es-MX"
             route="/reports/detailed"
-            data={null}
+            data={passData}
           />
         )}
         {totalIEPSrec !== null && (
@@ -275,7 +269,7 @@ const HomePrivate = () => {
             amount={totalIEPSrec}
             currency="es-MX"
             route="/reports/detailed"
-            data={null}
+            data={passData}
           />
         )}
       </div>

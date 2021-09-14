@@ -4,7 +4,13 @@ import { Chart } from 'react-google-charts';
 
 import '../styles/components/DonutComponent.css';
 
-const DonutComponent = ({ top, data, title, route, passData }) => (
+const DonutComponent = ({
+  top,
+  data,
+  title,
+  route = null,
+  passData = null,
+}) => (
   <div className="donut-component">
     <div className="donut-title">
       <h4>{title}</h4>
@@ -24,16 +30,18 @@ const DonutComponent = ({ top, data, title, route, passData }) => (
         options={{ pieHole: 0.4 }}
       />
     </div>
-    <div className="donut-detail">
-      <Link
-        to={{
-          pathname: route,
-          state: passData,
-        }}
-      >
-        Ver detalles
-      </Link>
-    </div>
+    {route && (
+      <div className="donut-detail">
+        <Link
+          to={{
+            pathname: route,
+            state: passData,
+          }}
+        >
+          Ver detalles
+        </Link>
+      </div>
+    )}
   </div>
 );
 
