@@ -8,24 +8,34 @@ const usePeriodData = (type) => {
   const date = moment();
   switch (type) {
     case 'weekly':
-      toDate = date.format(format);
-      fromDate = date.subtract(1, 'weeks').format(format);
+      toDate = date.endOf('w').format(format);
+      fromDate = date.startOf('w').format(format);
       break;
     case 'fortnightly':
-      toDate = date.format(format);
-      fromDate = date.subtract(2, 'weeks').format(format);
+      if (date.date() >= 16) {
+        fromDate = date.date(16).format(format);
+        toDate = date.endOf('M').format(format);
+      } else {
+        fromDate = date.startOf('M').format(format);
+        toDate = date.date(15).format(format);
+      }
       break;
     case 'monthly':
-      toDate = date.format(format);
-      fromDate = date.subtract(1, 'months').format(format);
+      toDate = date.endOf('M').format(format);
+      fromDate = date.startOf('M').format(format);
       break;
     case 'quarterly':
-      toDate = date.format(format);
-      fromDate = date.subtract(3, 'months').format(format);
+      toDate = date.endOf('Q').format(format);
+      fromDate = date.startOf('Q').format(format);
       break;
     case 'biannual':
-      toDate = date.format(format);
-      fromDate = date.subtract(6, 'months').format(format);
+      if (date.month() >= 6) {
+        fromDate = date.month(6).startOf('M').format(format);
+        toDate = date.endOf('Y').format(format);
+      } else {
+        fromDate = date.startOf('Y').format(format);
+        toDate = date.month(5).endOf('M').format(format);
+      }
       break;
     default:
       throw new Error('Argument type is incorrect');
