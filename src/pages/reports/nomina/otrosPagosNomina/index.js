@@ -120,6 +120,7 @@ const expandRow =  [
  
   return(
 <div> 
+<div class="bread-crumb"> Home / Ventas / Reportes / Nomina</div>  
  <div> <h2> Otros pagos de nomina </h2> </div> 
   
   <div class="card">
@@ -150,15 +151,11 @@ const expandRow =  [
     </div>   
     <div class="col-lg-3">
       <span> Desde </span> 
-      <input class="form-control" type="date" id="start" name="trip-start"
-       value="2018-07-22"
-       min="2018-01-01" max="2018-12-31"/>
+      <input class="form-control" type="date" id="start" name="trip-start"/>
     </div> 
     <div class="col-lg-3">
       <span>Hasta</span> 
-      <input class="form-control" type="date" id="start" name="trip-start"
-       value="2018-07-22"
-       min="2018-01-01" max="2018-12-31"/>
+      <input class="form-control" type="date" id="start" name="trip-start"/>
     </div>
     <div class="col-lg-3"> 
       <br/>
@@ -167,9 +164,8 @@ const expandRow =  [
   </div> 
   </div>
 </div>
-
  
-
+ 
  <h2>&nbsp;</h2>
   {  equipo && ( 
     <Container>

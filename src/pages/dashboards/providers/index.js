@@ -10,16 +10,23 @@ import EfoList from '../../../components/EfoListComponent';
 import TotalServirce from '../../../service/reports/Total.service';
 import CFDIReports from '../../../service/clients/Clients.service';
 
+
 import SelectComponent from '../../../components/SelectInputComponent';
 import CompanyActions from '../../../actions/company.action';
 import usePeriodData from '../../../hooks/usePeriodData';
 
 import '../../../styles/pages/Dashboard.css';
 
+import axios from 'axios';
+
 const ProviderDashboard = () => {
   useReportTitle('Sonar | Proveedores');
   const [total, setTotal] = useState(null);
   const [providerData, setProviderData] = useState(null);
+
+  //   
+   const [efoList, setEfoList] = useState(null); 
+  //    
 
   const config = useSelector((state) => state.config.config);
   const companies = useSelector((state) => state.companies.companies);
@@ -29,8 +36,22 @@ const ProviderDashboard = () => {
   const [companyTitle, setCompanyTitle] = useState('');
 
   const handleChangeCompany = (event) => {
-    setCompany(event.target.value);
+    setCompany(event.target.value); 
+    
     setCompanyTitle(event.target.selectedOptions[0].text);
+    // 
+    alert(event.target.value);
+    setEfoList(  ['X asd', 'asd Y', 'Provsdeedor Z', 'asd ∫'] ); 
+    
+    console.log( " ----- 4" ); 
+    const listEfos = async () => { 
+       CFDIReports.getEfos().then((resp)=>{
+        console.log(resp);  
+        console.log("RESPxx");
+      }); 
+    }    
+    listEfos();   
+    //
   };
 
   const _companiesOptions = companies.map((item) => ({
@@ -102,8 +123,8 @@ const ProviderDashboard = () => {
     dispatch(CompanyActions.getCompaniesByUser());
     
     setChartData();
-  }, []);
-  const efoList = ['Preveedor X', 'Proveedor Y', 'Proveedor Z', 'Proveedor ∫'];
+  }, []); 
+  //efoList = ['Preveedor X', 'Proveedor Y', 'Proveedor Z', 'Proveedor ∫'];
   const passData = {
     company: company,
     dates: { fromDate, toDate },
@@ -144,11 +165,14 @@ const ProviderDashboard = () => {
             key={item.title}
           />
         ))}
+
+        {efoList && (
         <EfoList
           title="Proveedores en lista de EFOs"
           efoList={efoList}
           route="/"
-        />
+        /> )} 
+
       </div>
     </>
   );
