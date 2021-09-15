@@ -13,7 +13,7 @@ import '../../styles/pages/config/notifications.css';
 const NotificationsComponent = ({ config }) => {
   useReportTitle(SystemConstants.CONFIGURATION_NOTIFICATION);
   const configNotifications =
-    'main_company' in config ? config.notifications : [];
+    'notifications' in config ? config.notifications : [];
   const dispatch = useDispatch();
   const [notifications, setNotifications] = useState(configNotifications);
   const onChange = (event) => {
