@@ -16,14 +16,33 @@ const ReportTable = ({
   const [options] = usePaginationOptions();
   if (expandData && expandColumns && expandDataKey) {
     //expandData = await fetch("http://127.0.0.1:5000/deduccionesUser"); 
-    const expandRow = {
+    const expandRow = {  
       renderer: (row) => {
       console.log(expandColumns); 
       //alert(expandData[0].rfc); 
-      alert(row.id); 
-      console.log( row ); 
-      const data =  expandData[row.id];  
+      let titulo = "Complementarios"; 
+      try { console.log( event.target ); } catch( error ) { console.log(error); return; }
+
+      console.log( event.target ); 
+      console.log( event.target.parentNode ); 
+      console.log( event.target.parentNode.parentNode ); 
+      
+      try{ 
+        console.log( expandData[0][ (row.id-1) ]) 
+      } catch( error ) { return; }
+
+      const data =  expandData[0][ (row.id-1) ];   
+
+      console.log(data); 
+      
+      try { 
+      if( data[0].MonedaDR.length < 2 ) return(
+                                                <div style={{textAlign: "center"}}>
+                                                  <p>Sin registro de pago complementario</p>
+                                                </div>); } catch( error ) { }
         return (
+          <div> 
+          
           <BootstrapTable
             keyField={expandDataKey}
             data={data}
@@ -31,7 +50,7 @@ const ReportTable = ({
             striped
             hover
             condensed
-          />
+          /></div> 
         );
       },
     };
@@ -54,7 +73,7 @@ const ReportTable = ({
           table="emp"
           filename="SellsByClient"
           sheet="Sheet"
-          buttonText="Exportar a excel"
+          buttonText="EXPORTAR A EXCEL"
         />
       </>
     );

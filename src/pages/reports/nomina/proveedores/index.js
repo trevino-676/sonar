@@ -6,7 +6,7 @@ import useTaxablePerceptionsExpandData from './ExpandData';
  
 const Menu = () => {
   const dispatch = useDispatch();
-  
+   
    const currencyFormatter = (cell) => (
     <span>$ {parseFloat(cell).toFixed(2)}</span>
   );
@@ -33,17 +33,27 @@ const BaseURL = 'https://www.sonar32.com.mx';
 
 const expand = null;   
 
-    const obtenerDatos = async () => {
-      alert("..");  
+    const obtenerDatos = async ( def ) => {
       //const data = await fetch(`${BaseURL}/v1/niminaReports/deducciones`); 
-      const data = await fetch("http://127.0.0.1:5000/deducciones?empresa=GPR070228780&empleado=VIEA940203HY0");   
+      let rfcempresa  =   document.getElementById("rfc-empresa").value; 
+      let rfcempleado =   document.getElementById("rfc-empleado").value; 
+      let dataFrom    =   document.getElementById("data-from").value; 
+      let dataTo      =   document.getElementById("data-to").value; 
+      
+      let url = ''; 
+      if( def === 'default') {
+        url = "http://127.0.0.1:5000/comprasPorProveedor?receptor=GPR070228780&emisor=&from=2021-08-01&to=2021-08-31"; 
+      }  else {
+        //const data = await fetch("http://127.0.0.1:5000/deducciones?empresa=GPR070228780&empleado=VIEA940203HY0");    
+        url = "http://127.0.0.1:5000/comprasPorProveedor?receptor="+rfcempresa+"&emisor="+rfcempleado+"&from="+dataFrom+"&to="+dataTo; 
+        //let url = "http://127.0.0.1:5000/nominas?empresa=SEE0610097T3&emisor=VIAA851209PG3&from=2021-01-01&to=2021-01-31"; 
+      }
+
+      const data = await fetch(url);   
       const users = await data.json();  
 
-      console.log("--"); 
-      console.log(users)
-      console.log("--"); 
       setEquipo(users.elements); 
-      setSubs(users.percepciones); 
+      setSubs(users.emisores); 
       //expand = users.sub;  
       console.log( expandedColumns ); 
       console.log(users);  
@@ -51,8 +61,8 @@ const expand = null;
     }
   React.useEffect(
       () => {
-        document.title = 'Nomina - '; 
-        //obtenerDatos(); 
+        document.title = 'Nomina - Compras por proveedor '; 
+        obtenerDatos("default"); 
       }
     , [])
 
@@ -64,43 +74,50 @@ const extpandData = [
 
 const dataColumns = [{
   dataField: 'id',
-  text: 'id'
+  text: '#',
+  sort: true, 
+  hidden: true 
 }, {
-  dataField: 'empleado',
-  text: 'CLIENTE'
-}, 
-{
-  dataField: 'rfc',
-  text: 'CONCEPTO'
+  dataField: 'Nombre', 
+  text: 'Empresa', 
+  sort: true
 },
 {
-  dataField: 'price',
-  text: 'MONTO'
-}, 
+  dataField: 'rfc',
+  text: 'RFC', 
+  sort: true
+},  
 {
-  dataField: 'otrospagos',
-  text: 'RFC'
-}]; 
+  dataField: 'Total',
+  text: 'Total', 
+  align: 'right',
+  sort: true
+}
+
+]; 
 
 const dataColumnsExpand = [{
   dataField: 'id',
-  text: 'id'
-}, {
-  dataField: 'TipoPercepcion',
-  text: 'Clave'
-}, 
-{
-  dataField: 'Concepto',
-  text: 'Concepto'
-}, 
-{
-  dataField: 'ImporteGravado',
-  text: 'Grabado'
+  text: 'id', 
+  hidden: true 
 },
 {
-  dataField: 'ImporteExento',
-  text: 'Excento'
-} ]; 
+  dataField: 'MetodoPago',
+  text: 'Metodo de Pago'  
+}, 
+{
+  dataField: 'Total',
+  text: 'Total'
+}, 
+{
+  dataField: 'SubTotal',
+  text: 'SubTotal'
+}, 
+{
+  dataField: 'Fecha',
+  text: 'Fecha'
+}
+  ]; 
  
 const dataColumnss = [{
   dataField: 'id',
@@ -109,66 +126,61 @@ const dataColumnss = [{
   dataField: 'key',
   text: 'Product Name'
 } ]; 
-
  
 const expandRow =  [
      {'id': 'id'} 
 ]; 
-
- 
  
   return(
 <div> 
- <div> <h2> Compras por proveedor </h2> </div> 
-  
-  <div class="card">
-  <div class="card-header">
+ <div>  
+  <div className="bread-crumb"> Home / Compras / Por Proveedor </div> 
+
+  <h2> Compras por proveedor </h2> </div> 
+ 
+  <div className="card">
+  <div className="card-header">
     Filtros
   </div>
-  <div class="card-body">
-  <div class="row"> 
-  <div class="col-lg-3">
+  <div className="card-body">
+  <div className="row"> 
+  <div className="col-lg-4">
      <span>&nbsp;</span>
-      <div class="input-group mb-2 mr-sm-2">
-    <div class="input-group-prepend">
-      <div class="input-group-text">RFC EMPRESA</div>
+      <div className="input-group mb-2 mr-sm-2">
+    <div className="input-group-prepend">
+      <div className="input-group-text">RFC EMPRESA</div>
     </div>
-    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="XAXX010101000
-"/>
+     <select className="form-control" id="rfc-empresa"> <option value="GPR070228780">LA PICANHA GRILL TACOS SA DE CV - GPR070228780</option> </select> 
   </div>
     </div> 
-    <div class="col-lg-3">
+    <div className="col-lg-4">
      <span>&nbsp;</span> 
-      <div class="input-group mb-2 mr-sm-2">
-    <div class="input-group-prepend">
-      <div class="input-group-text">RFC CLIENTE</div>
+      <div className="input-group mb-2 mr-sm-2">
+    <div className="input-group-prepend">
+      <div className="input-group-text">PROVEEDOR</div>
     </div>
-    <input type="text" class="form-control" id="inlineFormInputGroupUsername2" placeholder="XAXX010101000
+    <input type="text" className="form-control" id="rfc-empleado" placeholder="XAXX010101000
 "/>
   </div>
     </div>   
-    <div class="col-lg-3">
+    <div className="col-lg-2">
       <span> Desde </span> 
-      <input class="form-control" type="date" id="start" name="trip-start"
-       value="2018-07-22"
-       min="2018-01-01" max="2018-12-31"/>
+      <input className="form-control" type="date" id="data-from" name="trip-start"
+        />
     </div> 
-    <div class="col-lg-3">
+    <div className="col-lg-2">
       <span>Hasta</span> 
-      <input class="form-control" type="date" id="start" name="trip-start"
-       value="2018-07-22"
-       min="2018-01-01" max="2018-12-31"/>
+      <input className="form-control" type="date" id="data-to" name="trip-start"
+       />
     </div>
-    <div class="col-lg-3"> 
+    <div className="col-lg-3"> 
       <br/>
-      <button class="btn btn-primary" onClick={obtenerDatos}>Generar</button>
+      <button className="btn btn-primary" onClick={obtenerDatos}>Generar</button>
     </div> 
   </div> 
   </div>
 </div>
-
  
-
  <h2>&nbsp;</h2>
   {  equipo && ( 
     <Container>
@@ -178,8 +190,8 @@ const expandRow =  [
             expandRow={expandRow}
             expandColumns={dataColumnsExpand}
             expandData={subs}
-            expandDataKey="empleado"
-            dataKey="empleado"
+            expandDataKey="id"
+            dataKey="id"
           />
         </Container>
         )
