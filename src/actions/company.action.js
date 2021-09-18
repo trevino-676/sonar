@@ -1,6 +1,7 @@
 import CompaniesConstants from '../constants/Companies.constants';
 import CompanyService from '../service/company';
 import ModalActions from './modal.action';
+import AlertActions from './alert.action.js'; 
 import LoginActions from './login.action';
 
 const createCompany = (company, token) => {
@@ -29,7 +30,7 @@ const createCompany = (company, token) => {
       }
       dispatch(success(company));
       // eslint-disable-next-line no-use-before-define
-      dispatch(getCompaniesByUser());
+      // dispatch(getCompaniesByUser());
       // dispatch(
       //   ModalActions.Success({
       //     title: 'Compañia',
@@ -273,6 +274,34 @@ const setFielPassword = (company, fieldEncodePassword) => {
   };
 };
 
+const createCompanyWizzard = (company) => {
+    const token = localStorage.getItem("token");
+    const SUCCESS_MESSAGE = 'Se creo correctamente la empresa';
+    const FAIL_MESSAGE = 'Hubo un error al momento de crear la empresa';
+    const request = () => ({type: CompaniesConstants.ADD_COMPANY_REQUEST});
+    const success = () => ({type: CompaniesConstants.ADD_COMPANY_REQUEST_SUCCESS, payload: SUCCESS_MESSAGE});
+    const fail = () => ({type: CompaniesConstants.ADD_COMPANY_REQUEST_FAIL, payload: {error: FAIL_MESSAGE}});
+
+    const async (dispatch) => {
+        dispatch(AlertActions.clean());
+        dispatch(request());
+        try {
+            const resp = await CompanyService.createCompany(company, token);
+            if (resp.status !== 200){
+                // TODO: Agregar la alert para error
+                dispatch(AlertActions.error(FAIL_MESSAGE));
+                return;
+            }
+            dispatch(AlertActions.success(SUCCESS_MESSAGE));
+        } catch(error) {
+            if (error.message.indexOf('401')) {
+                dispatch(LoginActions.Logout());
+                window.location.reload();
+            }
+        }
+    }
+}
+
 const CompanyActions = {
   createCompany,
   getCompanies,
@@ -281,6 +310,7 @@ const CompanyActions = {
   getCompaniesByUser,
   uploadFile,
   setFielPassword,
+  createCompanyWizzard,  
 };
 
 export default CompanyActions;
