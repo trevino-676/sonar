@@ -22,9 +22,9 @@ const CompanyWizardPage = ({ config, handleNextTab }) => {
     };
     const configData = { ...config, main_company: company.rfc };
     dispatch(
-      CompanyActions.createCompany(company, localStorage.getItem('token'))
+      CompanyActions.createCompanyWizzard(company)
     );
-    // dispatch(ConfigActions.updateUSerConfig(configData));
+    dispatch(ConfigActions.updateUSerConfig(configData));
     handleNextTab('notification');
   };
 
