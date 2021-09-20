@@ -80,7 +80,7 @@ const updateUSerConfig = (config) => {
   const fail = () => ({ type: ConfigConstants.UPDATE_CONFIG_FAIL });
   return async (dispatch) => {
     dispatch(request());
-    dispatch(ModalActions.Clean());
+    // dispatch(ModalActions.Clean());
     const resp = await ConfigService.updateUserConfig(config);
     if (!resp) {
       raiseModalError(dispatch, fail, ConfigConstants.SAVE_FAIL_MESSAGE);
@@ -97,7 +97,7 @@ const updateUSerConfig = (config) => {
     //     body: 'La configuracion se guardo correctamente',
     //   })
     // );
-    dispatch(getUserConfig());
+    // cdispatch(getUserConfig());
   };
 };
 

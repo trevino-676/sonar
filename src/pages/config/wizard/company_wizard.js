@@ -21,11 +21,9 @@ const CompanyWizardPage = ({ config, handleNextTab }) => {
       address: address.current.value,
     };
     const configData = { ...config, main_company: company.rfc };
-    dispatch(
-      CompanyActions.createCompanyWizzard(company)
-    );
+    dispatch(CompanyActions.createCompanyWizzard(company));
     dispatch(ConfigActions.updateUSerConfig(configData));
-    handleNextTab('notification');
+    handleNextTab('dashboard');
   };
 
   return (

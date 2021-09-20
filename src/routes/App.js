@@ -43,7 +43,6 @@ const notification = (data) => {
   }
 };
 
-
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -51,7 +50,7 @@ const App = () => {
   const wizard = <RegistryWizard config={config} />;
 
   useEffect(() => {
-    if (config && !('main_company' in config)) {
+    if (config && config.wizzard) {
       dispatch(ModalActions.Clean());
       dispatch(
         ModalActions.Form({
