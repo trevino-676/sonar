@@ -25,7 +25,6 @@ const useTaxablePerceptionsExpandData = (data, formatter) => {
       formatter,
     },
   ];
-  alert('mje'); 
   const expandedData = data
     ? data.map((row) => {
         const innerData = row.tipo_percepcion.map((perception, index) => ({

@@ -34,7 +34,7 @@ const PayrollDashboard = () => {
   }));
 
   useEffect(() => {
-    setChartData();
+    //setChartData();
   }, [company]);
 
   useEffect(() => {

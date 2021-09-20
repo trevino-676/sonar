@@ -3,93 +3,119 @@ import ReportTable from '../../../../components/ReportTablesNomina';
 import { Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import useTaxablePerceptionsExpandData from './ExpandData';
-
+ 
 const Menu = () => {
-	const dispatch = useDispatch();
-	
-	 const currencyFormatter = (cell) => (
+  const dispatch = useDispatch();
+  
+   const currencyFormatter = (cell) => (
     <span>$ {parseFloat(cell).toFixed(2)}</span>
   );
 
-	const [expandedColumns, expandedData] = useTaxablePerceptionsExpandData(
+  const [expandedColumns, expandedData] = useTaxablePerceptionsExpandData(
     dataReport,
     currencyFormatter
   );
 
-	const dataReport =  [
-		  { "id": 1, "empleado": 1, "price": "Type 1" },
-		  { "id": 2, "empleado": 2, "price": "Type 2" },
-		  { "id": 3, "empleado": 3, "price": "Type 3" },
-		  { "id": 4, "empleado": 4, "price": "Type 2" },
-		  { "id": 5, "empleado": 5, "price": "Type 3" },
-		  { "id": 6, "empleado": 6, "price": "Type 1" },
-		];
+  const dataReport =  [
+      { "id": 1, "empleado": 1, "price": "Type 1" },
+      { "id": 2, "empleado": 2, "price": "Type 2" },
+      { "id": 3, "empleado": 3, "price": "Type 3" },
+      { "id": 4, "empleado": 4, "price": "Type 2" },
+      { "id": 5, "empleado": 5, "price": "Type 3" },
+      { "id": 6, "empleado": 6, "price": "Type 1" },
+    ];
 
 
-const [equipo, setEquipo] = React.useState([]);  
+const [equipo, setEquipo] = React.useState([]);
+const [subs, setSubs] = React.useState([]);
+
+const BaseURL = 'https://www.sonar32.com.mx';
+
+const expand = null;   
 
     const obtenerDatos = async () => {
-   
-      const data = await fetch("http://127.0.0.1:5000/deducciones"); 
       //const data = await fetch(`${BaseURL}/v1/niminaReports/deducciones`); 
+      //GPR070228780 empresa
+      //VIEA940203HY0 empleado  
+      //const data = await fetch("http://127.0.0.1:5000/efos");   
+      const data = await fetch("http://127.0.0.1:5000/v1/retentions/reports/efos");   
       const users = await data.json();  
-      setEquipo(users); 
-      
-      console.log( expandedColumns ); 
-      console.log(users); 
+
+      console.log("--"); 
+      console.log(users)
+      console.log("--"); 
+      setEquipo(users.elements); 
+      setSubs(extpandData)
     }
-	React.useEffect(
+  React.useEffect( 
       () => {
-        document.title = 'Nomina - '; 
-        obtenerDatos(); 
+        document.title = 'EFOS'; 
+        obtenerDatos();  
       }
     , [])
 
 
 const extpandData = [ 
-					  [ { "id": "SEPTIMO DÍA", "rfc": 800, "price": 200 }, { "id": "SEPTIMO DÍA 01", "rfc": 100, "price": 900 } ], 
-					  [ { "id": "OTRO DÍA", "rfc": 800, "price": 200 }, { "id": "OTRO DÍA 01", "rfc": 100, "price": 900 } ]  
-					]; 
+          ]; 
 
 const dataColumns = [{
-  dataField: 'id',
-  text: 'Empleado'
+  dataField: '_id',
+  text: 'RFC'  
 }, {
-  dataField: 'empleado',
-  text: 'Total Deducciones'
+  dataField: 'Nombre',
+  text: 'Total Facturado'
 }, {
-  dataField: 'price',
-  text: 'Total Deducciones'
+  dataField: 'Empresa',
+  text: 'Empresa'
 }, 
 {
-  dataField: 'price',
-  text: 'Otros pagos'
-}]; 
+  dataField: 'cantidad',
+  text: 'Cantidad de facturas'
+} 
+];   
+
+const dataColumnsExpand = [{
+  dataField: '_id',
+  text: '_id'
+}, {
+  dataField: 'Clave',
+  text: 'Clave'
+},  
+{
+  dataField: 'Concepto',
+  text: 'Concepto'
+}
+ ]; 
  
 const dataColumnss = [{
-  dataField: 'id',
+  dataField: '_id',
   text: 'Product ID'
 }, {
   dataField: 'key',
   text: 'Product Name'
 } ]; 
 
-
-const expandRow =  [
-     {'rfc': 'rfc'}
-]; 
  
-	return(
+const expandRow =  [
+     {'_id': '_id'} 
+]; 
+
+ 
+ 
+  return(
 <div> 
- <div> <h2> Deducciones de nomina </h2> </div> 
-	{  equipo && ( 
-		<Container>
-			 <ReportTable
+ <div className="bread-crumb"> Home / Ventas / Reportes / EFOS </div> 
+ <div> <h2> Lista de EFOS </h2> </div> 
+
+ <h2>&nbsp;</h2>
+  {  equipo && ( 
+    <Container>
+       <ReportTable
             tableData={equipo}
-            tableColumns={dataColumns}
+            tableColumns={dataColumns} 
             expandRow={expandRow}
-            expandColumns={dataColumns}
-            expandData={extpandData}
+            expandColumns={dataColumnsExpand}
+            expandData={subs}
             expandDataKey="empleado"
             dataKey="empleado"
           />
@@ -97,7 +123,7 @@ const expandRow =  [
         )
        }
        </div>
-		);  
+    );  
 }
 
 export default Menu; 
