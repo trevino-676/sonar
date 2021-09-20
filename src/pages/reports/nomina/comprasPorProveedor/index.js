@@ -6,7 +6,7 @@ import useTaxablePerceptionsExpandData from './ExpandData';
  
 const Menu = () => {
   const dispatch = useDispatch();
-  
+   
    const currencyFormatter = (cell) => (
     <span>$ {parseFloat(cell).toFixed(2)}</span>
   );
@@ -39,22 +39,16 @@ const expand = null;
       let rfcempleado =   document.getElementById("rfc-empleado").value; 
       let dataFrom    =   document.getElementById("data-from").value; 
       let dataTo      =   document.getElementById("data-to").value; 
-      
-      /* 
-      if( rfcempresa.length < 2 ) {
-        alert("Debes proporciona una empresa"); 
-        return;   
-      } */ 
-
+       
       //const data = await fetch("http://127.0.0.1:5000/deducciones?empresa=GPR070228780&empleado=VIEA940203HY0");    
-      let url = "http://127.0.0.1:5000/complementosDePago2?empresa="+rfcempresa+"&emisor="+rfcempleado+"&from="+dataFrom+"&to="+dataTo; 
+      let url = "http://127.0.0.1:5000/comprasPorProveedor?receptor="+rfcempresa+"&emisor="+rfcempleado+"&from="+dataFrom+"&to="+dataTo; 
       //let url = "http://127.0.0.1:5000/nominas?empresa=SEE0610097T3&emisor=VIAA851209PG3&from=2021-01-01&to=2021-01-31"; 
     
       const data = await fetch(url);   
       const users = await data.json();  
 
       setEquipo(users.elements); 
-      setSubs(users.percepciones); 
+      setSubs(users.emisores); 
       //expand = users.sub;  
       console.log( expandedColumns ); 
       console.log(users);  
@@ -62,7 +56,7 @@ const expand = null;
     }
   React.useEffect(
       () => {
-        document.title = 'Nomina - Reportes de nomina '; 
+        document.title = 'Nomina - Compras por proveedor '; 
         //obtenerDatos(); 
       }
     , [])
@@ -77,42 +71,36 @@ const dataColumns = [{
   dataField: 'id',
   text: '#'
 }, {
-  dataField: 'empleado', 
-  text: 'Empleado'
-}, 
+  dataField: 'Nombre', 
+  text: 'Empresa'
+},
 {
-  dataField: 'total',
-  text: 'Total'
+  dataField: 'rfc',
+  text: 'RFC'
 },  
-{ 
-  dataField: 'subtotal',
-  text: 'Subtotal'
-}, 
 {
-  dataField: 'fecha',
-  text: 'Fecha'
-}]; 
+  dataField: 'Total',
+  text: 'Total'
+}
+
+]; 
 
 const dataColumnsExpand = [{
   dataField: 'id',
   text: 'id'
 },
 {
-  dataField: 'MonedaDR',
-  text: 'Moneda'  
+  dataField: 'MetodoPago',
+  text: 'Metodo de Pago'  
 }, 
 {
-  dataField: 'MetodoDePagoDR',
-  text: 'Metodo De Pago'
+  dataField: 'Total',
+  text: 'Total'
 }, 
 {
-  dataField: 'ImpSaldoAnt',
-  text: 'Saldo Anterior'
+  dataField: 'SubTotal',
+  text: 'SubTotal'
 }, 
-{
-  dataField: 'ImpPagado',
-  text: 'Importe Pagado'
-},
 {
   dataField: 'Fecha',
   text: 'Fecha'
@@ -134,10 +122,9 @@ const expandRow =  [
   return(
 <div> 
  <div>  
-  <div className="bread-crumb"> Home / Ventas / Reportes de Nominas </div> 
+  <div className="bread-crumb"> Home / Compras / Por Proveedor </div> 
 
-  <h2> Complementos de pago </h2> </div> 
-
+  <h2> Compras por proveedor </h2> </div> 
  
   <div className="card">
   <div className="card-header">
@@ -159,7 +146,7 @@ const expandRow =  [
      <span>&nbsp;</span> 
       <div className="input-group mb-2 mr-sm-2">
     <div className="input-group-prepend">
-      <div className="input-group-text">RFC EMISOR</div>
+      <div className="input-group-text">RFC EMPLEADO</div>
     </div>
     <input type="text" className="form-control" id="rfc-empleado" placeholder="XAXX010101000
 "/>
@@ -182,9 +169,7 @@ const expandRow =  [
   </div> 
   </div>
 </div>
-
  
-
  <h2>&nbsp;</h2>
   {  equipo && ( 
     <Container>

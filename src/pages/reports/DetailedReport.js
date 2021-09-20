@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-shadow */
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
@@ -8,16 +9,39 @@ import SellsReportsActions from '../../actions/SellsReport.action';
 import useReportTitle from '../../hooks/useReportTitle';
 import useFormatters from '../../hooks/useFormatters';
 import DetailedReportActions from '../../actions/detailed.action';
+import FilterBar from '../../components/FiltersBar';
+
+const getTitle = (type) => {
+  switch (type) {
+    case 'sells':
+      return 'Clientes';
+    case 'providers':
+      return 'Proveedores';
+    default:
+      return 'Distribucion';
+  }
+};
 
 const DetailedReport = () => {
   const location = useLocation();
   const { type, company, dates } = location.state;
+  const [filters, setFilters] = useState({
+    company: company || null,
+    fromDate: dates.fromDate || null,
+    toDate: dates.toDate || null,
+  });
   let data = null;
   const dispatch = useDispatch();
-  useReportTitle(`Sonar | ${type === 'sells' ? 'Clientes' : type === 'providers' ? 'Proveedores' : 'Distribución'}`);
+  const title = getTitle(type);
+  useReportTitle(`Sonar | ${title}`);
   const { currencyFormatter, DateFormatter } = useFormatters();
   const currency = (cell) => currencyFormatter('es-MX', cell);
-  
+  const companies = useSelector((state) => state.companies.companies);
+  const _companiesOptions = companies.map((item) => ({
+    value: item.rfc,
+    text: item.name,
+  }));
+
   switch (type) {
     case 'sells':
       data = useSelector((state) => state.sell_reports.detailed_sells);
@@ -33,20 +57,36 @@ const DetailedReport = () => {
       break;
   }
   useEffect(() => {
-
     switch (type) {
       case 'sells':
-        dispatch(SellsReportsActions.detailedSells(company, dates.fromDate, dates.toDate));
+        dispatch(
+          SellsReportsActions.detailedSells(
+            filters.company,
+            filters.fromDate,
+            filters.toDate
+          )
+        );
         break;
       case 'providers':
-        dispatch(DetailedReportActions.getProviderDetailedReport(company, dates.fromDate, dates.toDate));
+        dispatch(
+          DetailedReportActions.getProviderDetailedReport(
+            filters.company,
+            filters.fromDate,
+            filters.toDate
+          )
+        );
         break;
       case 'all':
-        dispatch(DetailedReportActions.getTotalDetailedReport(company, dates.fromDate, dates.toDate));
+        dispatch(
+          DetailedReportActions.getTotalDetailedReport(
+            filters.company,
+            filters.fromDate,
+            filters.toDate
+          )
+        );
         break;
       default:
         break;
-  
     }
   }, []);
 
@@ -130,20 +170,121 @@ const DetailedReport = () => {
       path: '/',
     },
     {
-      name: type === 'sells' ? 'Cliente' : type === 'providers' ? 'Proveedores' : 'Distribución',
-      path: type === 'sells' ? '/clients' : type === 'providers' ? '/providers' : 'cfdi',
+      name:
+        type === 'sells'
+          ? 'Cliente'
+          : type === 'providers'
+          ? 'Proveedores'
+          : 'Distribución',
+      path:
+        type === 'sells'
+          ? '/clients'
+          : type === 'providers'
+          ? '/providers'
+          : 'cfdi',
     },
     {
       name: type === 'sells' ? 'CFDIs emitidos' : type === 'providers' ? 'CFDIs recibidos' : 'Distribución de CFDIs',
       path: '#',
     },
   ];
+
+  const reportFilters = [
+    {
+      label: 'Empresa',
+      type: 'Select',
+      name: 'company',
+      default: filters.company,
+      options: _companiesOptions,
+    },
+    {
+      label: 'Desde',
+      type: 'date',
+      name: 'from_date',
+      default: filters.fromDate,
+    },
+    {
+      label: 'Hasta',
+      type: 'date',
+      name: 'to_date',
+      default: filters.toDate,
+    },
+  ];
+
+  const handleChangeFilter = (event) => {
+    let value = null;
+    if (event.target.name === 'from_date') {
+      value = `${event.target.value}T00:00:00`;
+    }
+    if (event.target.name === 'to_date') {
+      value = `${event.target.value}T23:59:59`;
+    }
+    setFilters({
+      ...filters,
+      [event.target.name]: value || event.target.value,
+    });
+  };
+
+  const handleSubmit = (type, filters) => {
+    switch (type) {
+      case 'sells':
+        dispatch(
+          SellsReportsActions.detailedSells(
+            filters.company,
+            filters.fromDate,
+            filters.toDate
+          )
+        );
+        break;
+      case 'providers':
+        dispatch(
+          DetailedReportActions.getProviderDetailedReport(
+            filters.company,
+            filters.fromDate,
+            filters.toDate
+          )
+        );
+        break;
+      case 'all':
+        dispatch(
+          DetailedReportActions.getTotalDetailedReport(
+            filters.company,
+            filters.fromDate,
+            filters.toDate
+          )
+        );
+        break;
+      default:
+        break;
+    }
+  };
+
+  const getTextFilters = () => {
+    let text = '';
+    if (filters.company) text += `Empresa: ${filters.company}, `;
+    if (filters.fromDate) text += `Desde: ${filters.fromDate.split('T')[0]}, `;
+    if (filters.toDate) text += `Hasta: ${filters.toDate.split('T')[0]} `;
+
+    return text;
+  };
+
   return (
     <>
       <BreadcrumbComponent routes={routes} />
       <h1 className="title">
-        CFDIs {type === 'sells' ? 'emitidos' : type === 'providers' ? 'recibidos' : ''}
+        CFDIs{' '}
+        {type === 'sells'
+          ? 'emitidos'
+          : type === 'providers'
+          ? 'recibidos'
+          : ''}
       </h1>
+      <FilterBar
+        dataFields={reportFilters}
+        onHandleChange={handleChangeFilter}
+        onHandleClick={() => handleSubmit(type, filters)}
+        textFilter={getTextFilters()}
+      />
       {data && (
         <ReportTable
           tableData={data}

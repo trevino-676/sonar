@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const BaseURL = 'https://www.sonar32.com.mx';
-// const BaseURL = 'http://localhost:';
-
+//const BaseURL = 'http://127.0.0.1:5000';
+  
 const groupRequest = async (apiCol, company, fieldMatch = '', fieldGroup = '') => {
   // const date = new Date();
   // const fromDate = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -52,10 +52,22 @@ const countRequest = async (apiCol, company, fieldMatch = '', total, subTotal) =
       return null;
     }
 };
+ 
+const getEfos = async () => {
+    return "1100"; 
+    try {  
+      const resp = await axios.get("http://127.0.0.1:5000/v1/retentions/reports/nominas?empresa=GPR070228780");
+        if (resp.status !== 200) return "ERROR PET";
+          return ".....";    
+    } catch (err) { 
+      return  "-error-"; 
+    }
+};
 
 const CFDIReports = {
     groupRequest,
-    countRequest
+    countRequest, 
+    getEfos 
 };
-
+ 
 export default CFDIReports;

@@ -12,76 +12,121 @@ const RPAScheduler = ({ config }) => {
   useReportTitle(SystemConstants.CONFIGURATION_RPA);
   const dispatch = useDispatch();
   const [rpa, setRPA] = useState(config.rpa);
-  const[opinion, setOpinion] = useState(config.opinion);
-  const [cfdis,setCfdis] =useState(config.cfdis);
-  const onChangeOpinion = (event) => {
-    const date = new Date(event.target.value + "T00:00:00");
-    setRPA(date.getDay());
-  };
+  const [opinion, setOpinion] = useState(config.opinion);
+  const [cfdis, setCfdis] = useState(config.cfdis);
   const onChange = (event) => {
-    const date = new Date(event.target.value + "T00:00:00");
-    setOpinion(date.getDay());
+
+    console.log(event.target.value)
+    if (event.target.checked) {
+      setRPA([...rpa, event.target.value]);
+    } else {
+      setRPA(
+        rpa.filter((value) => value !== event.target.value)
+      );
+    }
+  };
+  const onChangeOpinion = (event) => {
+    console.log(event.target.value)
+    if (event.target.checked) {
+      setOpinion([...opinion, event.target.value]);
+    } else {
+      setOpinion(
+        opinion.filter((value) => value !== event.target.value)
+      );
+    }
   };
   const onChangeCfdis = (event) => {
-    const date = new Date(event.target.value + "T00:00:00");
-    setCfdis(date.getDay());
+    console.log(event.target.value)
+    if (event.target.checked) {
+      setCfdis([...cfdis, event.target.value]);
+    } else {
+      setCfdis(
+        cfdis.filter((value) => value !== event.target.value)
+      );
+    }
   };
   useEffect(() => {
     setRPA(config.rpa);
     setOpinion(config.opinion);
-    setCfdis(config.cfdis)
-  }, []);
+    setCfdis(config.cfdis);
+  }, [config]);
   useEffect(() => {
-    if (rpa !== config.rpa) {
+    if (rpa.length !== config.rpa.length) {
       const data = { ...config, rpa };
       dispatch(ConfigActions.updateUSerConfig(data));
+      return;
     }
-    if (opinion !== config.opinion){
-      const data = { ...config, opinion};
+    if (opinion.length !== config.opinion.length) {
+      const data = { ...config, opinion };
+      console.log(data)
       dispatch(ConfigActions.updateUSerConfig(data));
+      return;
     }
-    if (cfdis !== config.cfdis){
-      const data = { ...config, cfdis};
+    if (cfdis.length !== config.cfdis.length) {
+      const data = { ...config, cfdis };
       dispatch(ConfigActions.updateUSerConfig(data));
+      return;
     }
-  }, [rpa,opinion,cfdis]);
+  }, [rpa, opinion, cfdis]);
 
   return (
     <>
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <p>Escoge cada cuando consultar EFOS</p>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <p>Elige cuando consultar EFOS</p>
             <div className="schedule">
-              <input 
-                type="date"
-                onChange={onChange}>
-              </input>
+              {ConfigConstants.RPAS_SCHEDULER.map((item,idx) => (
+                <label htmlFor={item.name}>
+              <input type="checkbox"
+              value={item.value}
+              name={item.name}
+              onChange={onChange}
+              key={idx}
+              checked={rpa.indexOf(item.value) > -1}
+              />
+              {item.text}
+              </label>
+              ))}
             </div>
           </div>
-          <div class="col">
-            <p>Escoge cada cuando descargar la Opinion</p>
+          <div className="col">
+            <p>Elige cuando descargar la Opinion de Cumplimiento</p>
             <div className="schedule">
-              <input
-              type="date"
-              onChange={onChangeOpinion}>
-              </input>
+            {ConfigConstants.RPAS_SCHEDULER.map((item,idx) => (
+                <label htmlFor={item.name}>
+              <input type="checkbox"
+              value={item.value}
+              name={item.name}
+              onChange={onChangeOpinion}
+              key={idx}
+              checked={opinion.indexOf(item.value) > -1}
+              />
+              {item.text}
+              </label>
+              ))}
             </div>
           </div>
-          <div class="col">
-            <p>Escoge cada cuando descargar CFDIs</p>
+          <div className="col">
+            <p>Elige cuando descargar CFDIs</p>
             <div className="schedule">
-              <input
-              type="date"
-              onChange={onChangeCfdis}>
-              </input>
+            {ConfigConstants.RPAS_SCHEDULER.map((item,idx) => (
+                <label htmlFor={item.name}>
+              <input type="checkbox"
+              value={item.value}
+              name={item.name}
+              onChange={onChangeCfdis}
+              key={idx}
+              checked={cfdis.indexOf(item.value) > -1}
+              />
+              {item.text}
+              </label>
+              ))}
             </div>
           </div>
         </div>
       </div>
     </>
-
-
   );
 };
 
