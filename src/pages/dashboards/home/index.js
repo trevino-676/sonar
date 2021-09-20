@@ -13,11 +13,11 @@ import usePeriodData from '../../../hooks/usePeriodData';
 import ConfigActions from '../../../actions/config.action';
 
 
-const addToArray = (data, resultArray, numberOfReqs, accepted = [], override = null) => {
+const addToArray = (data, resultArray, numberOfReqs, override = null) => {
 
 	for (const d of data) {
 		let ley = '';
-		let mask = override && d._id === override.original ? override.replace : d._id;
+		let mask = ( override && (d._id === override.original) ) ? override.replace : d._id;
 		switch (mask) {
 			case 'P':
 				ley = "Pagos";
@@ -38,17 +38,24 @@ const addToArray = (data, resultArray, numberOfReqs, accepted = [], override = n
 				ley = '?';
 				break;
 		}
-		if (accepted.includes(mask)) {
-			resultArray.top.push('');
-			resultArray.data.push([ley, d.count]);
+		let flagExist = false;
+		let i = 0;
+		for (i = 0; i < resultArray.data.length; i++) {
+			if (resultArray.data[i][0]===ley && resultArray.data.length>1) {
+				console.log(resultArray.data[i][0], ley, i);
+				flagExist = true;
+				break;
+			}
 		}
+		if (flagExist) {
+			resultArray.data[i][1] += d.count;
+		} else {
+			resultArray.top.push('');
+			resultArray.data.push([ley, d.count]);	
+		}
+		/// TODO: Corregir la repetición de leyendas
 	}
-
-	/* data.forEach(d => {
-	  
-	}); */
-
-	return numberOfReqs - 1
+	return numberOfReqs - 1;
 };
 
 const HomePrivate = () => {
@@ -87,21 +94,21 @@ const HomePrivate = () => {
 		// INGRESOS
 		const usrConf = {Rfc: company, fromDate: fromDate, toDate: toDate};
 		CFDIReports.groupRequest('principal', usrConf, 'datos.Rfc', "datos.Tipo").then((data) => {
-			numberOfReqs = addToArray(data, resultTipoC, numberOfReqs, ["I"]);
+			numberOfReqs = addToArray(data, resultTipoC, numberOfReqs);
 			if (numberOfReqs === 0) {
 				setTipoComp(resultTipoC);
 			}
 		}).catch(console.log);
 		// EGRESOS
 		CFDIReports.groupRequest('principal', usrConf, 'Receptor.Rfc', "datos.Tipo").then((data) => {
-			numberOfReqs = addToArray(data, resultTipoC, numberOfReqs, ["I"], { original: "I", replace: "E" });
+			numberOfReqs = addToArray(data, resultTipoC, numberOfReqs, { original: "I", replace: "E" });
 			if (numberOfReqs === 0) {
 				setTipoComp(resultTipoC);
 			}
 		}).catch(console.log);
 		// PAGOS
 		CFDIReports.groupRequest('pagos', usrConf, 'Receptor.Rfc', "datos.Tipo").then((data) => {
-			numberOfReqs = addToArray(data, resultTipoC, numberOfReqs, ["P"]);
+			numberOfReqs = addToArray(data, resultTipoC, numberOfReqs);
 			if (numberOfReqs === 0) {
 				setTipoComp(resultTipoC);
 			}
