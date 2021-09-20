@@ -1,6 +1,7 @@
 import CompaniesConstants from '../constants/Companies.constants';
 import CompanyService from '../service/company';
 import ModalActions from './modal.action';
+import AlertActions from './alert.action.js'; 
 import LoginActions from './login.action';
 
 const createCompany = (company, token) => {
@@ -16,7 +17,7 @@ const createCompany = (company, token) => {
   return async (dispatch) => {
     try {
       dispatch(request());
-      // dispatch(ModalActions.Clean());
+      dispatch(ModalActions.Clean());
       const resp = await CompanyService.createCompany(company, token);
       if (resp.status !== 200) {
         dispatch(fail(resp.data.message));
@@ -30,12 +31,12 @@ const createCompany = (company, token) => {
       dispatch(success(company));
       // eslint-disable-next-line no-use-before-define
       dispatch(getCompaniesByUser());
-      // dispatch(
-      //   ModalActions.Success({
-      //     title: 'Compañia',
-      //     body: 'Se agrego con exito una nueva compañia',
-      //   })
-      // );
+      dispatch(
+        ModalActions.Success({
+           title: 'Compañia',
+           body: 'Se agrego con exito una nueva compañia',
+        })
+      );
     } catch (e) {
       dispatch(ModalActions.Clean());
       dispatch(fail(e.message));
@@ -273,6 +274,33 @@ const setFielPassword = (company, fieldEncodePassword) => {
   };
 };
 
+const createCompanyWizzard = (company) => {
+  const token = localStorage.getItem("token");
+  const SUCCESS_MESSAGE = 'Se creo correctamente la empresa';
+  const FAIL_MESSAGE = 'Hubo un error al momento de crear la empresa';
+  const request = () => ({type: CompaniesConstants.ADD_COMPANY_REQUEST});
+  const success = () => ({type: CompaniesConstants.ADD_COMPANY_REQUEST_SUCCESS, payload: SUCCESS_MESSAGE});
+  const fail = () => ({type: CompaniesConstants.ADD_COMPANY_REQUEST_FAIL, payload: {error: FAIL_MESSAGE}});
+
+  return async (dispatch) => {
+    dispatch(AlertActions.clean());
+    dispatch(request());
+    try {
+      const resp = await CompanyService.createCompany(company, token);
+      if (resp.status !== 200){
+        dispatch(fail());
+        return;
+      }
+      dispatch(success());
+    } catch(error) {
+      if (error.message.indexOf('401')) {
+        dispatch(LoginActions.Logout());
+        window.location.reload();
+      }
+    }
+  }
+}
+
 const CompanyActions = {
   createCompany,
   getCompanies,
@@ -281,6 +309,7 @@ const CompanyActions = {
   getCompaniesByUser,
   uploadFile,
   setFielPassword,
+  createCompanyWizzard,  
 };
 
 export default CompanyActions;

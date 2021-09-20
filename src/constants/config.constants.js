@@ -71,7 +71,8 @@ const ConfigConstants = {
       name: 'thursday',
       text: 'Jueves',
       value: 'Thursday',
-    },{
+    },
+    {
       name: 'friday',
       text: 'Viernes',
       value: 'Friday',
