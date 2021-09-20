@@ -24,7 +24,7 @@ const SchedulerComponent = ({ config }) => {
   return (
     <>
       <div>
-        <p>Escoge el rango de fechas que se mostraran en los dashboards</p>
+        <p>Escoge el periodo que se mostraran en los dashboards</p>
       </div>
       <div className="schedule">
         <label htmlFor="fortnightly">
@@ -35,7 +35,7 @@ const SchedulerComponent = ({ config }) => {
             checked={period === 'weekly'}
             onChange={onChange}
           />
-          Semanal
+          Semanal (actual)
         </label>
         <label htmlFor="fortnightly">
           <input
@@ -45,7 +45,7 @@ const SchedulerComponent = ({ config }) => {
             checked={period === 'fortnightly'}
             onChange={onChange}
           />
-          Quincenal
+          Quincenal (actual)
         </label>
         <label htmlFor="monthly">
           <input
@@ -55,7 +55,7 @@ const SchedulerComponent = ({ config }) => {
             checked={period === 'monthly'}
             onChange={onChange}
           />
-          Mensual
+          Mensual (actual)
         </label>
         <label htmlFor="quarterly">
           <input
@@ -65,7 +65,7 @@ const SchedulerComponent = ({ config }) => {
             checked={period === 'quarterly'}
             onChange={onChange}
           />
-          Trimestral
+          Trimestral (actual)
         </label>
         <label htmlFor="biannual">
           <input
@@ -75,7 +75,7 @@ const SchedulerComponent = ({ config }) => {
             checked={period === 'biannual'}
             onChange={onChange}
           />
-          Semestral
+          Semestral (actual)
         </label>
       </div>
     </>
