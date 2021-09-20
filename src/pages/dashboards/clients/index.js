@@ -57,43 +57,7 @@ const ClientDashboard = () => {
           });
         }
         setListDonut([
-          temp,
-          {
-            title: 'Ventas por cliente',
-            route: '/reports/sells/by_client',
-            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
-            data: [
-              ['Clientes', 'Ventas'],
-              ['Cliente 1', 200000.0],
-              ['Cliente 2', 100000.0],
-              ['Cliente 3', 50000.0],
-              ['Cliente 4', 150000.0],
-            ],
-          },
-          {
-            title: 'Ventas por producto',
-            route: '/reports/sells/by_items',
-            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
-            data: [
-              ['Clientes', 'Ventas'],
-              ['Cliente 1', 200000.0],
-              ['Cliente 2', 100000.0],
-              ['Cliente 3', 50000.0],
-              ['Cliente 4', 150000.0],
-            ],
-          },
-          {
-            title: 'Ventas por servicios',
-            route: '/reports/sells/by_services',
-            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
-            data: [
-              ['Clientes', 'Ventas'],
-              ['Cliente 1', 200000.0],
-              ['Cliente 2', 100000.0],
-              ['Cliente 3', 50000.0],
-              ['Cliente 4', 150000.0],
-            ],
-          },
+          temp
         ]);
       })
       .catch(console.log);
@@ -133,43 +97,7 @@ const ClientDashboard = () => {
           });
         }
         setListDonut([
-          temp,
-          {
-            title: 'Ventas por cliente',
-            route: '/reports/sells/by_client',
-            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
-            data: [
-              ['Clientes', 'Ventas'],
-              ['Cliente 1', 200000.0],
-              ['Cliente 2', 100000.0],
-              ['Cliente 3', 50000.0],
-              ['Cliente 4', 150000.0],
-            ],
-          },
-          {
-            title: 'Ventas por producto',
-            route: '/reports/sells/by_items',
-            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
-            data: [
-              ['Clientes', 'Ventas'],
-              ['Cliente 1', 200000.0],
-              ['Cliente 2', 100000.0],
-              ['Cliente 3', 50000.0],
-              ['Cliente 4', 150000.0],
-            ],
-          },
-          {
-            title: 'Ventas por servicios',
-            route: '/reports/sells/by_services',
-            top: ['Cliente 1', 'Cliente 2', 'Cliente 3', 'Cliente 4'],
-            data: [
-              ['Clientes', 'Ventas'],
-              ['Cliente 1', 200000.0],
-              ['Cliente 2', 100000.0],
-              ['Cliente 3', 50000.0],
-              ['Cliente 4', 150000.0],
-            ],
-          },
+          temp
         ]);
       })
       .catch(console.log);
@@ -206,7 +134,7 @@ const ClientDashboard = () => {
             data={passData}
           />
         )}
-        {listDonut &&
+        {listDonut && (config.graphics.pay_met??true) &&
           listDonut.map((title) => (
             <DonutComponent
               top={title.top}

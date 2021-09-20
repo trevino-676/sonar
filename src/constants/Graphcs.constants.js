@@ -11,6 +11,20 @@ const GraphicsConstants = {
       value: 'comp',
     }
   ],
+	CLIENTS: [
+    {
+      name: 'payment_method',
+      text: 'Métodos de pago',
+      value: 'pay_met',
+    }
+  ],
+	PROVIDERS: [
+    {
+      name: 'compl_pay',
+      text: 'Complementos de pago',
+      value: 'comp_pay',
+    }
+  ],
 
 }
 

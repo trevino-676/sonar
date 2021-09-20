@@ -184,7 +184,7 @@ const DetailedReport = () => {
           : 'cfdi',
     },
     {
-      name: 'CFDIs emitidos',
+      name: type === 'sells' ? 'CFDIs emitidos' : type === 'providers' ? 'CFDIs recibidos' : 'Distribución de CFDIs',
       path: '#',
     },
   ];

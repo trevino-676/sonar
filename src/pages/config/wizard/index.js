@@ -47,7 +47,7 @@ const RegistryWizard = ({ config }) => {
         <Tab eventKey="company" title="Empresas">
           <CompanyWizardPage config={config} handleNextTab={setKey} />
         </Tab>
-        <Tab eventKey="dashboard" title="Dashboard">
+        <Tab eventKey="dashboard" title="Graficas">
           <DeshboardsConfigComponent config={config} />
         </Tab>
         <Tab eventKey="notification" title="Notificaciones">

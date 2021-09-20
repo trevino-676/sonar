@@ -12,47 +12,48 @@ import CompanyActions from '../../../actions/company.action';
 import usePeriodData from '../../../hooks/usePeriodData';
 import ConfigActions from '../../../actions/config.action';
 
-const addToArray = (
-  data,
-  resultArray,
-  numberOfReqs,
-  accepted = [],
-  override = null
-) => {
+const addToArray = (data, resultArray, numberOfReqs, override = null) => {
+
   for (const d of data) {
     let ley = '';
-    let mask =
-      override && d._id === override.original ? override.replace : d._id;
+    let mask = (override && (d._id === override.original)) ? override.replace : d._id;
     switch (mask) {
       case 'P':
-        ley = 'Pagos';
+        ley = "Pagos";
         break;
       case 'I':
-        ley = 'Ingresos';
+        ley = "Ingresos";
         break;
       case 'E':
-        ley = 'Egresos';
+        ley = "Egresos";
         break;
       case 'T':
-        ley = 'Traslado';
+        ley = "Traslado";
         break;
       case 'N':
-        ley = 'Nomina';
+        ley = "Nomina";
         break;
       default:
         ley = '?';
         break;
     }
-    if (accepted.includes(mask)) {
+    let flagExist = false;
+    let i = 0;
+    for (i = 0; i < resultArray.data.length; i++) {
+      if (resultArray.data[i][0] === ley && resultArray.data.length > 1) {
+        console.log(resultArray.data[i][0], ley, i);
+        flagExist = true;
+        break;
+      }
+    }
+    if (flagExist) {
+      resultArray.data[i][1] += d.count;
+    } else {
       resultArray.top.push('');
       resultArray.data.push([ley, d.count]);
     }
+    /// TODO: Corregir la repetición de leyendas
   }
-
-  /* data.forEach(d => {
-	  
-	}); */
-
   return numberOfReqs - 1;
 };
 
@@ -86,92 +87,65 @@ const HomePrivate = () => {
   const setGDD = () => {
     let numberOfReqs = 4;
     let reqCount = 2;
-    const resultTipoC = { top: [], data: [['Tipo', 'Cantidad']] };
-    const resultEvsR = { top: [], data: [['Tipo', 'Cantidad']] };
+    let resultTipoC = { top: [], data: [["Tipo", "Cantidad"]] };
+    let resultEvsR = { top: [], data: [["Tipo", "Cantidad"]] };
     /// Tipo de Comprobante
     // INGRESOS
-    const usrConf = { Rfc: company, fromDate, toDate };
-    CFDIReports.groupRequest('principal', usrConf, 'datos.Rfc', 'datos.Tipo')
-      .then((data) => {
-        numberOfReqs = addToArray(data, resultTipoC, numberOfReqs, ['I']);
-        if (numberOfReqs === 0) {
-          setTipoComp(resultTipoC);
-        }
-      })
-      .catch(console.log);
+    const usrConf = { Rfc: company, fromDate: fromDate, toDate: toDate };
+    CFDIReports.groupRequest('principal', usrConf, 'datos.Rfc', "datos.Tipo").then((data) => {
+      numberOfReqs = addToArray(data, resultTipoC, numberOfReqs);
+      if (numberOfReqs === 0) {
+        setTipoComp(resultTipoC);
+      }
+    }).catch(console.log);
     // EGRESOS
-    CFDIReports.groupRequest('principal', usrConf, 'Receptor.Rfc', 'datos.Tipo')
-      .then((data) => {
-        numberOfReqs = addToArray(data, resultTipoC, numberOfReqs, ['I'], {
-          original: 'I',
-          replace: 'E',
-        });
-        if (numberOfReqs === 0) {
-          setTipoComp(resultTipoC);
-        }
-      })
-      .catch(console.log);
+    CFDIReports.groupRequest('principal', usrConf, 'Receptor.Rfc', "datos.Tipo").then((data) => {
+      numberOfReqs = addToArray(data, resultTipoC, numberOfReqs, { original: "I", replace: "E" });
+      if (numberOfReqs === 0) {
+        setTipoComp(resultTipoC);
+      }
+    }).catch(console.log);
     // PAGOS
-    CFDIReports.groupRequest('pagos', usrConf, 'Receptor.Rfc', 'datos.Tipo')
-      .then((data) => {
-        numberOfReqs = addToArray(data, resultTipoC, numberOfReqs, ['P']);
-        if (numberOfReqs === 0) {
-          setTipoComp(resultTipoC);
-        }
-      })
-      .catch(console.log);
+    CFDIReports.groupRequest('pagos', usrConf, 'Receptor.Rfc', "datos.Tipo").then((data) => {
+      numberOfReqs = addToArray(data, resultTipoC, numberOfReqs);
+      if (numberOfReqs === 0) {
+        setTipoComp(resultTipoC);
+      }
+    }).catch(console.log);
     // NOMINA
-    CFDIReports.groupRequest('nomina', usrConf, 'datos.Rfc', 'datos.Tipo')
-      .then((data) => {
-        numberOfReqs = addToArray(data, resultTipoC, numberOfReqs);
-        if (numberOfReqs === 0) {
-          setTipoComp(resultTipoC);
-        }
-      })
-      .catch(console.log);
+    CFDIReports.groupRequest('nomina', usrConf, 'datos.Rfc', "datos.Tipo").then((data) => {
+      numberOfReqs = addToArray(data, resultTipoC, numberOfReqs);
+      if (numberOfReqs === 0) {
+        setTipoComp(resultTipoC);
+      }
+    }).catch(console.log);
 
     /// IVA e IEPS
-    CFDIReports.countRequest(
-      'principal',
-      usrConf,
-      'datos.Rfc',
-      'impuestos.TrasladoIVA',
-      'impuestos.TrasladoIEPS'
-    )
-      .then((data) => {
-        if (data) {
-          setTotalIVAEmi(data[0].total);
-          setTotalIEPSemi(data[0].subTotal);
-          reqCount -= 1;
-          resultEvsR.top.push('');
-          resultEvsR.data.push(['Emitidos', data[0].count]);
-          if (reqCount === 0) {
-            setTotalEvsR(resultEvsR);
-          }
+    CFDIReports.countRequest('principal', usrConf, 'datos.Rfc', 'impuestos.TrasladoIVA', 'impuestos.TrasladoIEPS').then((data) => {
+      if (data) {
+        setTotalIVAEmi(data[0].total);
+        setTotalIEPSemi(data[0].subTotal);
+        reqCount = reqCount - 1;
+        resultEvsR.top.push('');
+        resultEvsR.data.push(['Emitidos', data[0].count]);
+        if (reqCount === 0) {
+          setTotalEvsR(resultEvsR);
         }
-      })
-      .catch(console.log);
-    CFDIReports.countRequest(
-      'principal',
-      usrConf,
-      'Receptor.Rfc',
-      'impuestos.TrasladoIVA',
-      'impuestos.TrasladoIEPS'
-    )
-      .then((data) => {
-        if (data) {
-          setTotalIVARec(data[0].total);
-          setTotalIEPSrec(data[0].subTotal);
-          reqCount -= 1;
-          resultEvsR.top.push('');
-          resultEvsR.data.push(['Recibidos', data[0].count]);
-          if (reqCount === 0) {
-            setTotalEvsR(resultEvsR);
-          }
+      }
+    }).catch(console.log);
+    CFDIReports.countRequest('principal', usrConf, 'Receptor.Rfc', 'impuestos.TrasladoIVA', 'impuestos.TrasladoIEPS').then((data) => {
+      if (data) {
+        setTotalIVARec(data[0].total);
+        setTotalIEPSrec(data[0].subTotal);
+        reqCount = reqCount - 1;
+        resultEvsR.top.push('');
+        resultEvsR.data.push(['Recibidos', data[0].count]);
+        if (reqCount === 0) {
+          setTotalEvsR(resultEvsR);
         }
-      })
-      .catch(console.log);
-  };
+      }
+    }).catch(console.log);
+  }
 
   useEffect(() => {
     setGDD();
@@ -186,6 +160,7 @@ const HomePrivate = () => {
     }
   }, [companies]);
 
+
   useEffect(async () => {
     await configDispatch(ConfigActions.getUserConfig());
     setCompany(config.main_company);
@@ -195,7 +170,7 @@ const HomePrivate = () => {
   }, []);
 
   const passData = {
-    company,
+    company: company,
     dates: { fromDate, toDate },
     type: 'all',
   };

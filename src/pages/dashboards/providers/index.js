@@ -156,7 +156,7 @@ const ProviderDashboard = () => {
             data={passData}
           />
         )}
-        {providerData && providerData.map((item) => (
+        {providerData && (config.graphics.comp_pay??true) && providerData.map((item) => (
           <DonutComponent
             top={item.top}
             data={item.data}
