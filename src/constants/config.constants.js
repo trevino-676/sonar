@@ -53,7 +53,6 @@ const ConfigConstants = {
 
   RPAS_SCHEDULER: [
     {
-<<<<<<< HEAD
       name: 'monday',
       text: 'Lunes',
       value: 'Monday',
@@ -72,7 +71,8 @@ const ConfigConstants = {
       name: 'thursday',
       text: 'Jueves',
       value: 'Thursday',
-    },{
+    },
+    {
       name: 'friday',
       text: 'Viernes',
       value: 'Friday',
@@ -86,26 +86,6 @@ const ConfigConstants = {
       name: 'sunday',
       text: 'Domingo',
       value: 'Sunday',
-=======
-      name: 'daily',
-      text: 'Diario',
-      value: 'daily',
-    },
-    {
-      name: 'weekly',
-      text: 'Semanal',
-      value: 'weekly',
-    },
-    {
-      name: 'fortnightly',
-      value: 'fortnightly',
-      text: 'Quincenal',
-    },
-    {
-      name: 'monthly',
-      value: 'monthly',
-      text: 'Mensual',
->>>>>>> 948f1e54b6e6a1d6cc01528de08c5d1273da5b02
     },
   ],
 };
