@@ -34,7 +34,7 @@ const DetailedReport = () => {
   const dispatch = useDispatch();
   const title = getTitle(type);
   useReportTitle(`Sonar | ${title}`);
-  const { currencyFormatter, DateFormatter } = useFormatters();
+  const { currencyFormatter, DateFormatter, dateFiltersFormater } = useFormatters();
   const currency = (cell) => currencyFormatter('es-MX', cell);
   const companies = useSelector((state) => state.companies.companies);
   const _companiesOptions = companies.map((item) => ({
@@ -262,8 +262,8 @@ const DetailedReport = () => {
   const getTextFilters = () => {
     let text = '';
     if (filters.company) text += `Empresa: ${filters.company}, `;
-    if (filters.fromDate) text += `Desde: ${filters.fromDate.split('T')[0]}, `;
-    if (filters.toDate) text += `Hasta: ${filters.toDate.split('T')[0]} `;
+    if (filters.fromDate) text += `Desde: ${dateFiltersFormater(filters.fromDate.split('T')[0])}, `;
+    if (filters.toDate) text += `Hasta: ${dateFiltersFormater(filters.toDate.split('T')[0])} `;
 
     return text;
   };

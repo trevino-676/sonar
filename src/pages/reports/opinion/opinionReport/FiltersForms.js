@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import useFormatters from '../../../../hooks/useFormatters';
 
 const useFiltersForm = (dispatch, action, companies) => {
+  const {dateFiltersFormater} = useFormatters();
   const [filter, setFilter] = useState({
     from_date: null,
     to_date: null,
@@ -95,9 +97,9 @@ const useFiltersForm = (dispatch, action, companies) => {
     if (filter.status)
       text += `Estatus: ${filter.Opinion_comp}, `;
     if (filter.from_date)
-      text += `Desde: ${filter.from_date}, `;
+      text += `Desde: ${dateFiltersFormater(filter.from_date)}, `;
     if (filter.to_date)
-      text += `Hasta: ${filter.to_date}, `;
+      text += `Hasta: ${dateFiltersFormater(filter.to_date)}, `;
     if (filter.rfc)
       text += `RFC: ${filter._id}, `;
     return text

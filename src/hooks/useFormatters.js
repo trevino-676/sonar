@@ -62,12 +62,18 @@ const useFormatters = () => {
     return price;
   };
 
+  const dateFiltersFormater = (date) => {
+    const newDate = moment(date);
+    return newDate.format("DD-MM-YYYY");
+  }
+
   return {
     currencyFormatter,
     DateFormatter,
     passwordFormatter,
     fieldFormatter,
     currencyFormat,
+    dateFiltersFormater,
   };
 };
 
