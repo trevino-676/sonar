@@ -1,9 +1,11 @@
 import React from 'react';
 
 const usePaginationOptions = () => {
-  const customTotal = () => (
+  const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total">
-      Registros por pagina.
+      Mostrando { from } de { to }.
+      <br />
+      Total de registros: {size}.
     </span>
   );
 
@@ -12,8 +14,8 @@ const usePaginationOptions = () => {
     paginationTotalRenderer: customTotal,
     disablePageTitle: true,
     sizePerPageList: [
-      { text: '5', value: 5 },
       { text: '10', value: 10 },
+      { text: '20', value: 20 },
     ],
   };
 
