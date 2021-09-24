@@ -14,7 +14,7 @@ const ConfigConstants = {
   NOTIFICATIONS: [
     {
       name: 'efo',
-      text: 'Notificame cuando el sistema reconosca un efo en mis proovedores',
+      text: 'Notificame cuando el sistema reconosca un EFO en mis proovedores',
       value: 'efo',
     },
     {
