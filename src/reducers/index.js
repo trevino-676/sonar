@@ -10,6 +10,7 @@ import OpinionReportReducer from './Opinion.reducer';
 import DetailedReportReducer from './Detailed.reducer';
 import ConfigReducer from './config.reducer';
 import AlertReducer from './alert.reducer';
+import AccountStatmentReducer from './AccountStatments.reducer';
 
 const rootReducer = combineReducers({
   alert: AlertReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   opinion: OpinionReportReducer,
   detailed: DetailedReportReducer,
   config: ConfigReducer,
+  account_statments: AccountStatmentReducer,
 });
 
 export default rootReducer;
