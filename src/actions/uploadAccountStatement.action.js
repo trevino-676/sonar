@@ -21,7 +21,7 @@ const logout = (dispatch, message) => {
 
 const LOGOUT_MESSAGE = 'Token invalido';
 
-const UploadAccountStatment = (bank, files) => {
+const UploadAccountStatment = (bank, file) => {
   const request = () => ({
     type: AccountStatmentsConstants.UPLOAD_ACCCOUNT_STATMENTS_REQUEST,
   });
@@ -36,23 +36,27 @@ const UploadAccountStatment = (bank, files) => {
     dispatch(request());
     dispatch(ModalActions.Clean());
     try {
-      files.forEach(async (file) => {
-        const resp = await uploadAccountStatmentsService.uploadAccountStatments(
-          bank,
-          file
+      const resp = await uploadAccountStatmentsService.uploadAccountStatments(
+        bank,
+        file
+      );
+      if (!resp) {
+        raiseModalError(
+          dispatch,
+          fail,
+          'Hubo un error al cargar la informacion'
         );
-        if (!resp) {
-          raiseModalError(
-            dispatch,
-            fail,
-            'No se guardaron los estados de cuenta'
-          );
-          return;
-        }
-        dispatch(success());
-      });
+        return;
+      }
+      dispatch(success());
+      dispatch(
+        ModalActions.Success({
+          title: 'Carga exitosa',
+          body: 'Se cargo correctamente el archivo en el sistema',
+        })
+      );
     } catch (e) {
-      logout(dispatch, LOGOUT_MESSAGE);
+      raiseModalError(dispatch, fail, 'Hubo un error al cargar la informacion');
     }
   };
 };

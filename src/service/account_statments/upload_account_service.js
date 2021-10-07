@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BaseURL = 'http://localhost:8000';
-// const BaseURL = 'https://api.sonar32.com.mx';
+// const BaseURL = 'http://localhost:8000';
+const BaseURL = 'https://api.sonar32.com.mx';
 
 const headers = {
   'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const uploadAccountStatments = async (bank, file) => {
     if (resp.status !== 200) {
       return null;
     }
-    return resp.data.status;
+    return resp.status;
   } catch (e) {
     return null;
   }

@@ -39,7 +39,9 @@ const Header = () => {
               <li>
                 <Link to="/payroll">Nómina</Link>
               </li>
-              <li>Carga de informacion</li>
+              <li>
+                <Link to="/account/statment/upload">Carga de informacion</Link>
+              </li>
             </ul>
           </div>
           <div className="options-menu">

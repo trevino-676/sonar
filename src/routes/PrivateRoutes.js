@@ -13,7 +13,7 @@ import ClientDashboard from '../pages/dashboards/clients';
 import ProviderDashboard from '../pages/dashboards/providers';
 import PayrollDashboard from '../pages/dashboards/payroll';
 import DetailedReport from '../pages/reports/DetailedReport';
- 
+import UploadAccoutnStatments from '../pages/accountStatments/upload';
 import Nomina from '../pages/reports/nomina/deduccionesNomina';
 import Percepcciones from '../pages/reports/nomina/percepcionesNomina';
 import Pagos from '../pages/reports/nomina/pagosNomina';
@@ -22,7 +22,6 @@ import Proveedores from '../pages/reports/nomina/proveedores';
 import complementosDePago from '../pages/reports/nomina/complementosDePago';
 import comprasPorProveedor from '../pages/reports/nomina/comprasPorProveedor';
 
-  
 export default {
   Home: {
     component: <HomePrivate />,
@@ -76,16 +75,16 @@ export default {
     path: '/reports/detailed',
     component: <DetailedReport />,
   },
-  
-    Nomina: {  
-    component: <Nomina/>,
+
+  Nomina: {
+    component: <Nomina />,
     path: '/nomina',
   },
-    Percepcciones: {
-    component: <Pagos/>,
+  Percepcciones: {
+    component: <Pagos />,
     path: '/efos',
-  }, 
-  Pagos: { 
+  },
+  Pagos: {
     component: Pagos,
     path: '/pagosNomina',
   },
@@ -93,18 +92,20 @@ export default {
     component: NominaOtrosPagos,
     path: '/otrosPagosNomina',
   },
-  Proveedores: {     
-    component: Proveedores, 
+  Proveedores: {
+    component: Proveedores,
     path: '/proveedores',
-  },     
-  complementosDePago: {     
+  },
+  complementosDePago: {
     component: complementosDePago,
     path: '/complementosDePago',
-  },   
-  comprasPorProveedor: {     
+  },
+  comprasPorProveedor: {
     component: comprasPorProveedor,
     path: '/comprasPorProveedor',
-  }   
-
-
+  },
+  AccountStatments: {
+    component: <UploadAccoutnStatments />,
+    path: '/account/statment/upload',
+  },
 };

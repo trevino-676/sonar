@@ -1,0 +1,31 @@
+.page_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page_content > form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-group {
+  display: flex;
+  margin-bottom: 1.5rem;
+  flex-direction: column;
+}
+
+.input-group > label {
+  margin-bottom: 0.5rem;
+}
+
+.input-group .form-control {
+  width: 20rem;
+}
+
+.input-group > button {
+  margin-top: 1.5rem;
+}
