@@ -12,6 +12,7 @@ import Routes from './BreadcrumbsRoutes';
 import useDataColumns from './ReportData';
 import useFetchCompanies from '../../../../hooks/useFetchCompanies';
 
+
 import '../../../../styles/reports.css';
 
 const OpinionReport = () => {
@@ -23,7 +24,12 @@ const OpinionReport = () => {
   const [handleChangeFilter, formFields, submitFilters, getTextFilters] =
     useFilterForm(dispatch, OpinionActions.opinionReport, companies);
   const [columns] = useDataColumns();
-
+  const onChange = (event) => {
+    let tempConfig = Object.assign({}, selectRow);
+    tempConfig[event.target.value] = event.target.checked;
+    setRow(tempConfig);
+  }
+  
   if (dataReport) {
     dataReport = dataReport.map((item) => {
       // if (item.Private === null) {
@@ -43,7 +49,7 @@ const OpinionReport = () => {
   return (
     <Container>
       <BreadcrumbComponent routes={Routes} />
-      <h1 className="title">Reportes de opinion de cumplimiento</h1>
+      <h1 className="title">Reportes de opinión de cumplimiento</h1>
       <FilterBar
         dataFields={formFields}
         onHandleChange={handleChangeFilter}
@@ -55,6 +61,8 @@ const OpinionReport = () => {
         <ReportTable
           tableData={dataReport}
           tableColumns={columns}
+          onChange ={onChange}
+          onHandleClick 
           dataKey="uuid"
         />
       )}

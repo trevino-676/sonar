@@ -11,6 +11,7 @@ import DetailedReportReducer from './Detailed.reducer';
 import ConfigReducer from './config.reducer';
 import AlertReducer from './alert.reducer';
 import AccountStatmentReducer from './AccountStatments.reducer';
+import AccountsReducer from './Accounts.reducer';
 
 const rootReducer = combineReducers({
   alert: AlertReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   detailed: DetailedReportReducer,
   config: ConfigReducer,
   account_statments: AccountStatmentReducer,
+  accounts: AccountsReducer,
 });
 
 export default rootReducer;

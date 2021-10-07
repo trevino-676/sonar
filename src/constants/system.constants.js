@@ -7,6 +7,7 @@ const SystemConstants = {
   CONFIGURATION_REMINDERS: 'sonar | recordatorios',
   CONFIGURATION_DASHBOARDS: 'sonar | perzonalización',
   CONFIGURATION_RPA: 'sonar | ejecucion',
+  CONFIGURATION_CUENTAS: 'sonar | cuentas'
 };
 
 export default SystemConstants;
