@@ -1,0 +1,19 @@
+.cuentas {
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    justify-content: space-around;
+  }
+  
+  .cuentas label {
+    padding: 0.5rem;
+  }
+  
+  .cuentas input {
+    margin: 0.5rem;
+  }
+
+  .cuentas button {
+    margin-bottom: 3px;
+  }
+  

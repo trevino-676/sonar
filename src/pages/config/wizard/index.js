@@ -8,6 +8,7 @@ import CompanyWizardPage from './company_wizard';
 import NotificationsComponent from '../notifications';
 import DeshboardsConfigComponent from '../dashboard';
 import Scheduler from '../scheduler';
+import CuentasComponent from '../cuentas';
 
 const RegistryWizard = ({ config }) => {
   const dispatch = useDispatch();
@@ -30,8 +31,10 @@ const RegistryWizard = ({ config }) => {
         setKey('scheduler');
         break;
       case 'scheduler':
-        closeModal();
+        setKey('cuenta');
         break;
+      case 'cuenta':
+        closeModal();
       default:
         break;
     }
@@ -55,6 +58,9 @@ const RegistryWizard = ({ config }) => {
         </Tab>
         <Tab eventKey="scheduler" title="Schedulers">
           <Scheduler config={config} />
+        </Tab>
+        <Tab eventKey="cuenta" title="Cuentas">
+          <CuentasComponent config={config}/>
         </Tab>
       </Tabs>
       <Modal.Footer>

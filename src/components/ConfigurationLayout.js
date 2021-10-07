@@ -7,8 +7,10 @@ import CompanyPage from '../pages/companies';
 import NotificationsComponent from '../pages/config/notifications';
 import Scheduler from '../pages/config/scheduler';
 import DeshboardsConfigComponent from '../pages/config/dashboard';
+import CuentasComponent from '../pages/config/cuentas';
 
 import '../styles/components/ConfigurationLayout.css';
+
 
 const ConfigurationLayout = () => {
   const config = useSelector((state) => state.config.config);
@@ -18,6 +20,7 @@ const ConfigurationLayout = () => {
     dashboard: true,
     notification: true,
     scheluder: true,
+    cuentas: true,
   });
 
   const _changeActive = (id) => {
@@ -25,6 +28,7 @@ const ConfigurationLayout = () => {
     const dashboard = document.getElementById('dashboard');
     const notification = document.getElementById('notification');
     const scheduler = document.getElementById('scheduler');
+    const cuentasBancos = document.getElementById('cuentas');
 
     switch (id) {
       case 'company':
@@ -32,24 +36,35 @@ const ConfigurationLayout = () => {
         dashboard.classList.remove('active');
         notification.classList.remove('active');
         scheduler.classList.remove('active');
+        cuentasBancos.classList.remove('active');
         break;
       case 'dashboard':
         company.classList.remove('active');
         dashboard.classList.add('active');
         notification.classList.remove('active');
         scheduler.classList.remove('active');
+        cuentasBancos.classList.remove('active')
         break;
       case 'notification':
         company.classList.remove('active');
         dashboard.classList.remove('active');
         notification.classList.add('active');
         scheduler.classList.remove('active');
+        cuentasBancos.classList.remove('active')
         break;
       case 'scheduler':
         company.classList.remove('active');
         dashboard.classList.remove('active');
         notification.classList.remove('active');
         scheduler.classList.add('active');
+        cuentasBancos.classList.remove('active')
+        break;
+      case 'cuentas':
+        company.classList.remove('active');
+        dashboard.classList.remove('active');
+        notification.classList.remove('active');
+        scheduler.classList.remove('active');
+        cuentasBancos.classList.add('active')
         break;
       default:
         break;
@@ -62,6 +77,7 @@ const ConfigurationLayout = () => {
       dashboard: true,
       notification: true,
       scheluder: true,
+      cuentas:true,
     };
     switch (event.target.innerText) {
       case 'Mis empresas':
@@ -91,6 +107,13 @@ const ConfigurationLayout = () => {
           scheluder: false,
         });
         _changeActive('scheduler');
+        break;
+      case 'Cuentas Bancarias':
+        setHiddenElements({
+          ...initialElements,
+          cuentas: false,
+        });
+        _changeActive('cuentas');
         break;
       default:
         setHiddenElements({
@@ -133,6 +156,13 @@ const ConfigurationLayout = () => {
           >
             <span className="text-center">Scheduler</span>
           </div>
+          <div
+            className="config-aside-item"
+            onClick={handleClick}
+            id="cuentas"
+          >
+            <span className="text-center">Cuentas Bancarias</span>
+          </div>
         </div>
         <div className="config-main item">
           <div hidden={hiddenElements.companies}>
@@ -146,6 +176,9 @@ const ConfigurationLayout = () => {
           </div>
           <div hidden={hiddenElements.scheluder}>
             <Scheduler config={config} />
+          </div>
+          <div hidden={hiddenElements.cuentas}>
+            <CuentasComponent config={config} />
           </div>
         </div>
       </div>
